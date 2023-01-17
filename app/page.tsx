@@ -6,7 +6,7 @@ const RELEASE_DATE = new Date('2023-02-10T00:00:00.000Z');
 
 export default function Page() {
   return (
-    <div className="grid place-content-center place-items-center gap-6 h-screen bg-cover bg-center bg-gray-1100 bg-[url('/Hogwarts_Legacy_Image_1.jpg')]">
+    <div className="fixed inset-0 pt-14 grid place-content-center place-items-center gap-6 h-screen bg-cover bg-center bg-gray-1100 bg-[url('/Hogwarts_Legacy_Image_1.jpg')]">
       <h1 className="font-serif tracking-wide text-4xl sm:text-5xl drop-shadow-lg">
         Hogwart$.gg
       </h1>
