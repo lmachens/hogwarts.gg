@@ -4,6 +4,7 @@ import createClient from '#/lib/supabase-server';
 import { cn } from '#/lib/utils';
 import '#/styles/globals.css';
 import Footer from '#/ui/Footer';
+import GlobalNav from '#/ui/GlobalNav';
 import PlausibleTracker from '#/ui/PlausibleTracker';
 import SupabaseListener from '#/ui/SupabaseListener';
 import { Work_Sans as WorkSans } from '@next/font/google';
@@ -42,7 +43,8 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
         <SupabaseListener accessToken={session?.access_token} />
         <PlausibleTracker />
         <SupabaseProvider session={session}>
-          {children}
+          <GlobalNav />
+          <div className="py-8">{children}</div>
           <Footer />
         </SupabaseProvider>
       </body>
