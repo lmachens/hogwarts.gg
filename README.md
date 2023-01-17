@@ -42,6 +42,19 @@ pnpm install
 pnpm dev
 ```
 
+## Migrations
+
+This project is using [supabase](https://supabase.com/), which comes with a CLI tool to generate database migrations.
+See the [guide](https://supabase.com/docs/reference/cli/introduction) for more details.
+
+A database migration is prepared with:
+
+```sh
+supabase migration new <migration name>
+```
+
+A `.sql` file is generated in supabase/migrations.
+
 ## Licensing
 
 MIT
