@@ -2,6 +2,8 @@
 
 [Hogwarts.gg](https://www.hogwarts.gg) is a Hogwarts Legacy fansite with an interactive map, blog and tools.
 
+![](/assets/social.jpg)
+
 ## Contribution
 
 This app is Open Source. Contributors are highly welcome!
@@ -43,3 +45,5 @@ pnpm dev
 ## Licensing
 
 MIT
+
+Game content and assets are trademarks of Warner Bros. Entertainment Inc.
