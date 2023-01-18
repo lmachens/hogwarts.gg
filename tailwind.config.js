@@ -44,6 +44,10 @@ module.exports = {
         open: 'state~="open"',
         closed: 'state~="closed"',
       },
+      height: {
+        // Full screen height without nav bar
+        'full-height': 'calc(100vh - 3.5rem)',
+      },
       fontFamily: {
         serif: ['var(--font-serif)', ...defaultTheme.fontFamily.serif],
         sans: ['var(--font-sans)', ...defaultTheme.fontFamily.sans],

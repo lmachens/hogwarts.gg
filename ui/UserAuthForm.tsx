@@ -1,22 +1,39 @@
 'use client';
 
 import supabase from '#/lib/supabase-browser';
+import { userSchema } from '#/lib/validations/user';
+import { zodResolver } from '@hookform/resolvers/zod';
 import type { Provider } from '@supabase/supabase-js';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import type z from 'zod';
 import Button from './Button';
 import Divider from './Divider';
 import Input from './Input';
 
+const getURL = () => {
+  let url =
+    process.env.NEXT_PUBLIC_SITE_URL ?? // Set this to your site URL in production env.
+    process.env.NEXT_PUBLIC_VERCEL_URL ?? // Automatically set by Vercel.
+    'http://localhost:3000/';
+  // Make sure to include `https://` when not localhost.
+  url = url.includes('http') ? url : `https://${url}`;
+  // Make sure to including trailing `/`.
+  url = url.charAt(url.length - 1) === '/' ? url : `${url}/`;
+  console.log(url);
+  return url;
+};
+
 export default function UserAuthForm() {
   const signInWithOAuth = async (provider: Provider) => {
-    const { error } = await supabase.auth.signInWithOAuth({
+    await supabase.auth.signInWithOAuth({
       provider,
+      options: {
+        redirectTo: getURL(),
+      },
     });
-
-    if (error) {
-      console.log({ error });
-    }
   };
 
   return (
@@ -93,20 +110,61 @@ export default function UserAuthForm() {
   );
 }
 
+type FormData = z.infer<typeof userSchema>;
+
 function AuthForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm<FormData>({
+    resolver: zodResolver(userSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+  const [loading, setLoading] = useState(false);
+
   const pathname = usePathname();
   const isSignIn = pathname === '/sign-in';
 
+  async function onSubmit(data: FormData) {
+    setLoading(true);
+    const { error } = await (isSignIn
+      ? supabase.auth.signInWithPassword(data)
+      : supabase.auth.signUp(data));
+
+    if (error) {
+      setError('password', { message: error.message });
+    }
+    setLoading(false);
+  }
+
   return (
-    <form className="flex flex-col gap-4">
+    <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
       <Input
         label="Email"
         type="email"
         placeholder="you@example.com"
         required
+        {...register('email')}
       />
-      <Input label="Password" type="password" placeholder="******" required />
-      <Button type="submit" kind="brand">
+      <p className="text-xs	text-orange-500">
+        {errors.email?.message?.replace('String', 'Email')}
+      </p>
+      <Input
+        label="Password"
+        type="password"
+        placeholder="******"
+        required
+        {...register('password')}
+      />
+      <p className="text-xs	text-orange-500">
+        {errors.password?.message?.replace('String', 'Password')}
+      </p>
+      <Button type="submit" kind="brand" disabled={loading}>
         Sign {isSignIn ? 'In' : 'Up'}
       </Button>
       <p className="text-sm text-gray-400">

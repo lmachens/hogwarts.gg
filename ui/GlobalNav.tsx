@@ -4,19 +4,19 @@ import type { NavItem } from '#/lib/nav-items';
 import { navItems } from '#/lib/nav-items';
 import { cn } from '#/lib/utils';
 import IconRound from '#/public/assets/icon-round.png';
-import { useSession } from '@supabase/auth-helpers-react';
 import { IconMenu2, IconX } from '@tabler/icons';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
+import GlobalUser from './GlobalUser';
 
 export default function GlobalNav() {
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
 
   return (
-    <div className="fixed top-0 z-10 flex w-full border-b border-gray-800 bg-black">
+    <div className="fixed z-10 top-0 flex w-full border-b border-gray-800 bg-black">
       <LogoNavItem onClick={close} />
       <button
         type="button"
@@ -35,7 +35,7 @@ export default function GlobalNav() {
 
       <div
         className={cn(
-          'px-4 grow md:flex md:items-center md:justify-between py-4 md:py-0 space-y-3 md:h-14',
+          'px-4 grow md:flex md:items-center md:justify-between py-4 md:py-0 space-y-3 md:space-y-0 md:h-14',
           {
             'fixed inset-x-0 bottom-0 top-14 mt-px bg-black': isOpen,
             hidden: !isOpen,
@@ -43,7 +43,7 @@ export default function GlobalNav() {
         )}
       >
         <div className="md:order-last">
-          <GlobalUser />
+          <GlobalUser onClick={close} />
         </div>
         <nav className="flex flex-col space-y-1 md:space-y-0 md:px-0 md:py-0 md:flex-row md:h-14 md:items-center">
           {navItems.map((navItem) => (
@@ -120,33 +120,5 @@ function GlobalNavItem({
       {item.name}
       {item.disabled && ' (Coming Soon)'}
     </Link>
-  );
-}
-
-function GlobalUser() {
-  const segment = useSelectedLayoutSegment();
-  const isActive = segment === 'login';
-
-  const session = useSession();
-
-  return (
-    <>
-      {session ? (
-        <></>
-      ) : (
-        <Link
-          href="/sign-in"
-          className={cn(
-            'block px-3 py-1 border rounded-md text-center hover:border-gray-300 hover:text-gray-300',
-            {
-              'text-gray-400 border-gray-400': !isActive,
-              'text-white border-white': isActive,
-            },
-          )}
-        >
-          Sign In
-        </Link>
-      )}
-    </>
   );
 }

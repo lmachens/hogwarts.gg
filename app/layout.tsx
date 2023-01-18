@@ -44,7 +44,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
         <PlausibleTracker />
         <SupabaseProvider session={session}>
           <GlobalNav />
-          <div className="py-8">{children}</div>
+          <div className="pt-14">{children}</div>
           <Footer />
         </SupabaseProvider>
       </body>
