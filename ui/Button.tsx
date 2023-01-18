@@ -1,20 +1,25 @@
 import { cn } from '#/lib/utils';
+import { forwardRef } from 'react';
 
-export default function Button({
-  kind = 'default',
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  kind?: 'default' | 'error';
-}) {
-  return (
-    <button
-      className={cn('rounded-lg px-3 py-1 text-sm font-medium', {
-        'bg-gray-700 text-gray-100 hover:bg-gray-500 hover:text-white':
-          kind === 'default',
-        'bg-red-600 text-red-50 hover:bg-red-500 hover:text-white':
-          kind === 'error',
-      })}
-      {...props}
-    />
-  );
-}
+const Button = forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    kind?: 'default' | 'outline' | 'brand';
+  }
+>(({ kind = 'default', className, ...props }, ref) => (
+  <button
+    ref={ref}
+    className={cn(
+      'inline-flex w-full items-center justify-center rounded-lg border border-gray-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:border-gray-400 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 disabled:opacity-50 transition-colors',
+      {
+        'bg-gray-900': kind === 'default',
+        'bg-brand-600': kind === 'brand',
+      },
+      className,
+    )}
+    {...props}
+  />
+));
+Button.displayName = 'Button';
+
+export default Button;

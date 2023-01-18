@@ -15,5 +15,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/optional-session', '/required-session', '/realtime'],
+  matcher: ['/blog', '/required-session', '/realtime'],
 };

@@ -7,15 +7,13 @@ const Select = forwardRef<
     UseFormRegister<any>
   >
 >(({ options, ...rest }, ref) => (
-  <>
-    <select {...rest} ref={ref}>
-      {options.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.title}
-        </option>
-      ))}
-    </select>
-  </>
+  <select {...rest} ref={ref}>
+    {options.map((option) => (
+      <option key={option.value} value={option.value}>
+        {option.title}
+      </option>
+    ))}
+  </select>
 ));
 Select.displayName = 'Select';
 
