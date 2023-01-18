@@ -35,9 +35,9 @@ export default function GlobalNav() {
 
       <div
         className={cn(
-          'px-4 grow md:flex md:items-center md:justify-between py-4 md:py-0 space-y-3 md:space-y-0 md:h-14',
+          'text-center px-4 grow md:flex md:items-center md:justify-between py-4 md:py-0 space-y-3 md:space-y-0 md:h-14',
           {
-            'fixed inset-x-0 bottom-0 top-14 mt-px bg-black': isOpen,
+            'fixed md:static inset-x-0 bottom-0 top-14 mt-px bg-black': isOpen,
             hidden: !isOpen,
           },
         )}

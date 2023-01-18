@@ -5,7 +5,8 @@ create type public.app_permission as enum ('users.delete', 'users.edit');
 -- USERS
 create table public.users (
   id          uuid not null primary key, -- UUID from auth.users
-  username    text
+  email    text not null,
+  username text
 );
 comment on table public.users is 'Profile data for each user.';
 comment on column public.users.id is 'References the internal Supabase Auth user.';
@@ -67,11 +68,15 @@ create function public.handle_new_user()
 returns trigger as $$
 declare is_admin boolean;
 begin
-  insert into public.users (id, username)
+  insert into public.users (id, email)
   values (new.id, new.email);
   
   -- first authorized user will be the admin
   select count(*) = 1 from auth.users into is_admin;
+
+  if is_admin then
+    insert into public.user_roles (user_id, role) values (new.id, 'admin');
+  end if;
 
   return new;
 end;

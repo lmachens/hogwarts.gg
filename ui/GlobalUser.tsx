@@ -4,7 +4,6 @@ import { useSession } from '@supabase/auth-helpers-react';
 import { IconUserCheck } from '@tabler/icons';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
-import Button from './Button';
 import Popover from './Popover';
 
 export default function GlobalUser({ onClick }: { onClick: () => void }) {
@@ -16,6 +15,7 @@ export default function GlobalUser({ onClick }: { onClick: () => void }) {
   const handleLogout = async () => {
     await supabase.auth.signOut();
   };
+  console.log(session?.user.user_metadata);
 
   return (
     <>
@@ -27,8 +27,7 @@ export default function GlobalUser({ onClick }: { onClick: () => void }) {
             </button>
           }
         >
-          <p>{session.user.role}</p>
-          <Button onClick={handleLogout}>Logout</Button>
+          <button onClick={handleLogout}>Logout</button>
         </Popover>
       ) : (
         <Link
