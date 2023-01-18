@@ -20,17 +20,22 @@ module.exports = {
         fadeIn: 'fadeIn 100ms ease-in',
         fadeOut: 'fadeOut 100ms ease-in',
       },
-      // https://vercel.com/design/color
       colors: {
         gray: colors.zinc,
         'gray-1000': 'rgb(17,17,19)',
         'gray-1100': 'rgb(10,10,11)',
-        vercel: {
-          pink: '#FF0080',
-          blue: '#0070F3',
-          cyan: '#50E3C2',
-          orange: '#F5A623',
-          violet: '#7928CA',
+        brand: {
+          50: '#E3FAFC',
+          100: '#C5F6FA',
+          200: '#99E9F2',
+          300: '#66D9E8',
+          400: '#3BC9DB',
+          500: '#22B8CF',
+          600: '#15AABF',
+          700: '#1098AD',
+          800: '#0C8599',
+          900: '#0B7285',
+          DEFAULT: '#111111',
         },
       },
       data: {

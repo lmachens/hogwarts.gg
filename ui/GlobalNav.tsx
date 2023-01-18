@@ -4,6 +4,7 @@ import type { NavItem } from '#/lib/nav-items';
 import { navItems } from '#/lib/nav-items';
 import { cn } from '#/lib/utils';
 import IconRound from '#/public/assets/icon-round.png';
+import { useSession } from '@supabase/auth-helpers-react';
 import { IconMenu2, IconX } from '@tabler/icons';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,41 +13,11 @@ import { useState } from 'react';
 
 export default function GlobalNav() {
   const [isOpen, setIsOpen] = useState(false);
-  const segment = useSelectedLayoutSegment();
+  const close = () => setIsOpen(false);
 
   return (
     <div className="fixed top-0 z-10 flex w-full border-b border-gray-800 bg-black">
-      <div className="flex h-14 items-center py-4 px-4">
-        <Link
-          href="/"
-          className="group flex w-full items-center gap-x-2.5"
-          onClick={() => setIsOpen(false)}
-        >
-          <div
-            className={cn(
-              'h-7 w-7 rounded-full border  group-hover:border-white/70',
-              {
-                'border-white/30 group-hover:border-white/50': segment !== null,
-                'border-white': segment === null,
-              },
-            )}
-          >
-            <Image src={IconRound} alt="Hogwarts.gg" />
-          </div>
-
-          <h3
-            className={cn(
-              'font-serif tracking-wide group-hover:text-gray-300 pt-1',
-              {
-                'text-gray-400 group-hover:text-gray-50': segment !== null,
-                'text-white': segment === null,
-              },
-            )}
-          >
-            Hogwart$.gg
-          </h3>
-        </Link>
-      </div>
+      <LogoNavItem onClick={close} />
       <button
         type="button"
         className="group absolute right-0 top-0 flex h-14 items-center gap-x-2 px-4 md:hidden"
@@ -63,21 +34,62 @@ export default function GlobalNav() {
       </button>
 
       <div
-        className={cn('md:block', {
-          'fixed inset-x-0 bottom-0 top-14 mt-px bg-black': isOpen,
-          hidden: !isOpen,
-        })}
+        className={cn(
+          'px-4 grow md:flex md:items-center md:justify-between py-4 md:py-0 space-y-3 md:h-14',
+          {
+            'fixed inset-x-0 bottom-0 top-14 mt-px bg-black': isOpen,
+            hidden: !isOpen,
+          },
+        )}
       >
-        <nav className="flex flex-col px-2 py-5 space-y-1 md:space-y-0 md:px-0 md:py-0 md:flex-row h-14 md:items-center">
+        <div className="md:order-last">
+          <GlobalUser />
+        </div>
+        <nav className="flex flex-col space-y-1 md:space-y-0 md:px-0 md:py-0 md:flex-row md:h-14 md:items-center">
           {navItems.map((navItem) => (
-            <GlobalNavItem
-              key={navItem.name}
-              item={navItem}
-              onClick={() => setIsOpen(false)}
-            />
+            <GlobalNavItem key={navItem.name} item={navItem} onClick={close} />
           ))}
         </nav>
       </div>
+    </div>
+  );
+}
+
+function LogoNavItem({ onClick }: { onClick: () => void }) {
+  const segment = useSelectedLayoutSegment();
+  const isActive = segment === null;
+
+  return (
+    <div className="flex h-14 items-center py-4 px-4">
+      <Link
+        href="/"
+        className="group flex w-full items-center gap-x-2.5"
+        onClick={onClick}
+      >
+        <div
+          className={cn(
+            'h-7 w-7 rounded-full border  group-hover:border-white/70',
+            {
+              'border-white/30 group-hover:border-white/50': !isActive,
+              'border-white': isActive,
+            },
+          )}
+        >
+          <Image src={IconRound} alt="Hogwarts.gg" />
+        </div>
+
+        <h3
+          className={cn(
+            'font-serif tracking-wide group-hover:text-gray-300 pt-1',
+            {
+              'text-gray-400 group-hover:text-gray-50': !isActive,
+              'text-white': isActive,
+            },
+          )}
+        >
+          Hogwart$.gg
+        </h3>
+      </Link>
     </div>
   );
 }
@@ -108,5 +120,33 @@ function GlobalNavItem({
       {item.name}
       {item.disabled && ' (Coming Soon)'}
     </Link>
+  );
+}
+
+function GlobalUser() {
+  const segment = useSelectedLayoutSegment();
+  const isActive = segment === 'login';
+
+  const session = useSession();
+
+  return (
+    <>
+      {session ? (
+        <></>
+      ) : (
+        <Link
+          href="/sign-in"
+          className={cn(
+            'block px-3 py-1 border rounded-md text-center hover:border-gray-300 hover:text-gray-300',
+            {
+              'text-gray-400 border-gray-400': !isActive,
+              'text-white border-white': isActive,
+            },
+          )}
+        >
+          Sign In
+        </Link>
+      )}
+    </>
   );
 }

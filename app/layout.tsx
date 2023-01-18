@@ -33,13 +33,13 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
     <html
       lang="en"
       className={cn(
-        '[color-scheme:dark] select-none',
+        '[color-scheme:dark] select-none bg-gray-1100',
         fontSerif.variable,
         fontSans.variable,
       )}
     >
       <head />
-      <body>
+      <body className="relative min-h-screen">
         <SupabaseListener accessToken={session?.access_token} />
         <PlausibleTracker />
         <SupabaseProvider session={session}>
