@@ -10,10 +10,22 @@ export async function middleware(req: NextRequest) {
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  console.log(session);
+
+  if (!session) {
+    return NextResponse.redirect(new URL(`/sign-in`, req.url));
+  }
+  const result = await supabase
+    .from('user_roles')
+    .select('role')
+    .eq('user_id', session.user.id);
+  const userRole = result.data?.[0]?.role;
+  if (!userRole || !['admin', 'moderator'].includes(userRole)) {
+    return NextResponse.redirect(new URL(`/sign-in`, req.url));
+  }
+
   return res;
 }
 
 export const config = {
-  matcher: ['/blog', '/required-session', '/realtime'],
+  matcher: ['/dashboard/:path*'],
 };
