@@ -3,7 +3,7 @@
 import supabase from '#/lib/supabase-browser';
 import type { Provider } from '@supabase/supabase-js';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from './Button';
@@ -94,6 +94,7 @@ function AuthForm() {
   const [loading, setLoading] = useState(false);
   const [sentOtp, setSentOtp] = useState('');
 
+  const router = useRouter();
   const pathname = usePathname();
   const isSignIn = pathname === '/sign-in';
 
@@ -109,12 +110,12 @@ function AuthForm() {
         emailRedirectTo: getURL(),
       },
     });
+    setLoading(false);
     if (error) {
       setError('email', { message: error.message });
     } else {
       setSentOtp(data.email);
     }
-    setLoading(false);
   }
 
   async function onSubmitOtp(data: FormData) {
@@ -124,9 +125,11 @@ function AuthForm() {
       token: data.captchaToken,
       type: 'magiclink',
     });
+    setLoading(false);
     if (error) {
       setError('captchaToken', { message: error.message });
-      setLoading(false);
+    } else {
+      router.push('/');
     }
   }
 
@@ -189,8 +192,21 @@ function AuthForm() {
       )}
 
       <Button type="submit" kind="brand" disabled={loading}>
-        Sign {isSignIn ? 'In' : 'Up'}
+        Continue with Email
       </Button>
+      {!isSignIn && (
+        <p className="text-sm text-gray-400">
+          By clicking continue, you agree to the{' '}
+          <a
+            className="text-white underline"
+            href="/privacy-policy"
+            target="_blank"
+          >
+            Privacy Policy
+          </a>
+          .
+        </p>
+      )}
       <p className="text-sm text-gray-400">
         {isSignIn ? "Don't have an account?" : 'Have an account?'}{' '}
         <Link
