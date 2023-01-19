@@ -8,6 +8,7 @@ export const navItems: NavItem[] = [
   {
     name: 'Blog',
     slug: 'blog',
+    disabled: true,
   },
   {
     name: 'Map',

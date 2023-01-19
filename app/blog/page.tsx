@@ -41,7 +41,7 @@ export default async function Page() {
                 )
               </time>
             )}
-            <p>{post.short}</p>
+            <p dangerouslySetInnerHTML={{ __html: post.short! }} />
             <Link
               href={`/blog/${post.id}`}
               className="flex text-sky-400 hover:underline"

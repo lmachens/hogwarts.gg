@@ -7,10 +7,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { IconChevronLeft, IconWhirl } from '@tabler/icons';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import type * as z from 'zod';
 import Button from '../Button';
 import ButtonLink from '../ButtonLink';
+import EditorInput from '../EditorInput';
 import Input from '../Input';
 
 type FormData = z.infer<typeof postPatchSchema>;
@@ -21,6 +22,7 @@ export default function PostForm({
   post: Database['public']['Tables']['posts']['Row'];
 }) {
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -73,6 +75,11 @@ export default function PostForm({
         <p className="text-xs	text-orange-500">{errors.title.message}</p>
       )}
       <Input label="Title" autoFocus {...register('title')} />
+      <Controller
+        name="short"
+        control={control}
+        render={({ field }) => <EditorInput {...field} />}
+      />
     </form>
   );
 }

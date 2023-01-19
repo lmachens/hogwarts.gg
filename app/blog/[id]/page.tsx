@@ -40,7 +40,7 @@ export default async function Page({
       </div>
 
       <div className="container mx-auto py-8 grid gap-2">
-        <p>{post.body}</p>
+        <p dangerouslySetInnerHTML={{ __html: post.body! }} />
         <Link href="/blog" className="flex text-sky-400 hover:underline">
           <IconArrowNarrowLeft /> Back to Blog
         </Link>
