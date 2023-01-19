@@ -1,41 +1,46 @@
+import createClient from '#/lib/supabase-server';
 import { IconArrowNarrowLeft } from '@tabler/icons';
 import { format, formatDistance } from 'date-fns';
 import Link from 'next/link';
-
-async function fetchData(params: { id: string }) {
-  return {
-    id: params.id,
-    title: 'Hardware Requirements',
-    createdAt: new Date('2023-01-17T08:52:14.112Z'),
-    content: `Bla blub`,
-  };
-}
+import { notFound } from 'next/navigation';
 
 export default async function Page({
   params,
 }: {
-  params?: any;
-  children?: React.ReactNode;
+  params: {
+    id: string;
+  };
 }) {
-  const post = await fetchData(params);
+  const supabase = createClient();
+
+  const result = await supabase.from('posts').select().eq('id', +params.id);
+  const post = result.data?.[0];
+  if (!post) {
+    notFound();
+  }
 
   return (
     <>
       <div className="container mx-auto px-6 py-16 text-center">
         <div className="mx-auto max-w-lg">
           <h1 className="text-3xl font-bold lg:text-4xl">{post.title}</h1>
-          <time
-            dateTime={post.createdAt.toString()}
-            className="mt-6 text-gray-300"
-          >
-            {format(post.createdAt, 'MM/dd/yyyy')} (
-            {formatDistance(post.createdAt, new Date(), { addSuffix: true })})
-          </time>
+          {post.published_at && (
+            <time
+              dateTime={post.published_at}
+              className="text-gray-400 text-sm"
+            >
+              {format(new Date(post.published_at), 'MM/dd/yyyy')} (
+              {formatDistance(new Date(post.published_at), new Date(), {
+                addSuffix: true,
+              })}
+              )
+            </time>
+          )}
         </div>
       </div>
 
       <div className="container mx-auto py-8 grid gap-2">
-        <p>{post.content}</p>
+        <p>{post.body}</p>
         <Link href="/blog" className="flex text-sky-400 hover:underline">
           <IconArrowNarrowLeft /> Back to Blog
         </Link>

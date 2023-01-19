@@ -91,7 +91,7 @@ function AuthForm() {
       captchaToken: '',
     },
   });
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [sentOtp, setSentOtp] = useState('');
 
   const router = useRouter();
@@ -99,18 +99,15 @@ function AuthForm() {
   const isSignIn = pathname === '/sign-in';
 
   async function onSubmitEmail(data: FormData) {
-    setLoading(true);
+    setIsLoading(true);
     const { error } = await supabase.auth.signInWithOtp({
       email: data.email,
       options: {
-        data: {
-          username: 'bobby',
-        },
         shouldCreateUser: !isSignIn,
         emailRedirectTo: getURL(),
       },
     });
-    setLoading(false);
+    setIsLoading(false);
     if (error) {
       setError('email', { message: error.message });
     } else {
@@ -119,15 +116,15 @@ function AuthForm() {
   }
 
   async function onSubmitOtp(data: FormData) {
-    setLoading(true);
+    setIsLoading(true);
     const { error } = await supabase.auth.verifyOtp({
       email: data.email,
       token: data.captchaToken,
       type: 'magiclink',
     });
-    setLoading(false);
     if (error) {
       setError('captchaToken', { message: error.message });
+      setIsLoading(false);
     } else {
       router.push('/');
     }
@@ -157,7 +154,7 @@ function AuthForm() {
             {errors.captchaToken.message}
           </p>
         )}
-        <Button type="submit" kind="brand" disabled={loading}>
+        <Button type="submit" kind="brand" disabled={isLoading}>
           Submit
         </Button>
       </form>
@@ -191,7 +188,7 @@ function AuthForm() {
         </p>
       )}
 
-      <Button type="submit" kind="brand" disabled={loading}>
+      <Button type="submit" kind="brand" disabled={isLoading}>
         Continue with Email
       </Button>
       {!isSignIn && (
