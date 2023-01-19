@@ -31,53 +31,87 @@ export interface Database {
   };
   public: {
     Tables: {
-      nodes: {
+      posts: {
+        Row: {
+          body: string | null;
+          id: number;
+          image: string | null;
+          published: boolean | null;
+          published_at: string | null;
+          short: string | null;
+          title: string | null;
+          user_id: string | null;
+        };
+        Insert: {
+          body?: string | null;
+          id?: number;
+          image?: string | null;
+          published?: boolean | null;
+          published_at?: string | null;
+          short?: string | null;
+          title?: string | null;
+          user_id?: string | null;
+        };
+        Update: {
+          body?: string | null;
+          id?: number;
+          image?: string | null;
+          published?: boolean | null;
+          published_at?: string | null;
+          short?: string | null;
+          title?: string | null;
+          user_id?: string | null;
+        };
+      };
+      role_permissions: {
         Row: {
           id: number;
-          latlng: number[] | null;
-          type: string | null;
-          updated_at: string;
+          permission: Database['public']['Enums']['app_permission'];
+          role: Database['public']['Enums']['app_role'];
+        };
+        Insert: {
+          id?: number;
+          permission: Database['public']['Enums']['app_permission'];
+          role: Database['public']['Enums']['app_role'];
+        };
+        Update: {
+          id?: number;
+          permission?: Database['public']['Enums']['app_permission'];
+          role?: Database['public']['Enums']['app_role'];
+        };
+      };
+      user_roles: {
+        Row: {
+          id: number;
+          role: Database['public']['Enums']['app_role'];
           user_id: string;
         };
         Insert: {
           id?: number;
-          latlng?: number[] | null;
-          type?: string | null;
-          updated_at?: string;
+          role: Database['public']['Enums']['app_role'];
           user_id: string;
         };
         Update: {
           id?: number;
-          latlng?: number[] | null;
-          type?: string | null;
-          updated_at?: string;
+          role?: Database['public']['Enums']['app_role'];
           user_id?: string;
         };
       };
-      profiles: {
+      users: {
         Row: {
-          avatar_url: string | null;
-          full_name: string | null;
+          email: string;
           id: string;
-          updated_at: string | null;
           username: string | null;
-          website: string | null;
         };
         Insert: {
-          avatar_url?: string | null;
-          full_name?: string | null;
+          email: string;
           id: string;
-          updated_at?: string | null;
           username?: string | null;
-          website?: string | null;
         };
         Update: {
-          avatar_url?: string | null;
-          full_name?: string | null;
+          email?: string;
           id?: string;
-          updated_at?: string | null;
           username?: string | null;
-          website?: string | null;
         };
       };
     };
@@ -85,10 +119,23 @@ export interface Database {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      authorize: {
+        Args: {
+          requested_permission: Database['public']['Enums']['app_permission'];
+          user_id: string;
+        };
+        Returns: boolean;
+      };
     };
     Enums: {
-      [_ in never]: never;
+      app_permission:
+        | 'users.delete'
+        | 'users.edit'
+        | 'posts.read'
+        | 'posts.create'
+        | 'posts.delete'
+        | 'posts.edit';
+      app_role: 'admin' | 'moderator';
     };
   };
   storage: {
