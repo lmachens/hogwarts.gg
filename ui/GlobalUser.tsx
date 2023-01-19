@@ -15,7 +15,6 @@ export default function GlobalUser({ onClick }: { onClick: () => void }) {
   const handleLogout = async () => {
     await supabase.auth.signOut();
   };
-  console.log(session?.user.user_metadata);
 
   return (
     <>
