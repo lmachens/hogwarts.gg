@@ -80,7 +80,7 @@ export default function PostForm({
         <Controller
           name="short"
           control={control}
-          render={({ field }) => <EditorInput {...field} />}
+          render={({ field }) => <EditorInput postId={post.id} {...field} />}
         />
       </section>
       <section>
@@ -88,7 +88,7 @@ export default function PostForm({
         <Controller
           name="body"
           control={control}
-          render={({ field }) => <EditorInput {...field} />}
+          render={({ field }) => <EditorInput postId={post.id} {...field} />}
         />
       </section>
     </form>

@@ -22,7 +22,7 @@ export default async function Page() {
       {posts.map((post) => (
         <div
           key={post.id}
-          className="hover:bg-gray-800 transition-colors border-b border-gray-800"
+          className="hover:bg-gray-900 transition-colors border-b border-gray-800"
         >
           <div className="container mx-auto max-w-3xl py-8 grid gap-2">
             <Link href={`/blog/${post.id}`}>

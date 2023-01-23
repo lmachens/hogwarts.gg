@@ -1,5 +1,6 @@
 'use client';
 
+import supabase from '#/lib/supabase-browser';
 import { cn } from '#/lib/utils';
 import {
   IconArrowBackUp,
@@ -13,29 +14,33 @@ import {
   IconH3,
   IconH4,
   IconH5,
-  IconH6,
   IconItalic,
   IconList,
   IconListNumbers,
   IconPageBreak,
+  IconPhoto,
   IconSection,
   IconSeparator,
   IconStrikethrough,
 } from '@tabler/icons';
+import Dropcursor from '@tiptap/extension-dropcursor';
+import Image from '@tiptap/extension-image';
 import type { Editor } from '@tiptap/react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import type { ReactNode } from 'react';
 
 export default function EditorInput({
+  postId,
   value,
   onChange,
 }: {
+  postId: number;
   value?: string;
   onChange: (value: string) => void;
 }) {
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [StarterKit, Image, Dropcursor],
     content: value,
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
@@ -45,7 +50,7 @@ export default function EditorInput({
 
   return (
     <div>
-      <MenuBar editor={editor} />
+      <MenuBar editor={editor} postId={postId} />
       <EditorContent
         editor={editor}
         className={cn(
@@ -56,7 +61,13 @@ export default function EditorInput({
   );
 }
 
-const MenuBar = ({ editor }: { editor: Editor | null }) => {
+const MenuBar = ({
+  editor,
+  postId,
+}: {
+  editor: Editor | null;
+  postId: number;
+}) => {
   if (!editor) {
     return null;
   }
@@ -127,12 +138,38 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
       >
         <IconH5 />
       </EditorButton>
-      <EditorButton
-        onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
-        isActive={editor.isActive('heading', { level: 6 })}
-      >
-        <IconH6 />
-      </EditorButton>
+      <label className={cn('p-1 rounded cursor-pointer')}>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={async (event) => {
+            if (!event.target.files?.length) {
+              return;
+            }
+            const file = event.target.files[0];
+            const { error } = await supabase.storage
+              .from('posts')
+              .upload(`post_${postId}/${file.name}`, file, {
+                cacheControl: '3600',
+                upsert: true,
+              });
+            console.log(file.name, error);
+            if (error) {
+              console.error(error);
+              return;
+            }
+
+            const { data } = supabase.storage
+              .from('posts')
+              .getPublicUrl(`post_${postId}/${file.name}`);
+            console.log(data);
+
+            editor.chain().focus().setImage({ src: data.publicUrl }).run();
+          }}
+          className={cn('hidden')}
+        />
+        <IconPhoto />
+      </label>
       <EditorButton
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         isActive={editor.isActive('bulletList')}
