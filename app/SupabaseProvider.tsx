@@ -1,20 +1,37 @@
 'use client';
 
-import supabase from '#/lib/supabase-browser';
+import type { Database } from '#/lib/database.types';
 import type { Session } from '@supabase/auth-helpers-react';
-import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import type { ReactNode } from 'react';
+import { createContext, useContext } from 'react';
+
+const Context = createContext<{
+  session: Session | null;
+  userRole: Database['public']['Enums']['app_role'] | null;
+}>({
+  session: null,
+  userRole: null,
+});
 
 type SupabaseProviderProps = {
   children: ReactNode;
-  session: Session | null | undefined;
+  session: Session | null;
+  userRole: Database['public']['Enums']['app_role'] | null;
 };
-const SupabaseProvider = ({ children, session }: SupabaseProviderProps) => {
+const SupabaseProvider = ({
+  children,
+  session,
+  userRole,
+}: SupabaseProviderProps) => {
   return (
-    <SessionContextProvider supabaseClient={supabase} initialSession={session}>
+    <Context.Provider value={{ session, userRole }}>
       {children}
-    </SessionContextProvider>
+    </Context.Provider>
   );
 };
 
 export default SupabaseProvider;
+
+export const useSession = () => {
+  return useContext(Context);
+};

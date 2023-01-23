@@ -1,8 +1,8 @@
 'use client';
 
+import { useSession } from '#/app/SupabaseProvider';
 import supabase from '#/lib/supabase-browser';
 import { cn } from '#/lib/utils';
-import { useSession } from '@supabase/auth-helpers-react';
 import { IconUserCheck, IconUserExclamation } from '@tabler/icons';
 import Button from './Button';
 import Popover from './Popover';

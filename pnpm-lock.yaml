@@ -11,6 +11,8 @@ specifiers:
   '@supabase/supabase-js': 2.4.0
   '@tabler/icons': 1.119.0
   '@tailwindcss/forms': 0.5.3
+  '@tiptap/extension-dropcursor': 2.0.0-beta.209
+  '@tiptap/extension-image': 2.0.0-beta.209
   '@tiptap/react': 2.0.0-beta.209
   '@tiptap/starter-kit': 2.0.0-beta.209
   '@types/leaflet': 1.9.0
@@ -53,6 +55,8 @@ dependencies:
   '@supabase/supabase-js': 2.4.0
   '@tabler/icons': 1.119.0_biqbaboplfbrettd7655fr4n2y
   '@tailwindcss/forms': 0.5.3_tailwindcss@3.2.4
+  '@tiptap/extension-dropcursor': 2.0.0-beta.209_mjxjt2tewvgatsbngisjo5wtze
+  '@tiptap/extension-image': 2.0.0-beta.209_f4ffqkgz5d3wev7su7t7l2rrua
   '@tiptap/react': 2.0.0-beta.209_q2znjafzmb4pvn25xzm5s3hjsu
   '@tiptap/starter-kit': 2.0.0-beta.209_aesbe3h7xnuyjcj6aod6orz3zu
   clsx: 1.2.1
@@ -1159,6 +1163,17 @@ packages:
     dependencies:
       '@tiptap/core': 2.0.0-beta.209_divvgrv7tjm2iv7mtj3zpkbjhe
       prosemirror-state: 1.4.2
+    dev: false
+
+  /@tiptap/extension-image/2.0.0-beta.209_f4ffqkgz5d3wev7su7t7l2rrua:
+    resolution:
+      {
+        integrity: sha512-Erjs9/vRud5TYATt7gJ1cBPNp0LAxtQ4mYZ+6Avpu0FfOWDv9WHXGtV85vJnbqKkRBf031L3dfLnYZPhTkS2sQ==,
+      }
+    peerDependencies:
+      '@tiptap/core': ^2.0.0-beta.193
+    dependencies:
+      '@tiptap/core': 2.0.0-beta.209_divvgrv7tjm2iv7mtj3zpkbjhe
     dev: false
 
   /@tiptap/extension-italic/2.0.0-beta.209_f4ffqkgz5d3wev7su7t7l2rrua:

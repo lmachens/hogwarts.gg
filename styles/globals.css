@@ -1,3 +1,57 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .post h1 {
+    @apply text-3xl;
+  }
+
+  .post h2 {
+    @apply text-2xl;
+  }
+  .post h3 {
+    @apply text-xl;
+  }
+  .post h4 {
+    @apply text-lg;
+  }
+  .post h5 {
+    @apply font-bold;
+  }
+  .post h6 {
+    @apply font-bold;
+  }
+
+  .post code {
+    @apply bg-gray-800 p-1 text-xs rounded-sm;
+  }
+
+  .post p {
+    @apply my-2;
+  }
+
+  .post ul {
+    @apply list-disc ml-5;
+  }
+
+  .post ol {
+    @apply list-decimal ml-5;
+  }
+
+  .post pre {
+    @apply bg-gray-800 p-1 text-xs rounded-sm;
+  }
+
+  .post blockquote p {
+    @apply bg-gray-800 p-2 rounded-sm;
+  }
+
+  .post blockquote p::before {
+    content: '\201C';
+  }
+
+  .post blockquote p::after {
+    content: '\201D';
+  }
+}

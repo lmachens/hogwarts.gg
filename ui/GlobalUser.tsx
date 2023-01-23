@@ -1,6 +1,6 @@
+import { useSession } from '#/app/SupabaseProvider';
 import supabase from '#/lib/supabase-browser';
 import { cn } from '#/lib/utils';
-import { useSession } from '@supabase/auth-helpers-react';
 import { IconUserCheck } from '@tabler/icons';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
@@ -10,7 +10,7 @@ export default function GlobalUser({ onClick }: { onClick: () => void }) {
   const segment = useSelectedLayoutSegment();
   const isActive = segment === 'login';
 
-  const session = useSession();
+  const { session, userRole } = useSession();
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -26,6 +26,16 @@ export default function GlobalUser({ onClick }: { onClick: () => void }) {
             </button>
           }
         >
+          <p>Role: {userRole ?? 'User'}</p>
+          {(userRole === 'admin' || userRole === 'moderator') && (
+            <Link
+              onClick={onClick}
+              href="/dashboard/posts"
+              className={cn('block')}
+            >
+              Posts Dashboard
+            </Link>
+          )}
           <button onClick={handleLogout}>Logout</button>
         </Popover>
       ) : (
