@@ -1,5 +1,6 @@
 import 'server-only';
 
+import type { Database } from '#/lib/database.types';
 import createClient from '#/lib/supabase-server';
 import { cn } from '#/lib/utils';
 import '#/styles/globals.css';
@@ -28,6 +29,14 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
   const {
     data: { session },
   } = await supabase.auth.getSession();
+  let userRole: Database['public']['Enums']['app_role'] | null = null;
+  if (session) {
+    const result = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', session.user.id);
+    userRole = result.data?.[0]?.role ?? null;
+  }
 
   return (
     <html
@@ -42,7 +51,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
       <body className="relative min-h-screen">
         <SupabaseListener accessToken={session?.access_token} />
         <PlausibleTracker />
-        <SupabaseProvider session={session}>
+        <SupabaseProvider session={session} userRole={userRole}>
           <GlobalNav />
           <div className="pt-14">{children}</div>
           <Footer />
