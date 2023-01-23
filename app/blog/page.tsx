@@ -1,4 +1,5 @@
 import createClient from '#/lib/supabase-server';
+import PostHTML from '#/ui/PostHTML';
 import { IconArrowNarrowRight } from '@tabler/icons';
 import { format, formatDistance } from 'date-fns';
 import Link from 'next/link';
@@ -41,10 +42,7 @@ export default async function Page() {
                 )
               </time>
             )}
-            <div
-              className="post"
-              dangerouslySetInnerHTML={{ __html: post.short! }}
-            />
+            <PostHTML html={post.short!} />
             <Link
               href={`/blog/${post.id}`}
               className="flex text-sky-400 hover:underline"

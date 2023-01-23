@@ -1,5 +1,5 @@
 import createClient from '#/lib/supabase-server';
-import { cn } from '#/lib/utils';
+import PostHTML from '#/ui/PostHTML';
 import { IconArrowNarrowLeft } from '@tabler/icons';
 import { format, formatDistance } from 'date-fns';
 import Link from 'next/link';
@@ -41,10 +41,7 @@ export default async function Page({
       </div>
 
       <div className="container mx-auto py-8 grid gap-2">
-        <div
-          className={cn('post')}
-          dangerouslySetInnerHTML={{ __html: post.body! }}
-        />
+        <PostHTML html={post.body!} />
         <Link href="/blog" className="flex text-sky-400 hover:underline">
           <IconArrowNarrowLeft /> Back to Blog
         </Link>
