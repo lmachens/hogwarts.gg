@@ -75,11 +75,22 @@ export default function PostForm({
         <p className="text-xs	text-orange-500">{errors.title.message}</p>
       )}
       <Input label="Title" autoFocus {...register('title')} />
-      <Controller
-        name="short"
-        control={control}
-        render={({ field }) => <EditorInput {...field} />}
-      />
+      <section>
+        <label>Short</label>
+        <Controller
+          name="short"
+          control={control}
+          render={({ field }) => <EditorInput {...field} />}
+        />
+      </section>
+      <section>
+        <label>Full</label>
+        <Controller
+          name="body"
+          control={control}
+          render={({ field }) => <EditorInput {...field} />}
+        />
+      </section>
     </form>
   );
 }

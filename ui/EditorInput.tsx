@@ -9,7 +9,6 @@ import {
   IconClearFormatting,
   IconCode,
   IconDirectionHorizontal,
-  IconH1,
   IconH2,
   IconH3,
   IconH4,
@@ -47,7 +46,12 @@ export default function EditorInput({
   return (
     <div>
       <MenuBar editor={editor} />
-      <EditorContent editor={editor} />
+      <EditorContent
+        editor={editor}
+        className={cn(
+          'post my-1 [&_div]:p-2 border border-gray-700 rounded-lg',
+        )}
+      />
     </div>
   );
 }
@@ -58,7 +62,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
   }
 
   return (
-    <>
+    <div className={cn('flex flex-wrap gap-1')}>
       <EditorButton
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editor.can().chain().focus().toggleBold().run()}
@@ -98,12 +102,6 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
         isActive={editor.isActive('paragraph')}
       >
         <IconSection />
-      </EditorButton>
-      <EditorButton
-        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-        isActive={editor.isActive('heading', { level: 1 })}
-      >
-        <IconH1 />
       </EditorButton>
       <EditorButton
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
@@ -179,7 +177,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
       >
         <IconArrowForwardUp />
       </EditorButton>
-    </>
+    </div>
   );
 };
 
