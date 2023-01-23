@@ -1,8 +1,32 @@
 'use client';
 
+import { cn } from '#/lib/utils';
+import {
+  IconArrowBackUp,
+  IconArrowForwardUp,
+  IconBlockquote,
+  IconBold,
+  IconClearFormatting,
+  IconCode,
+  IconDirectionHorizontal,
+  IconH1,
+  IconH2,
+  IconH3,
+  IconH4,
+  IconH5,
+  IconH6,
+  IconItalic,
+  IconList,
+  IconListNumbers,
+  IconPageBreak,
+  IconSection,
+  IconSeparator,
+  IconStrikethrough,
+} from '@tabler/icons';
 import type { Editor } from '@tiptap/react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import type { ReactNode } from 'react';
 
 export default function EditorInput({
   value,
@@ -35,153 +59,151 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 
   return (
     <>
-      <button
-        type="button"
+      <EditorButton
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editor.can().chain().focus().toggleBold().run()}
-        className={editor.isActive('bold') ? 'is-active' : ''}
+        isActive={editor.isActive('bold')}
       >
-        bold
-      </button>
-      <button
-        type="button"
+        <IconBold />
+      </EditorButton>
+      <EditorButton
         onClick={() => editor.chain().focus().toggleItalic().run()}
         disabled={!editor.can().chain().focus().toggleItalic().run()}
-        className={editor.isActive('italic') ? 'is-active' : ''}
+        isActive={editor.isActive('italic')}
       >
-        italic
-      </button>
-      <button
-        type="button"
+        <IconItalic />
+      </EditorButton>
+      <EditorButton
         onClick={() => editor.chain().focus().toggleStrike().run()}
         disabled={!editor.can().chain().focus().toggleStrike().run()}
-        className={editor.isActive('strike') ? 'is-active' : ''}
+        isActive={editor.isActive('strike')}
       >
-        strike
-      </button>
-      <button
-        type="button"
+        <IconStrikethrough />
+      </EditorButton>
+      <EditorButton
         onClick={() => editor.chain().focus().toggleCode().run()}
         disabled={!editor.can().chain().focus().toggleCode().run()}
-        className={editor.isActive('code') ? 'is-active' : ''}
+        isActive={editor.isActive('code')}
       >
-        code
-      </button>
-      <button
-        type="button"
+        <IconDirectionHorizontal />
+      </EditorButton>
+      <EditorButton
         onClick={() => editor.chain().focus().unsetAllMarks().run()}
       >
-        clear marks
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().clearNodes().run()}
-      >
-        clear nodes
-      </button>
-      <button
-        type="button"
+        <IconClearFormatting />
+      </EditorButton>
+
+      <EditorButton
         onClick={() => editor.chain().focus().setParagraph().run()}
-        className={editor.isActive('paragraph') ? 'is-active' : ''}
+        isActive={editor.isActive('paragraph')}
       >
-        paragraph
-      </button>
-      <button
-        type="button"
+        <IconSection />
+      </EditorButton>
+      <EditorButton
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-        className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}
+        isActive={editor.isActive('heading', { level: 1 })}
       >
-        h1
-      </button>
-      <button
-        type="button"
+        <IconH1 />
+      </EditorButton>
+      <EditorButton
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
+        isActive={editor.isActive('heading', { level: 2 })}
       >
-        h2
-      </button>
-      <button
-        type="button"
+        <IconH2 />
+      </EditorButton>
+      <EditorButton
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-        className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}
+        isActive={editor.isActive('heading', { level: 3 })}
       >
-        h3
-      </button>
-      <button
-        type="button"
+        <IconH3 />
+      </EditorButton>
+      <EditorButton
         onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
-        className={editor.isActive('heading', { level: 4 }) ? 'is-active' : ''}
+        isActive={editor.isActive('heading', { level: 4 })}
       >
-        h4
-      </button>
-      <button
-        type="button"
+        <IconH4 />
+      </EditorButton>
+      <EditorButton
         onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
-        className={editor.isActive('heading', { level: 5 }) ? 'is-active' : ''}
+        isActive={editor.isActive('heading', { level: 5 })}
       >
-        h5
-      </button>
-      <button
-        type="button"
+        <IconH5 />
+      </EditorButton>
+      <EditorButton
         onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
-        className={editor.isActive('heading', { level: 6 }) ? 'is-active' : ''}
+        isActive={editor.isActive('heading', { level: 6 })}
       >
-        h6
-      </button>
-      <button
-        type="button"
+        <IconH6 />
+      </EditorButton>
+      <EditorButton
         onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={editor.isActive('bulletList') ? 'is-active' : ''}
+        isActive={editor.isActive('bulletList')}
       >
-        bullet list
-      </button>
-      <button
-        type="button"
+        <IconList />
+      </EditorButton>
+      <EditorButton
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
-        className={editor.isActive('orderedList') ? 'is-active' : ''}
+        isActive={editor.isActive('orderedList')}
       >
-        ordered list
-      </button>
-      <button
-        type="button"
+        <IconListNumbers />
+      </EditorButton>
+      <EditorButton
         onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-        className={editor.isActive('codeBlock') ? 'is-active' : ''}
+        isActive={editor.isActive('codeBlock')}
       >
-        code block
-      </button>
-      <button
-        type="button"
+        <IconCode />
+      </EditorButton>
+      <EditorButton
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
-        className={editor.isActive('blockquote') ? 'is-active' : ''}
+        isActive={editor.isActive('blockquote')}
       >
-        blockquote
-      </button>
-      <button
-        type="button"
+        <IconBlockquote />
+      </EditorButton>
+      <EditorButton
         onClick={() => editor.chain().focus().setHorizontalRule().run()}
       >
-        horizontal rule
-      </button>
-      <button
-        type="button"
-        onClick={() => editor.chain().focus().setHardBreak().run()}
-      >
-        hard break
-      </button>
-      <button
-        type="button"
+        <IconSeparator />
+      </EditorButton>
+      <EditorButton onClick={() => editor.chain().focus().setHardBreak().run()}>
+        <IconPageBreak />
+      </EditorButton>
+      <EditorButton
         onClick={() => editor.chain().focus().undo().run()}
         disabled={!editor.can().chain().focus().undo().run()}
       >
-        undo
-      </button>
-      <button
-        type="button"
+        <IconArrowBackUp />
+      </EditorButton>
+      <EditorButton
         onClick={() => editor.chain().focus().redo().run()}
         disabled={!editor.can().chain().focus().redo().run()}
       >
-        redo
-      </button>
+        <IconArrowForwardUp />
+      </EditorButton>
     </>
+  );
+};
+
+const EditorButton = ({
+  isActive,
+  onClick,
+  disabled,
+  children,
+}: {
+  onClick: () => void;
+  isActive?: boolean;
+  disabled?: boolean;
+  children: ReactNode;
+}) => {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      className={cn('p-1 rounded', {
+        'bg-gray-800': isActive,
+      })}
+    >
+      {children}
+    </button>
   );
 };
