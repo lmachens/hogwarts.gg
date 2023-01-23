@@ -42,7 +42,7 @@
     "date-fns": "2.29.3",
     "leaflet": "1.9.3",
     "next": "13.1.2",
-    "plausible-tracker": "0.3.8",
+    "next-plausible": "3.7.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "7.42.1",

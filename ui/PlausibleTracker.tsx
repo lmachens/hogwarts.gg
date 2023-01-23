@@ -1,21 +1,14 @@
-'use client';
-
-import { initPlausible } from '#/lib/plausible';
-import { useEffect } from 'react';
+import PlausibleProvider from 'next-plausible';
 
 const PlausibleTracker = () => {
-  useEffect(() => {
-    if (
-      process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN &&
-      process.env.NEXT_PUBLIC_PLAUSIBLE_API_HOST
-    ) {
-      initPlausible(
-        process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN,
-        process.env.NEXT_PUBLIC_PLAUSIBLE_API_HOST,
-      );
-    }
-  }, []);
-
-  return null;
+  return (
+    <PlausibleProvider
+      domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN!}
+      customDomain={process.env.NEXT_PUBLIC_PLAUSIBLE_API_HOST!}
+      enabled
+      selfHosted
+      trackOutboundLinks
+    />
+  );
 };
 export default PlausibleTracker;
