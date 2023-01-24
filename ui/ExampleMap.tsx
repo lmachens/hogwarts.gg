@@ -1,6 +1,5 @@
 'use client';
 import Map from '#/ui/Map';
-import Marker from '#/ui/Marker';
 import TileLayer, { BLANK_TILE } from '#/ui/TileLayer';
 import type { Coords } from 'leaflet';
 import leaflet from 'leaflet';
@@ -47,15 +46,6 @@ const ExampleMap = ({ children }: ExampleMapProps) => {
   return (
     <Map center={[7000, 7000]} crs={aeternumCRS}>
       <AeternumLayer />
-      <Marker
-        src="https://aeternum-map.gg/pois/gold.webp"
-        latLng={[7000, 7000]}
-        highlight
-      />
-      <Marker
-        src="https://aeternum-map.gg/pois/gold.webp"
-        latLng={[7010, 7020]}
-      />
       {children}
     </Map>
   );
