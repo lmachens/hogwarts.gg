@@ -1,7 +1,8 @@
 import 'server-only';
 
-import type { Database } from '#/lib/database.types';
 import createClient from '#/lib/supabase-server';
+import type { User } from '#/lib/users';
+import { getUser } from '#/lib/users';
 import { cn } from '#/lib/utils';
 import '#/styles/globals.css';
 import Footer from '#/ui/Footer';
@@ -29,13 +30,10 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
   const {
     data: { session },
   } = await supabase.auth.getSession();
-  let userRole: Database['public']['Enums']['app_role'] | null = null;
+
+  let user: User | null = null;
   if (session) {
-    const result = await supabase
-      .from('user_roles')
-      .select('role')
-      .eq('user_id', session.user.id);
-    userRole = result.data?.[0]?.role ?? null;
+    user = await getUser(supabase, session.user.id);
   }
 
   return (
@@ -52,7 +50,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
       </head>
       <body className="relative min-h-screen">
         <SupabaseListener accessToken={session?.access_token} />
-        <SupabaseProvider session={session} userRole={userRole}>
+        <SupabaseProvider session={session} user={user}>
           <GlobalNav />
           <div className="pt-14">{children}</div>
           <Footer />
