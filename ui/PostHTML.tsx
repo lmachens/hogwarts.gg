@@ -1,3 +1,5 @@
+import { cn } from '#/lib/utils';
+
 export default function PostHTML({
   html,
   className,
@@ -7,7 +9,7 @@ export default function PostHTML({
 }) {
   return (
     <div
-      className={`post ${className}`}
+      className={cn('post', className)}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
