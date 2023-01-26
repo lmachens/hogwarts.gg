@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from './Button';
 import Divider from './Divider';
+import ErrorMessage from './ErrorMessage';
 import Input from './Input';
 
 const getURL = () => {
@@ -146,13 +147,9 @@ function AuthForm() {
           type="text"
           placeholder="000000"
           required
+          error={errors.captchaToken?.message}
           {...register('captchaToken')}
         />
-        {errors.captchaToken && (
-          <p className="text-xs	text-orange-500">
-            {errors.captchaToken.message}
-          </p>
-        )}
         <Button type="submit" kind="brand" disabled={isLoading}>
           Submit
         </Button>
@@ -170,10 +167,23 @@ function AuthForm() {
         type="email"
         placeholder="you@example.com"
         required
+        error={
+          errors.email &&
+          (isSignIn ? (
+            <>
+              There is no account associated with this email address.{' '}
+              <Link className="underline" href="/sign-up">
+                Sign up?
+              </Link>
+            </>
+          ) : (
+            errors.email.message
+          ))
+        }
         {...register('email')}
       />
       {errors.email && (
-        <p className="text-xs	text-orange-500">
+        <ErrorMessage>
           {isSignIn ? (
             <>
               There is no account associated with this email address.{' '}
@@ -184,7 +194,7 @@ function AuthForm() {
           ) : (
             errors.email.message
           )}
-        </p>
+        </ErrorMessage>
       )}
 
       <Button type="submit" kind="brand" disabled={isLoading}>

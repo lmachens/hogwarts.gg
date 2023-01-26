@@ -41,16 +41,23 @@ export default AddNode;
 
 const NodeForm = () => {
   const map = useMap();
-  const { register, reset, control, handleSubmit, watch, setError } =
-    useForm<FormData>({
-      resolver: zodResolver(nodeSchema),
-      defaultValues: {
-        title: '',
-        description: '',
-        type: '',
-        coordinates: [map.getCenter().lat, map.getCenter().lng],
-      },
-    });
+  const {
+    register,
+    reset,
+    control,
+    handleSubmit,
+    watch,
+    setError,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(nodeSchema),
+    defaultValues: {
+      title: '',
+      description: '',
+      type: '',
+      coordinates: [map.getCenter().lat, map.getCenter().lng],
+    },
+  });
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -75,9 +82,9 @@ const NodeForm = () => {
           label="Title"
           placeholder="A node needs a title"
           required
+          error={errors.title?.message}
           {...register('title')}
         />
-
         <Controller
           name="coordinates"
           control={control}
@@ -88,8 +95,10 @@ const NodeForm = () => {
                 description="Move the marker to change the coordinates"
                 value={field.value.toString()}
                 required
+                error={errors.coordinates?.message}
                 disabled
               />
+
               <Marker
                 src={
                   getNodeType(watch('type'))?.icon ??
@@ -108,11 +117,13 @@ const NodeForm = () => {
           label="Type"
           options={nodeTypes}
           required
+          error={errors.type?.message}
           {...register('type')}
         />
         <Textarea
           label="Description"
           description="Additional information about this node"
+          error={errors.description?.message}
           {...register('description')}
         />
         <Button type="submit" kind="brand" disabled={isLoading}>
