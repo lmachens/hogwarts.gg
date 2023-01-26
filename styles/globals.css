@@ -54,4 +54,8 @@
   .post blockquote p::after {
     content: '\201D';
   }
+
+  .post iframe {
+    @apply sm:w-1/2 w-full;
+  }
 }

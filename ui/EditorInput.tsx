@@ -21,10 +21,11 @@ import {
   IconPhoto,
   IconSection,
   IconSeparator,
-  IconStrikethrough,
+  IconStrikethrough
 } from '@tabler/icons';
 import Dropcursor from '@tiptap/extension-dropcursor';
 import Image from '@tiptap/extension-image';
+import Youtube from '@tiptap/extension-youtube';
 import type { Editor } from '@tiptap/react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -40,7 +41,16 @@ export default function EditorInput({
   onChange: (value: string) => void;
 }) {
   const editor = useEditor({
-    extensions: [StarterKit, Image, Dropcursor],
+    extensions: [
+      StarterKit,
+      Image,
+      Dropcursor,
+      Youtube.configure({
+        modestBranding: true,
+        width: 480,
+        height: 270,
+      }),
+    ],
     content: value,
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
