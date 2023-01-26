@@ -6,6 +6,7 @@ import { cn } from '#/lib/utils';
 import { postPatchSchema } from '#/lib/validations/post';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconChevronLeft, IconWhirl } from '@tabler/icons';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import type * as z from 'zod';
@@ -21,6 +22,7 @@ export default function PostForm({
 }: {
   post: Database['public']['Tables']['posts']['Row'];
 }) {
+  const router = useRouter();
   const {
     control,
     register,
@@ -56,6 +58,15 @@ export default function PostForm({
     setIsLoading(false);
   }
 
+  async function onDelete() {
+    clearErrors();
+    const { error } = await supabase.from('posts').delete().eq('id', post.id);
+    if (error) {
+      setError('title', { message: error.message });
+    }
+    router.replace('/dashboard/posts');
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid w-full gap-10">
       <div className="flex w-full items-center justify-between">
@@ -83,6 +94,9 @@ export default function PostForm({
               </label>
             )}
           />
+          <Button type="button" onClick={onDelete} kind="danger">
+            Delete
+          </Button>
           <Button type="submit" kind="brand" disabled={isLoading}>
             {isLoading && <IconWhirl className="animate-spin" />}
             Save

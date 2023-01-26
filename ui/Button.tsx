@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 const Button = forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement> & {
-    kind?: 'default' | 'outline' | 'brand';
+    kind?: 'default' | 'outline' | 'brand' | 'danger';
   }
 >(({ kind = 'default', className, ...props }, ref) => (
   <button
@@ -14,6 +14,7 @@ const Button = forwardRef<
       {
         'bg-gray-900': kind === 'default',
         'bg-brand-600': kind === 'brand',
+        'bg-red-600': kind === 'danger',
       },
       className,
     )}
