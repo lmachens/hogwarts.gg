@@ -1,7 +1,7 @@
 import createClient from '#/lib/supabase-server';
 import PostHTML from '#/ui/PostHTML';
 import { IconArrowNarrowRight } from '@tabler/icons';
-import { format, formatDistance } from 'date-fns';
+import { format } from 'date-fns';
 import Link from 'next/link';
 
 export default async function Page() {
@@ -11,6 +11,7 @@ export default async function Page() {
     .from('posts')
     .select('*, user_id(username)')
     .order('published_at', { ascending: false });
+
   const posts = result.data ?? [];
 
   return (
@@ -35,14 +36,12 @@ export default async function Page() {
             {!post.published && <p className="text-sm text-slate-600">Draft</p>}
             <div className="flex">
               <p className="text-gray-400 text-sm">
-                Writed by <span className="font-semibold">{post.user_id!.username ? post.user_id!.username : 'Harry Potter' }</span> {' - '}
+                Writed by{' '}
+                <span className="font-semibold">{post.user_id!.username}</span>{' '}
+                {' - '}
                 {post.published_at && (
                   <time dateTime={post.published_at}>
-                    {format(new Date(post.published_at), 'MMMM dd, yyyy')} (
-                    {formatDistance(new Date(post.published_at), new Date(), {
-                      addSuffix: true,
-                    })}
-                    )
+                    {format(new Date(post.published_at), 'MMMM dd, yyyy')}
                   </time>
                 )}
               </p>
