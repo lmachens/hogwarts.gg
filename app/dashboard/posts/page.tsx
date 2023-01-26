@@ -11,6 +11,7 @@ export default async function Page() {
     .from('posts')
     .select('*, user_id(username)')
     .order('published_at', { ascending: false });
+
   const posts = result.data ?? [];
 
   return (

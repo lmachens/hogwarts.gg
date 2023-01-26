@@ -18,7 +18,9 @@ export default async function Page({
     .from('posts')
     .select('*, user_id(username)')
     .eq('id', +params.id);
+
   const post = result.data?.[0];
+
   if (!post) {
     notFound();
   }
@@ -31,9 +33,7 @@ export default async function Page({
           <PostHTML html={post.short!} />
           <p className="text-gray-400 text-sm pt-2">
             Writed by{' '}
-            <span className="font-semibold">
-              {post.user_id!.username ? post.user_id!.username : 'Harry Potter'}
-            </span>{' '}
+            <span className="font-semibold">{post.user_id!.username}</span>
             {' - '}
             {post.published_at && (
               <time dateTime={post.published_at}>
