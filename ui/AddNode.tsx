@@ -1,16 +1,23 @@
 'use client';
 
 import { getNodeType, nodeTypes } from '#/lib/node-types';
+import supabase from '#/lib/supabase-browser';
 import { nodeSchema } from '#/lib/validations/node';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconMapPin } from '@tabler/icons';
 import type { LatLngExpression } from 'leaflet';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import type z from 'zod';
+import Button from './Button';
 import Drawer from './Drawer';
+import Input from './Input';
 import { useMap } from './Map';
 import Marker from './Marker';
 import Select from './Select';
+import Stack from './Stack';
+import Textarea from './Textarea';
 
 type FormData = z.infer<typeof nodeSchema>;
 
@@ -34,50 +41,95 @@ export default AddNode;
 
 const NodeForm = () => {
   const map = useMap();
-  const { register, control, handleSubmit, watch } = useForm<FormData>({
+  const {
+    register,
+    reset,
+    control,
+    handleSubmit,
+    watch,
+    setError,
+    formState: { errors },
+  } = useForm<FormData>({
     resolver: zodResolver(nodeSchema),
     defaultValues: {
       title: '',
       description: '',
       type: '',
-      latLng: [map.getCenter().lat, map.getCenter().lng],
+      coordinates: [map.getCenter().lat, map.getCenter().lng],
     },
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   async function onSubmit(data: FormData) {
-    console.log(data);
+    setIsLoading(true);
+
+    const { error } = await supabase.from('nodes').insert(data);
+    setIsLoading(false);
+    if (error) {
+      setError('title', { message: error.message });
+    } else {
+      reset();
+      router.refresh();
+    }
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        name="latLng"
-        control={control}
-        render={({ field }) => (
-          <>
-            <input placeholder={field.value.toString()} />
-            <Marker
-              src={
-                getNodeType(watch('type'))?.icon ??
-                'https://aeternum-map.gg/unknown.webp'
-              }
-              latLng={field.value as LatLngExpression}
-              highlight
-              draggable
-              title={watch('title')}
-              onLatLngChange={field.onChange}
-            />
-          </>
-        )}
-      />
+      <Stack>
+        <Input
+          autoFocus
+          label="Title"
+          placeholder="A node needs a title"
+          required
+          error={errors.title?.message}
+          {...register('title')}
+        />
+        <Controller
+          name="coordinates"
+          control={control}
+          render={({ field }) => (
+            <>
+              <Input
+                label="Coordinates"
+                description="Move the marker to change the coordinates"
+                value={field.value.toString()}
+                required
+                error={errors.coordinates?.message}
+                disabled
+              />
 
-      <Select options={nodeTypes} {...register('type')} />
+              <Marker
+                src={
+                  getNodeType(watch('type'))?.icon ??
+                  'https://aeternum-map.gg/unknown.webp'
+                }
+                latLng={field.value as LatLngExpression}
+                draggable
+                title={watch('title')}
+                onLatLngChange={field.onChange}
+              />
+            </>
+          )}
+        />
 
-      <input
-        autoFocus
-        placeholder="A node needs a title"
-        {...register('title')}
-      />
+        <Select
+          label="Type"
+          options={nodeTypes}
+          required
+          error={errors.type?.message}
+          {...register('type')}
+        />
+        <Textarea
+          label="Description"
+          description="Additional information about this node"
+          error={errors.description?.message}
+          {...register('description')}
+        />
+        <Button type="submit" kind="brand" disabled={isLoading}>
+          Save
+        </Button>
+      </Stack>
     </form>
   );
 };

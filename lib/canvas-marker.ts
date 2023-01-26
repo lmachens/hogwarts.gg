@@ -10,7 +10,7 @@ leaflet.Canvas.include({
       return;
     }
     const radius = layer.options.highlight
-      ? layer.options.radius * 1.5
+      ? layer.options.radius * 1.25
       : layer.options.radius;
     const p = layer._point.round();
     const imageSize = radius * 2;

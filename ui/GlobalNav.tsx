@@ -16,7 +16,7 @@ export default function GlobalNav() {
   const close = () => setIsOpen(false);
 
   return (
-    <div className="fixed z-10 top-0 flex w-full border-b border-gray-800 bg-black">
+    <div className="fixed z-auto top-0 flex w-full border-b border-gray-800 bg-black">
       <LogoNavItem onClick={close} />
       <button
         type="button"
