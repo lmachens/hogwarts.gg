@@ -7,7 +7,10 @@ import Link from 'next/link';
 export default async function Page() {
   const supabase = createClient();
 
-  const result = await supabase.from('posts').select();
+  const result = await supabase
+    .from('posts')
+    .select('*, user_id(username)')
+    .order('published_at', { ascending: false });
   const posts = result.data ?? [];
 
   return (
@@ -25,23 +28,25 @@ export default async function Page() {
           key={post.id}
           className="hover:bg-gray-900 transition-colors border-b border-gray-800"
         >
-          <div className="container mx-auto max-w-3xl py-8 grid gap-2">
+          <div className="container mx-auto md:px-0 px-2 max-w-3xl py-8 grid gap-2">
             <Link href={`/blog/${post.id}`}>
               <h3 className="text-2xl font-semibold">{post.title}</h3>
             </Link>
             {!post.published && <p className="text-sm text-slate-600">Draft</p>}
-            {post.published_at && (
-              <time
-                dateTime={post.published_at}
-                className="text-gray-400 text-sm"
-              >
-                {format(new Date(post.published_at), 'MM/dd/yyyy')} (
-                {formatDistance(new Date(post.published_at), new Date(), {
-                  addSuffix: true,
-                })}
-                )
-              </time>
-            )}
+            <div className="flex">
+              <p className="text-gray-400 text-sm">
+                Writed by <span className="font-semibold">{post.user_id!.username ? post.user_id!.username : 'Harry Potter' }</span> {' - '}
+                {post.published_at && (
+                  <time dateTime={post.published_at}>
+                    {format(new Date(post.published_at), 'MMMM dd, yyyy')} (
+                    {formatDistance(new Date(post.published_at), new Date(), {
+                      addSuffix: true,
+                    })}
+                    )
+                  </time>
+                )}
+              </p>
+            </div>
             <PostHTML html={post.short!} />
             <Link
               href={`/blog/${post.id}`}

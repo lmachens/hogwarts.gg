@@ -1,3 +1,14 @@
-export default function PostHTML({ html }: { html: string }) {
-  return <div className="post" dangerouslySetInnerHTML={{ __html: html }} />;
+export default function PostHTML({
+  html,
+  className,
+}: {
+  html: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`post ${className}`}
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
 }
