@@ -63,8 +63,9 @@ export default function PostForm({
     const { error } = await supabase.from('posts').delete().eq('id', post.id);
     if (error) {
       setError('title', { message: error.message });
+    } else {
+      router.push('/dashboard/posts');
     }
-    router.replace('/dashboard/posts');
   }
 
   return (
