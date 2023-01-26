@@ -15,7 +15,7 @@ const SupabaseListener = ({ accessToken }: { accessToken?: string }) => {
     });
 
     return () => data.subscription.unsubscribe();
-  }, [accessToken]);
+  }, [accessToken, router]);
 
   return null;
 };

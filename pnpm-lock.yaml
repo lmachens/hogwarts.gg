@@ -31,7 +31,7 @@ specifiers:
   leaflet: 1.9.3
   lint-staged: 13.1.0
   next: 13.1.2
-  plausible-tracker: 0.3.8
+  next-plausible: 3.7.1
   postcss: 8.4.21
   prettier: 2.8.2
   prettier-plugin-tailwindcss: 0.2.1
@@ -65,7 +65,7 @@ dependencies:
   date-fns: 2.29.3
   leaflet: 1.9.3
   next: 13.1.2_biqbaboplfbrettd7655fr4n2y
-  plausible-tracker: 0.3.8
+  next-plausible: 3.7.1_7jnwqgtpcnwg4nzft4b6xlzlfi
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-hook-form: 7.42.1_react@18.2.0
@@ -2822,6 +2822,21 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
+  /next-plausible/3.7.1_7jnwqgtpcnwg4nzft4b6xlzlfi:
+    resolution:
+      {
+        integrity: sha512-I4WjbuXPfQ3ijbzOC1lv1GNx6TTV0ZevR6YYs5vGZIyMz0z4LuN68x08a+ag2XNb1yy9dA1NkwV2hPzbfx8Gtw==,
+      }
+    peerDependencies:
+      next: ^11.1.0 || ^12.0.0 || ^13.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      next: 13.1.2_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /next-tick/1.1.0:
     resolution: {integrity: sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==}
     dev: false
@@ -3105,12 +3120,7 @@ packages:
   /pify/2.3.0:
     resolution: {integrity: sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==}
     engines: {node: '>=0.10.0'}
-
-  /plausible-tracker/0.3.8:
-    resolution: {integrity: sha512-lmOWYQ7s9KOUJ1R+YTOR3HrjdbxIS2Z4de0P/Jx2dQPteznJl2eX3tXxKClpvbfyGP59B5bbhW8ftN59HbbFSg==}
-    engines: {node: '>=10'}
-    dev: false
-
+    
   /postcss-import/14.1.0_postcss@8.4.21:
     resolution: {integrity: sha512-flwI+Vgm4SElObFVPpTIT7SU7R3qk2L7PyduMcokiaVKuWv9d/U+Gm/QAd8NDLuykTWTkcrjOeD2Pp1rMeBTGw==}
     engines: {node: '>=10.0.0'}

@@ -1,3 +1,4 @@
+'use client';
 import CanvasMarker from '#/lib/canvas-marker';
 import useDidUpdate from '#/lib/hooks/use-did-update';
 import type leaflet from 'leaflet';
@@ -25,8 +26,11 @@ function Marker({
   const [marker, setMarker] = useState<CanvasMarker | null>(null);
 
   useEffect(() => {
+    if (!map.getPanes().mapPane) {
+      return;
+    }
     const marker = new CanvasMarker(latLng, {
-      radius: 10,
+      radius: 15,
       src,
       highlight,
     });
@@ -34,9 +38,10 @@ function Marker({
     setMarker(marker);
 
     return () => {
+      setMarker(null);
       marker.removeFrom(map);
     };
-  }, []);
+  }, [map]);
 
   useDidUpdate(() => {
     if (!marker) {

@@ -32,7 +32,7 @@ const Map = ({ center, children, crs = leaflet.CRS.Simple }: MapProps) => {
     <>
       <div
         ref={containerRef}
-        className="h-full w-full z-0"
+        className="h-full w-full z-0 outline-none"
         style={{ backgroundColor: 'transparent' }}
       />
       {map && <MapContext.Provider value={map}>{children}</MapContext.Provider>}

@@ -55,6 +55,18 @@ supabase migration new <migration name>
 
 A `.sql` file is generated in supabase/migrations.
 
+Another is to update the tables in the supbase studio and run [db diff](https://supabase.com/docs/reference/cli/supabase-db-diff):
+
+```sh
+supabase db diff <migration name> -f <migration name>
+```
+
+After changing the schema, it's time to regenerate the types with [gen types](https://supabase.com/docs/reference/cli/supabase-gen-types-typescript):
+
+```sh
+supabase gen types typescript --local > lib/database.types.ts
+```
+
 ## Licensing
 
 MIT

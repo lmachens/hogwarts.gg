@@ -47,10 +47,11 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
         fontSans.variable,
       )}
     >
-      <head />
+      <head>
+        <PlausibleTracker />
+      </head>
       <body className="relative min-h-screen">
         <SupabaseListener accessToken={session?.access_token} />
-        <PlausibleTracker />
         <SupabaseProvider session={session} userRole={userRole}>
           <GlobalNav />
           <div className="pt-14">{children}</div>

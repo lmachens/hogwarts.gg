@@ -31,6 +31,32 @@ export interface Database {
   };
   public: {
     Tables: {
+      nodes: {
+        Row: {
+          coordinates: number[];
+          created_at: string;
+          description: string | null;
+          id: number;
+          title: string;
+          type: string;
+        };
+        Insert: {
+          coordinates: number[];
+          created_at?: string;
+          description?: string | null;
+          id?: number;
+          title: string;
+          type: string;
+        };
+        Update: {
+          coordinates?: number[];
+          created_at?: string;
+          description?: string | null;
+          id?: number;
+          title?: string;
+          type?: string;
+        };
+      };
       posts: {
         Row: {
           body: string | null;
@@ -134,7 +160,10 @@ export interface Database {
         | 'posts.read'
         | 'posts.create'
         | 'posts.delete'
-        | 'posts.edit';
+        | 'posts.edit'
+        | 'posts.upload'
+        | 'nodes.edit'
+        | 'nodes.delete';
       app_role: 'admin' | 'moderator';
     };
   };
