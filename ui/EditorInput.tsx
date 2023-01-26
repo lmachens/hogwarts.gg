@@ -7,6 +7,7 @@ import {
   IconArrowForwardUp,
   IconBlockquote,
   IconBold,
+  IconBrandYoutube,
   IconClearFormatting,
   IconCode,
   IconDirectionHorizontal,
@@ -21,7 +22,7 @@ import {
   IconPhoto,
   IconSection,
   IconSeparator,
-  IconStrikethrough
+  IconStrikethrough,
 } from '@tabler/icons';
 import Dropcursor from '@tiptap/extension-dropcursor';
 import Image from '@tiptap/extension-image';
@@ -223,6 +224,21 @@ const MenuBar = ({
         disabled={!editor.can().chain().focus().redo().run()}
       >
         <IconArrowForwardUp />
+      </EditorButton>
+      <EditorButton
+        onClick={() => {
+          const url = prompt('Enter YouTube URL');
+
+          if (url) {
+            editor.commands.setYoutubeVideo({
+              src: url,
+              width: 480,
+              height: 270,
+            });
+          }
+        }}
+      >
+        <IconBrandYoutube />
       </EditorButton>
     </div>
   );
