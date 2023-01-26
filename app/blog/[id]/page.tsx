@@ -1,3 +1,4 @@
+import { getPost } from '#/lib/posts';
 import createClient from '#/lib/supabase-server';
 import PostHTML from '#/ui/PostHTML';
 import { IconArrowNarrowLeft } from '@tabler/icons';
@@ -14,12 +15,7 @@ export default async function Page({
 }) {
   const supabase = createClient();
 
-  const result = await supabase
-    .from('posts')
-    .select('*, user_id(username)')
-    .eq('id', +params.id);
-
-  const post = result.data?.[0];
+  const post = await getPost(supabase, params.id);
 
   if (!post) {
     notFound();
@@ -32,8 +28,7 @@ export default async function Page({
           <h1 className="text-3xl font-bold lg:text-4xl">{post.title}</h1>
           <PostHTML html={post.short!} />
           <p className="text-gray-400 text-sm pt-2">
-            Writed by{' '}
-            <span className="font-semibold">{post.user_id!.username}</span>
+            Writed by <span className="font-semibold">{post.username}</span>
             {' - '}
             {post.published_at && (
               <time dateTime={post.published_at}>

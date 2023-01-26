@@ -1,3 +1,4 @@
+import { getPosts } from '#/lib/posts';
 import createClient from '#/lib/supabase-server';
 import PostCreateButton from '#/ui/dashboard/PostCreateButton';
 import PostHTML from '#/ui/PostHTML';
@@ -7,12 +8,7 @@ import Link from 'next/link';
 export default async function Page() {
   const supabase = createClient();
 
-  const result = await supabase
-    .from('posts')
-    .select('*, user_id(username)')
-    .order('published_at', { ascending: false });
-
-  const posts = result.data ?? [];
+  const posts = await getPosts(supabase);
 
   return (
     <div className="space-y-2">
@@ -30,7 +26,7 @@ export default async function Page() {
               <PostHTML className="h-32" html={post.short!} />
               <p>
                 Writed by{' '}
-                <span className="text-brand-500">{post.user_id!.username}</span>
+                <span className="text-brand-500">{post.username}</span>
               </p>
               {post.published_at && (
                 <time
