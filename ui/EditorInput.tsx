@@ -7,6 +7,7 @@ import {
   IconArrowForwardUp,
   IconBlockquote,
   IconBold,
+  IconBrandYoutube,
   IconClearFormatting,
   IconCode,
   IconDirectionHorizontal,
@@ -25,6 +26,7 @@ import {
 } from '@tabler/icons';
 import Dropcursor from '@tiptap/extension-dropcursor';
 import Image from '@tiptap/extension-image';
+import Youtube from '@tiptap/extension-youtube';
 import type { Editor } from '@tiptap/react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -40,7 +42,16 @@ export default function EditorInput({
   onChange: (value: string) => void;
 }) {
   const editor = useEditor({
-    extensions: [StarterKit, Image, Dropcursor],
+    extensions: [
+      StarterKit,
+      Image,
+      Dropcursor,
+      Youtube.configure({
+        modestBranding: true,
+        width: 480,
+        height: 270,
+      }),
+    ],
     content: value,
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
@@ -213,6 +224,21 @@ const MenuBar = ({
         disabled={!editor.can().chain().focus().redo().run()}
       >
         <IconArrowForwardUp />
+      </EditorButton>
+      <EditorButton
+        onClick={() => {
+          const url = prompt('Enter YouTube URL');
+
+          if (url) {
+            editor.commands.setYoutubeVideo({
+              src: url,
+              width: 480,
+              height: 270,
+            });
+          }
+        }}
+      >
+        <IconBrandYoutube />
       </EditorButton>
     </div>
   );

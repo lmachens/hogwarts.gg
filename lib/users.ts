@@ -1,4 +1,5 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { ok } from 'assert';
 import type { Database } from './database.types';
 
 export const getUser = async (
@@ -11,7 +12,7 @@ export const getUser = async (
       `
       id,
       username, 
-      user_roles (
+      user_role:user_roles (
         role
       )
     `,
@@ -24,18 +25,18 @@ export const getUser = async (
   if (!user) {
     return null;
   }
-  let role = 'User';
-  if (Array.isArray(user.user_roles)) {
-    role = user.user_roles[0].role;
-  } else if (user.user_roles) {
-    role = user.user_roles.role;
-  }
+
+  // It will never be an array because the `user_roles.user_id` is unique
+  ok(!Array.isArray(user.user_role));
+
+  const role = user.user_role ? user.user_role.role : 'User';
   return {
     id: user.id,
     username: user.username,
     role,
   };
 };
+
 export type User = {
   id: string;
   username: string;

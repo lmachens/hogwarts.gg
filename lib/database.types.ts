@@ -66,7 +66,7 @@ export interface Database {
           published_at: string | null;
           short: string | null;
           title: string | null;
-          user_id: string | null;
+          user_id: string;
         };
         Insert: {
           body?: string | null;
@@ -76,7 +76,7 @@ export interface Database {
           published_at?: string | null;
           short?: string | null;
           title?: string | null;
-          user_id?: string | null;
+          user_id?: string;
         };
         Update: {
           body?: string | null;
@@ -86,7 +86,7 @@ export interface Database {
           published_at?: string | null;
           short?: string | null;
           title?: string | null;
-          user_id?: string | null;
+          user_id?: string;
         };
       };
       role_permissions: {

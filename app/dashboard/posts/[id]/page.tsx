@@ -1,3 +1,4 @@
+import { getPost } from '#/lib/posts';
 import createClient from '#/lib/supabase-server';
 import PostForm from '#/ui/dashboard/PostForm';
 import { notFound } from 'next/navigation';
@@ -11,8 +12,8 @@ export default async function Page({
 }) {
   const supabase = createClient();
 
-  const result = await supabase.from('posts').select().eq('id', +params.id);
-  const post = result.data?.[0];
+  const post = await getPost(supabase, params.id);
+
   if (!post) {
     notFound();
   }
