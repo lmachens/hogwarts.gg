@@ -5,7 +5,7 @@ export const getUser = async (
   supabase: SupabaseClient<Database>,
   userId: string,
 ): Promise<User | null> => {
-  const result = await supabase
+  const { data: user, error } = await supabase
     .from('users')
     .select(
       `
@@ -16,13 +16,14 @@ export const getUser = async (
       )
     `,
     )
-    .eq('id', userId);
-  if (!result.data?.[0]) {
+    .eq('id', userId)
+    .maybeSingle();
+  if (error) {
+    throw error;
+  }
+  if (!user) {
     return null;
   }
-  const user = result.data[0];
-  const id = user.id;
-  const username = user.username;
   let role = 'User';
   if (Array.isArray(user.user_roles)) {
     role = user.user_roles[0].role;
@@ -30,8 +31,8 @@ export const getUser = async (
     role = user.user_roles.role;
   }
   return {
-    id,
-    username,
+    id: user.id,
+    username: user.username,
     role,
   };
 };
