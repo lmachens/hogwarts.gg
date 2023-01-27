@@ -1,8 +1,15 @@
+import { cn } from '#/lib/utils';
 import type { ReactNode } from 'react';
 
-export default function Divider({ children }: { children: ReactNode }) {
+export default function Divider({
+  children,
+  className,
+}: {
+  children?: ReactNode;
+  className?: string;
+}) {
   return (
-    <div className="relative">
+    <div className={cn('relative', className)}>
       <div className="absolute inset-0 flex items-center">
         <div className="w-full border-t border-gray-700" />
       </div>

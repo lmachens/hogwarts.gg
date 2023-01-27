@@ -125,19 +125,16 @@ export interface Database {
       };
       users: {
         Row: {
-          email: string;
           id: string;
-          username: string | null;
+          username: string;
         };
         Insert: {
-          email: string;
           id: string;
-          username?: string | null;
+          username: string;
         };
         Update: {
-          email?: string;
           id?: string;
-          username?: string | null;
+          username?: string;
         };
       };
     };

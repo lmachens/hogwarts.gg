@@ -24,6 +24,7 @@ specifiers:
   '@typescript-eslint/parser': 5.48.1
   '@vercel/git-hooks': 1.0.0
   autoprefixer: 10.4.13
+  boring-avatars: 1.7.0
   clsx: 1.2.1
   date-fns: 2.29.3
   eslint: 8.31.0
@@ -61,6 +62,7 @@ dependencies:
   '@tiptap/extension-youtube': 2.0.0-beta.209_f4ffqkgz5d3wev7su7t7l2rrua
   '@tiptap/react': 2.0.0-beta.209_q2znjafzmb4pvn25xzm5s3hjsu
   '@tiptap/starter-kit': 2.0.0-beta.209_aesbe3h7xnuyjcj6aod6orz3zu
+  boring-avatars: 1.7.0
   clsx: 1.2.1
   date-fns: 2.29.3
   leaflet: 1.9.3
@@ -1428,6 +1430,13 @@ packages:
   /binary-extensions/2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
     engines: {node: '>=8'}
+
+  /boring-avatars/1.7.0:
+    resolution:
+      {
+        integrity: sha512-ZNHd8J7C/V0IjQMGQowLJ5rScEFU23WxePigH6rqKcT2Esf0qhYvYxw8s9i3srmlfCnCV00ddBjaoGey1eNOfA==,
+      }
+    dev: false
 
   /brace-expansion/1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
