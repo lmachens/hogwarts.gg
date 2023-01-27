@@ -8,7 +8,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from './Button';
 import Divider from './Divider';
-import ErrorMessage from './ErrorMessage';
 import Input from './Input';
 
 const getURL = () => {
@@ -182,21 +181,6 @@ function AuthForm() {
         }
         {...register('email')}
       />
-      {errors.email && (
-        <ErrorMessage>
-          {isSignIn ? (
-            <>
-              There is no account associated with this email address.{' '}
-              <Link className="underline" href="/sign-up">
-                Sign up?
-              </Link>
-            </>
-          ) : (
-            errors.email.message
-          )}
-        </ErrorMessage>
-      )}
-
       <Button type="submit" kind="brand" disabled={isLoading}>
         Continue with Email
       </Button>

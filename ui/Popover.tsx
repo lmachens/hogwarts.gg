@@ -6,11 +6,19 @@ type PopoverProps = {
   trigger: ReactNode;
   tooltip?: ReactNode;
   children: ReactNode;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 };
 
-export default function Popover({ trigger, tooltip, children }: PopoverProps) {
+export default function Popover({
+  trigger,
+  tooltip,
+  children,
+  open,
+  onOpenChange,
+}: PopoverProps) {
   return (
-    <PopoverPrimitive.Root>
+    <PopoverPrimitive.Root open={open} onOpenChange={onOpenChange}>
       {tooltip ? (
         <Tooltip label={tooltip}>
           <PopoverPrimitive.Trigger asChild>{trigger}</PopoverPrimitive.Trigger>
@@ -20,7 +28,7 @@ export default function Popover({ trigger, tooltip, children }: PopoverProps) {
       )}
       <PopoverPrimitive.Portal>
         <PopoverPrimitive.Content
-          className="p-4 rounded bg-gray-1100 border border-gray-800 w-96 data-open:animate-fadeIn data-closed:animate-fadeOut"
+          className="rounded bg-gray-1100 border border-gray-800  data-open:animate-fadeIn data-closed:animate-fadeOut"
           sideOffset={5}
           collisionPadding={8}
         >
