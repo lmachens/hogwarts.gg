@@ -5,24 +5,24 @@ export const getPost = async (
   supabase: SupabaseClient<Database>,
   postId: string,
 ): Promise<(Post & { username: string }) | null> => {
-  const { data, error } = await supabase
+  const { data: post, error } = await supabase
     .from('posts')
     .select('*, user_id(username)')
     .eq('id', postId)
-    .single();
+    .maybeSingle();
 
-  console.log(data);
-
-  const { username } = data?.user_id as { username: string };
+  const { username } = post?.user_id as { username: string };
 
   if (error) {
     throw error;
-  } else if (!data) {
+  }
+
+  if (!post) {
     return null;
   }
 
   return {
-    ...data,
+    ...post,
     username,
   } as Post & { username: string };
 };
@@ -30,18 +30,19 @@ export const getPost = async (
 export const getPosts = async (
   supabase: SupabaseClient<Database>,
 ): Promise<(Post & { username: string })[]> => {
-  const { data, error } = await supabase
+  const { data: posts, error } = await supabase
     .from('posts')
-    .select('*, user_id(username)')
-    .order('published_at', { ascending: false });
+    .select('*, user_id(username)');
 
   if (error) {
     throw error;
-  } else if (!data) {
+  }
+
+  if (!posts) {
     return [];
   }
 
-  return data.map((post) => {
+  return posts.map((post) => {
     const { username } = post.user_id as { username: string };
     return {
       ...post,
