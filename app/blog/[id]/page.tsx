@@ -28,7 +28,8 @@ export default async function Page({
           <h1 className="text-3xl font-bold lg:text-4xl">{post.title}</h1>
           <PostHTML html={post.short!} />
           <p className="text-gray-400 text-sm pt-2">
-            Writed by <span className="font-semibold">{post.username}</span>
+            Writed by{' '}
+            <span className="font-semibold">{post.user.username}</span>
             {' - '}
             {post.published_at && (
               <time dateTime={post.published_at}>

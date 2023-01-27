@@ -26,7 +26,7 @@ export default async function Page() {
               <PostHTML className="h-32" html={post.short!} />
               <p>
                 Writed by{' '}
-                <span className="text-brand-500">{post.username}</span>
+                <span className="text-brand-500">{post.user.username}</span>
               </p>
               {post.published_at && (
                 <time

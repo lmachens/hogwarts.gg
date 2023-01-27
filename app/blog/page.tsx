@@ -1,3 +1,4 @@
+import { getPosts } from '#/lib/posts';
 import createClient from '#/lib/supabase-server';
 import PostHTML from '#/ui/PostHTML';
 import { IconArrowNarrowRight } from '@tabler/icons';
@@ -7,12 +8,7 @@ import Link from 'next/link';
 export default async function Page() {
   const supabase = createClient();
 
-  const result = await supabase
-    .from('posts')
-    .select('*, user_id(username)')
-    .order('published_at', { ascending: false });
-
-  const posts = result.data ?? [];
+  const posts = await getPosts(supabase);
 
   return (
     <>
@@ -37,7 +33,7 @@ export default async function Page() {
             <div className="flex">
               <p className="text-gray-400 text-sm">
                 Writed by{' '}
-                <span className="font-semibold">{post.user_id!.username}</span>{' '}
+                <span className="font-semibold">{post.user.username}</span>{' '}
                 {' - '}
                 {post.published_at && (
                   <time dateTime={post.published_at}>
