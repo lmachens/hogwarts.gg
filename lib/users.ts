@@ -26,7 +26,9 @@ export const getUser = async (
   }
   let role = 'User';
   if (Array.isArray(user.user_roles)) {
-    role = user.user_roles[0].role;
+    if (user.user_roles[0]) {
+      role = user.user_roles[0].role;
+    }
   } else if (user.user_roles) {
     role = user.user_roles.role;
   }
@@ -36,6 +38,7 @@ export const getUser = async (
     role,
   };
 };
+
 export type User = {
   id: string;
   username: string;
