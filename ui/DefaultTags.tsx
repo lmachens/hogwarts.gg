@@ -21,7 +21,7 @@ export function DefaultTags() {
         type="image/png"
       />
       <link href="/favicon/site.webmanifest" rel="manifest" />
-      <link href="/favicon/favicon.ico" rel="shortcut icon" />
+      <link href="/favicon.ico" rel="shortcut icon" />
     </>
   );
 }

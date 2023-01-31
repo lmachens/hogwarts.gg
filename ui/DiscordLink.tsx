@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import discordLogo from '../public/discord-logo-white.svg';
+import discordLogo from '../public/assets/discord-logo-white.svg';
 
 const DiscordLink = () => {
   return (

@@ -1,18 +1,15 @@
-import createClient from '#/lib/supabase-server';
+import { getPost } from '#/lib/posts';
 import { DefaultTags } from '#/ui/DefaultTags';
 import { notFound } from 'next/navigation';
 
 export default async function Head({
-  params,
+  params: { id },
 }: {
   params: {
     id: string;
   };
 }) {
-  const supabase = createClient();
-
-  const result = await supabase.from('posts').select().eq('id', +params.id);
-  const post = result.data?.[0];
+  const post = await getPost(id);
   if (!post) {
     notFound();
   }

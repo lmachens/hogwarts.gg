@@ -1,12 +1,16 @@
-import { useSession } from '#/app/SupabaseProvider';
+'use client';
+
+import { useMe } from '#/lib/hooks/use-me';
 import supabase from '#/lib/supabase-browser';
 import { cn } from '#/lib/utils';
 import { IconHeartHandshake, IconLogout, IconUser } from '@tabler/icons';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSWRConfig } from 'swr';
 import Avatar from './Avatar';
 import Divider from './Divider';
+import LanguageSelect from './LanguageSelect';
 import Popover from './Popover';
 
 export default function GlobalUser({ onClick }: { onClick: () => void }) {
@@ -14,31 +18,40 @@ export default function GlobalUser({ onClick }: { onClick: () => void }) {
   const isActive = segment === 'login';
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
+  const { data: me } = useMe();
+  const { mutate } = useSWRConfig();
 
-  const { user } = useSession();
+  useEffect(() => {
+    const { data } = supabase.auth.onAuthStateChange(() => {
+      mutate('me');
+    });
+
+    return () => data.subscription.unsubscribe();
+  }, []);
 
   const handleLogout = async () => {
+    close();
     await supabase.auth.signOut();
   };
 
   return (
     <>
-      {user ? (
+      {me ? (
         <Popover
           open={isOpen}
           onOpenChange={setIsOpen}
           trigger={
             <button className="flex items-center gap-2 mx-auto">
-              <Avatar name={user.username} /> {user.username}
+              <Avatar name={me.username} /> {me.username}
             </button>
           }
         >
           <nav className="flex flex-col w-52">
             <UserMenuHeadline icon={<IconUser />}>About Me</UserMenuHeadline>
-            <UserMenuLink onClick={close} href={`/users/${user.id}`}>
+            <UserMenuLink onClick={close} href={`/users/${me.id}`}>
               Profile
             </UserMenuLink>
-            {(user?.role === 'admin' || user?.role === 'moderator') && (
+            {(me?.role === 'admin' || me?.role === 'moderator') && (
               <>
                 <UserMenuHeadline icon={<IconHeartHandshake />}>
                   Moderators
@@ -52,22 +65,27 @@ export default function GlobalUser({ onClick }: { onClick: () => void }) {
             <UserMenuButton onClick={handleLogout} icon={<IconLogout />}>
               Log Out
             </UserMenuButton>
+            <Divider className="my-2" />
+            <LanguageSelect className="m-auto p-2 mb-1" />
           </nav>
         </Popover>
       ) : (
-        <Link
-          href="/sign-in"
-          onClick={onClick}
-          className={cn(
-            'block px-3 py-1 border rounded-md text-center hover:border-gray-300 hover:text-gray-300',
-            {
-              'text-gray-400 border-gray-400': !isActive,
-              'text-white border-white': isActive,
-            },
-          )}
-        >
-          Sign In
-        </Link>
+        <div className="flex gap-3 items-center">
+          <LanguageSelect />
+          <Link
+            href="/sign-in"
+            onClick={onClick}
+            className={cn(
+              'block px-3 py-1 border rounded-md text-center hover:border-gray-300 hover:text-gray-300',
+              {
+                'text-gray-400 border-gray-400': !isActive,
+                'text-white border-white': isActive,
+              },
+            )}
+          >
+            Sign In
+          </Link>
+        </div>
       )}
     </>
   );

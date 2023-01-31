@@ -1,26 +1,18 @@
-import { getPost } from '#/lib/posts';
-import createClient from '#/lib/supabase-server';
-import PostHTML from '#/ui/PostHTML';
+'use client';
+
+import { usePost } from '#/lib/hooks/use-post';
 import { IconArrowNarrowLeft } from '@tabler/icons';
 import { format, formatDistance } from 'date-fns';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import PostHTML from './PostHTML';
 
-export default async function Page({
-  params,
-}: {
-  params: {
-    id: string;
-  };
-}) {
-  const supabase = createClient();
-
-  const post = await getPost(supabase, params.id);
+export default function Post({ id }: { id: string }) {
+  const { data: post } = usePost(id);
 
   if (!post) {
     notFound();
   }
-
   return (
     <>
       <div className="container mx-auto px-6 pt-16 pb-8 text-center">

@@ -5,3 +5,7 @@ export default async function Layout({
 }) {
   return <div className="container mx-auto px-8 py-12">{children}</div>;
 }
+
+export async function generateStaticParams() {
+  return [];
+}

@@ -1,18 +1,12 @@
-import 'server-only';
-
-import createClient from '#/lib/supabase-server';
-import type { User } from '#/lib/users';
-import { getUser } from '#/lib/users';
+import { languages } from '#/lib/i18n/settings';
 import { cn } from '#/lib/utils';
 import '#/styles/globals.css';
 import Footer from '#/ui/Footer';
 import GlobalNav from '#/ui/GlobalNav';
 import PlausibleTracker from '#/ui/PlausibleTracker';
-import SupabaseListener from '#/ui/SupabaseListener';
 import { Work_Sans as WorkSans } from '@next/font/google';
 import localFont from '@next/font/local';
 import type { ReactNode } from 'react';
-import SupabaseProvider from './SupabaseProvider';
 
 const fontSerif = localFont({
   variable: '--font-serif',
@@ -24,21 +18,17 @@ const fontSans = WorkSans({
   subsets: ['latin'],
 });
 
-const RootLayout = async ({ children }: { children: ReactNode }) => {
-  const supabase = createClient();
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  let user: User | null = null;
-  if (session) {
-    user = await getUser(supabase, session.user.id);
-  }
-
+const RootLayout = async ({
+  children,
+  params: { lang },
+}: {
+  children: ReactNode;
+  params: { lang: string };
+}) => {
   return (
     <html
-      lang="en"
+      lang={lang}
+      dir="ltr"
       className={cn(
         '[color-scheme:dark] select-none bg-gray-1100',
         fontSerif.variable,
@@ -49,12 +39,9 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
         <PlausibleTracker />
       </head>
       <body className="relative min-h-screen">
-        <SupabaseListener accessToken={session?.access_token} />
-        <SupabaseProvider session={session} user={user}>
-          <GlobalNav />
-          <div className="pt-14">{children}</div>
-          <Footer />
-        </SupabaseProvider>
+        <GlobalNav />
+        <div className="pt-14">{children}</div>
+        <Footer />
       </body>
     </html>
   );
@@ -62,4 +49,6 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
 
 export default RootLayout;
 
-export const revalidate = 0;
+export async function generateStaticParams() {
+  return languages.map((lang) => ({ lang }));
+}

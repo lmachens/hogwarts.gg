@@ -1,15 +1,13 @@
-import { getPosts } from '#/lib/posts';
-import createClient from '#/lib/supabase-server';
+'use client';
+
+import { usePosts } from '#/lib/hooks/use-posts';
 import PostCreateButton from '#/ui/dashboard/PostCreateButton';
 import PostHTML from '#/ui/PostHTML';
 import { format } from 'date-fns';
 import Link from 'next/link';
 
-export default async function Page() {
-  const supabase = createClient();
-
-  const posts = await getPosts(supabase);
-
+export default function Page() {
+  const { data: posts = [], isLoading } = usePosts();
   return (
     <div className="space-y-2">
       <h1 className="text-xl">Posts</h1>
@@ -39,7 +37,7 @@ export default async function Page() {
             </div>
           </Link>
         ))}
-        {posts.length === 0 && <p>No posts created</p>}
+        {!isLoading && posts.length === 0 && <p>No posts created</p>}
       </div>
     </div>
   );

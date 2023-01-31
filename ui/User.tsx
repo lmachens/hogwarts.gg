@@ -1,21 +1,14 @@
-import createClient from '#/lib/supabase-server';
-import { getUser } from '#/lib/users';
-import Avatar from '#/ui/Avatar';
-import { notFound } from 'next/navigation';
+'use client';
 
-export default async function Page({
-  params,
-}: {
-  params: {
-    id: string;
-  };
-}) {
-  const supabase = createClient();
-  const user = await getUser(supabase, params.id);
+import { useUser } from '#/lib/hooks/use-user';
+import { notFound } from 'next/navigation';
+import Avatar from './Avatar';
+
+export default function User({ id }: { id: string }) {
+  const { data: user } = useUser(id);
   if (!user) {
     notFound();
   }
-
   return (
     <>
       <div className="flex flex-col gap-4 items-center px-6 py-16">

@@ -1,25 +1,16 @@
-import { getPosts } from '#/lib/posts';
-import createClient from '#/lib/supabase-server';
-import PostHTML from '#/ui/PostHTML';
+'use client';
+
+import { usePosts } from '#/lib/hooks/use-posts';
 import { IconArrowNarrowRight } from '@tabler/icons';
 import { format } from 'date-fns';
 import Link from 'next/link';
+import PostHTML from './PostHTML';
 
-export default async function Page() {
-  const supabase = createClient();
-
-  const posts = await getPosts(supabase);
+export default function Posts() {
+  const { data: posts = [] } = usePosts();
 
   return (
     <>
-      <div className="px-6 py-16 border-b border-gray-800">
-        <div className="container mx-auto max-w-lg text-center">
-          <h1 className="text-3xl font-bold lg:text-4xl">Blog</h1>
-          <h2 className="mt-6 text-gray-300">
-            The latest news about Hogwarts Legacy and Hogwarts.gg
-          </h2>
-        </div>
-      </div>
       {posts.map((post) => (
         <div
           key={post.id}
