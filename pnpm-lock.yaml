@@ -40,7 +40,6 @@ specifiers:
   react: 18.2.0
   react-dom: 18.2.0
   react-hook-form: 7.42.1
-  server-only: 0.0.1
   supabase: 1.33.0
   swr: 2.0.3
   tailwind-merge: 1.8.1
@@ -74,7 +73,6 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-hook-form: 7.42.1_react@18.2.0
-  server-only: 0.0.1
   swr: 2.0.3_react@18.2.0
   tailwind-merge: 1.8.1
   zod: 3.20.2
@@ -4827,13 +4825,6 @@ packages:
     dependencies:
       lru-cache: 6.0.0
     dev: true
-
-  /server-only/0.0.1:
-    resolution:
-      {
-        integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==,
-      }
-    dev: false
 
   /shebang-command/2.0.0:
     resolution:

@@ -3,6 +3,23 @@
     "subtitle": "Hogwarts Legacy Map and Tools"
   },
   "blog": {
+    "title": "Blog",
     "subtitle": "The latest news about Hogwarts Legacy and Hogwarts.gg"
+  },
+  "post": {
+    "writtenBy": "Written by",
+    "backToBlog": "Back to Blog"
+  },
+  "globalNav": {
+    "blog": "Blog",
+    "map": "Map",
+    "menu": "Menu",
+    "comingSoon": "(Coming Soon)",
+    "aboutMe": "About Me",
+    "profile": "Profile",
+    "moderators": "Moderators",
+    "posts": "Posts",
+    "logOut": "Log Out",
+    "signIn": "Sign In"
   }
 }

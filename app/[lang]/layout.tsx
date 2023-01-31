@@ -1,4 +1,4 @@
-import { languages } from '#/lib/i18n/settings';
+import { languages, loadDictionary } from '#/lib/i18n/settings';
 import { cn } from '#/lib/utils';
 import '#/styles/globals.css';
 import Footer from '#/ui/Footer';
@@ -25,6 +25,8 @@ const RootLayout = async ({
   children: ReactNode;
   params: { lang: string };
 }) => {
+  const { globalNav: translations } = await loadDictionary(lang);
+
   return (
     <html
       lang={lang}
@@ -39,7 +41,7 @@ const RootLayout = async ({
         <PlausibleTracker />
       </head>
       <body className="relative min-h-screen">
-        <GlobalNav />
+        <GlobalNav translations={translations} />
         <div className="pt-14">{children}</div>
         <Footer />
       </body>

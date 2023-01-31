@@ -1,6 +1,7 @@
 'use client';
 
 import { useMe } from '#/lib/hooks/use-me';
+import type { Translations } from '#/lib/i18n/types';
 import supabase from '#/lib/supabase-browser';
 import { cn } from '#/lib/utils';
 import { IconHeartHandshake, IconLogout, IconUser } from '@tabler/icons';
@@ -13,7 +14,13 @@ import Divider from './Divider';
 import LanguageSelect from './LanguageSelect';
 import Popover from './Popover';
 
-export default function GlobalUser({ onClick }: { onClick: () => void }) {
+export default function GlobalUser({
+  onClick,
+  translations,
+}: {
+  onClick: () => void;
+  translations: Translations;
+}) {
   const segment = useSelectedLayoutSegment();
   const isActive = segment === 'login';
   const [isOpen, setIsOpen] = useState(false);
@@ -47,23 +54,25 @@ export default function GlobalUser({ onClick }: { onClick: () => void }) {
           }
         >
           <nav className="flex flex-col w-52">
-            <UserMenuHeadline icon={<IconUser />}>About Me</UserMenuHeadline>
+            <UserMenuHeadline icon={<IconUser />}>
+              {translations.aboutMe}
+            </UserMenuHeadline>
             <UserMenuLink onClick={close} href={`/users/${me.id}`}>
-              Profile
+              {translations.profile}
             </UserMenuLink>
             {(me?.role === 'admin' || me?.role === 'moderator') && (
               <>
                 <UserMenuHeadline icon={<IconHeartHandshake />}>
-                  Moderators
+                  {translations.moderators}
                 </UserMenuHeadline>
                 <UserMenuLink onClick={close} href="/dashboard/posts">
-                  Posts
+                  {translations.posts}
                 </UserMenuLink>
               </>
             )}
             <Divider className="my-2" />
             <UserMenuButton onClick={handleLogout} icon={<IconLogout />}>
-              Log Out
+              {translations.logOut}
             </UserMenuButton>
             <Divider className="my-2" />
             <LanguageSelect className="m-auto p-2 mb-1" />
@@ -83,7 +92,7 @@ export default function GlobalUser({ onClick }: { onClick: () => void }) {
               },
             )}
           >
-            Sign In
+            {translations.signIn}
           </Link>
         </div>
       )}

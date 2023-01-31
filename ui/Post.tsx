@@ -1,13 +1,20 @@
 'use client';
 
 import { usePost } from '#/lib/hooks/use-post';
+import type { Translations } from '#/lib/i18n/types';
 import { IconArrowNarrowLeft } from '@tabler/icons';
 import { format, formatDistance } from 'date-fns';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import PostHTML from './PostHTML';
 
-export default function Post({ id }: { id: string }) {
+export default function Post({
+  id,
+  translations,
+}: {
+  id: string;
+  translations: Translations;
+}) {
   const { data: post } = usePost(id);
 
   if (!post) {
@@ -20,7 +27,7 @@ export default function Post({ id }: { id: string }) {
           <h1 className="text-3xl font-bold lg:text-4xl">{post.title}</h1>
           <PostHTML html={post.short!} />
           <p className="text-gray-400 text-sm pt-2">
-            Writed by{' '}
+            {translations.writtenBy}{' '}
             <span className="font-semibold">{post.user.username}</span>
             {' - '}
             {post.published_at && (
@@ -39,7 +46,7 @@ export default function Post({ id }: { id: string }) {
       <div className="container mx-auto max-w-4xl px-2 md:px-0 py-8 grid gap-2">
         <PostHTML html={post.body!} />
         <Link href="/blog" className="flex py-4 text-sky-400 hover:underline">
-          <IconArrowNarrowLeft /> Back to Blog
+          <IconArrowNarrowLeft /> {translations.backToBlog}
         </Link>
       </div>
     </>

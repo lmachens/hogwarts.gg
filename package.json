@@ -49,7 +49,6 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "7.42.1",
-    "server-only": "0.0.1",
     "swr": "2.0.3",
     "tailwind-merge": "1.8.1",
     "zod": "3.20.2"

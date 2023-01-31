@@ -1,5 +1,6 @@
 'use client';
 
+import type { Translations } from '#/lib/i18n/types';
 import type { NavItem } from '#/lib/nav-items';
 import { navItems } from '#/lib/nav-items';
 import { cn } from '#/lib/utils';
@@ -11,10 +12,13 @@ import { useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
 import GlobalUser from './GlobalUser';
 
-export default function GlobalNav() {
+export default function GlobalNav({
+  translations,
+}: {
+  translations: Translations;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
-
   return (
     <div className="fixed z-auto top-0 flex w-full border-b border-gray-800 bg-black">
       <LogoNavItem onClick={close} />
@@ -24,7 +28,7 @@ export default function GlobalNav() {
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="font-medium text-gray-100 group-hover:text-gray-400">
-          Menu
+          {translations.menu}
         </div>
         {isOpen ? (
           <IconX className="block w-6 text-gray-400" />
@@ -43,11 +47,16 @@ export default function GlobalNav() {
         )}
       >
         <div className="md:order-last">
-          <GlobalUser onClick={close} />
+          <GlobalUser onClick={close} translations={translations} />
         </div>
         <nav className="flex flex-col space-y-1 md:space-y-0 md:px-0 md:py-0 md:flex-row md:h-14 md:items-center">
           {navItems.map((navItem) => (
-            <GlobalNavItem key={navItem.name} item={navItem} onClick={close} />
+            <GlobalNavItem
+              key={navItem.name}
+              item={navItem}
+              onClick={close}
+              translations={translations}
+            />
           ))}
         </nav>
       </div>
@@ -97,9 +106,11 @@ function LogoNavItem({ onClick }: { onClick: () => void }) {
 function GlobalNavItem({
   item,
   onClick,
+  translations,
 }: {
   item: NavItem;
   onClick: () => void;
+  translations: Translations;
 }) {
   const segment = useSelectedLayoutSegment();
   const isActive = item.slug === segment;
@@ -117,8 +128,8 @@ function GlobalNavItem({
         },
       )}
     >
-      {item.name}
-      {item.disabled && ' (Coming Soon)'}
+      {translations[item.name.toLowerCase()]}
+      {item.disabled && ` ${translations.comingSoon}`}
     </Link>
   );
 }
