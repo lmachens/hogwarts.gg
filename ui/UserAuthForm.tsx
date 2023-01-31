@@ -94,8 +94,8 @@ function AuthForm() {
   const [sentOtp, setSentOtp] = useState('');
 
   const router = useRouter();
-  const pathname = usePathname();
-  const isSignIn = pathname === '/sign-in';
+  const pathname = usePathname()!;
+  const isSignIn = pathname.includes('/sign-in');
 
   async function onSubmitEmail(data: FormData) {
     setIsLoading(true);
