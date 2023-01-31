@@ -7,5 +7,6 @@ export default async function Layout({
 }
 
 export async function generateStaticParams() {
+  // Don't generate static data for /dashboard routes
   return [];
 }
