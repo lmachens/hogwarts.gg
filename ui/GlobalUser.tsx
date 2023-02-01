@@ -60,7 +60,7 @@ export default function GlobalUser({
             <UserMenuLink onClick={close} href={`/users/${me.id}`}>
               {translations.profile}
             </UserMenuLink>
-            {(me?.role === 'admin' || me?.role === 'moderator') && (
+            {['admin', 'moderator'].includes(me?.role) && (
               <>
                 <UserMenuHeadline icon={<IconHeartHandshake />}>
                   {translations.moderators}
