@@ -6,7 +6,6 @@
   .post h1 {
     @apply text-3xl;
   }
-
   .post h2 {
     @apply text-2xl;
   }
@@ -57,5 +56,9 @@
 
   .post iframe {
     @apply sm:w-1/2 w-full;
+  }
+
+  .post a {
+    @apply text-sky-400 hover:underline;
   }
 }
