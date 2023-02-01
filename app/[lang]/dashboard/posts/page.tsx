@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import Link from 'next/link';
 
 export default function Page() {
-  const { data: posts = [], isLoading } = usePosts();
+  const { data: posts = [], isLoading } = usePosts({ draft: true });
   return (
     <div className="space-y-2">
       <h1 className="text-xl">Posts</h1>

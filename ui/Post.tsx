@@ -15,8 +15,11 @@ export default function Post({
   id: string;
   translations: Translations;
 }) {
-  const { data: post } = usePost(id);
+  const { data: post, isLoading } = usePost(id);
 
+  if (isLoading) {
+    return <></>;
+  }
   if (!post) {
     notFound();
   }
