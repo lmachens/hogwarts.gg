@@ -12,6 +12,7 @@ import { IconChevronLeft, IconWhirl } from '@tabler/icons';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { useSWRConfig } from 'swr';
 import type * as z from 'zod';
 import Button from '../Button';
 import ButtonLink from '../ButtonLink';
@@ -50,6 +51,7 @@ export default function PostForm({
   });
   const [isLoading, setIsLoading] = useState(false);
   const language = useLanguage();
+  const { mutate } = useSWRConfig();
 
   async function onSubmit(data: FormData) {
     setIsLoading(true);
@@ -65,6 +67,7 @@ export default function PostForm({
       setError('title', { message: error.message });
     }
     setIsLoading(false);
+    mutate(`posts/${post.id}`);
   }
 
   async function onDelete() {
