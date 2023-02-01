@@ -4,7 +4,7 @@ import { usePosts } from '#/lib/hooks/use-posts';
 import type { Translations } from '#/lib/i18n/types';
 import { IconArrowNarrowRight } from '@tabler/icons';
 import { format } from 'date-fns';
-import Link from 'next/link';
+import AppLink from './AppLink';
 import PostHTML from './PostHTML';
 
 export default function Posts({
@@ -22,9 +22,9 @@ export default function Posts({
           className="hover:bg-gray-900 transition-colors border-b border-gray-800"
         >
           <div className="container mx-auto md:px-0 px-2 max-w-3xl py-8 grid gap-2">
-            <Link href={`/blog/${post.id}`}>
+            <AppLink href={`/blog/${post.id}`}>
               <h3 className="text-2xl font-semibold">{post.title}</h3>
-            </Link>
+            </AppLink>
             {!post.published && <p className="text-sm text-slate-600">Draft</p>}
             <div className="flex">
               <p className="text-gray-400 text-sm">
@@ -39,12 +39,12 @@ export default function Posts({
               </p>
             </div>
             <PostHTML html={post.short!} />
-            <Link
+            <AppLink
               href={`/blog/${post.id}`}
               className="flex text-sky-400 hover:underline"
             >
               {translations.readMore} <IconArrowNarrowRight />
-            </Link>
+            </AppLink>
           </div>
         </div>
       ))}

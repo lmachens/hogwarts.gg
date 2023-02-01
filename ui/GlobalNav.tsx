@@ -7,9 +7,9 @@ import { cn } from '#/lib/utils';
 import IconRound from '#/public/assets/icon-round.png';
 import { IconMenu2, IconX } from '@tabler/icons';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
+import AppLink from './AppLink';
 import GlobalUser from './GlobalUser';
 
 export default function GlobalNav({
@@ -70,7 +70,7 @@ function LogoNavItem({ onClick }: { onClick: () => void }) {
 
   return (
     <div className="flex h-14 items-center py-4 px-4">
-      <Link
+      <AppLink
         href="/"
         className="group flex w-full items-center gap-x-2.5"
         onClick={onClick}
@@ -98,7 +98,7 @@ function LogoNavItem({ onClick }: { onClick: () => void }) {
         >
           Hogwart$.gg
         </h3>
-      </Link>
+      </AppLink>
     </div>
   );
 }
@@ -116,7 +116,7 @@ function GlobalNavItem({
   const isActive = item.slug === segment;
 
   return (
-    <Link
+    <AppLink
       onClick={onClick}
       href={item.disabled ? '/' : `/${item.slug}`}
       className={cn(
@@ -130,6 +130,6 @@ function GlobalNavItem({
     >
       {translations[item.name.toLowerCase()]}
       {item.disabled && ` ${translations.comingSoon}`}
-    </Link>
+    </AppLink>
   );
 }

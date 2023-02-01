@@ -3,10 +3,10 @@
 import type { Translations } from '#/lib/i18n/types';
 import supabase from '#/lib/supabase-browser';
 import type { Provider } from '@supabase/supabase-js';
-import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import AppLink from './AppLink';
 import Button from './Button';
 import Divider from './Divider';
 import Input from './Input';
@@ -176,9 +176,9 @@ function AuthForm({ translations }: { translations: Translations }) {
           (isSignIn ? (
             <>
               {translations.noAccountAssociated}{' '}
-              <Link className="underline" href="/sign-up">
+              <AppLink className="underline" href="/sign-up">
                 {translations.signUpQuestion}
-              </Link>
+              </AppLink>
             </>
           ) : (
             errors.email.message
@@ -192,24 +192,24 @@ function AuthForm({ translations }: { translations: Translations }) {
       {!isSignIn && (
         <p className="text-sm text-gray-400">
           {translations.privacyPolicyMessage}{' '}
-          <a
+          <AppLink
             className="text-white underline"
             href="/privacy-policy"
             target="_blank"
           >
             {translations.privacyPolicy}
-          </a>
+          </AppLink>
           .
         </p>
       )}
       <p className="text-sm text-gray-400">
         {isSignIn ? translations.withoutAccount : translations.withAccount}{' '}
-        <Link
+        <AppLink
           className="text-white underline"
           href={isSignIn ? '/sign-up' : '/sign-in'}
         >
           {isSignIn ? translations.signUpNow : translations.signInNow}
-        </Link>
+        </AppLink>
       </p>
     </form>
   );

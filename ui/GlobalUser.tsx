@@ -5,10 +5,10 @@ import type { Translations } from '#/lib/i18n/types';
 import supabase from '#/lib/supabase-browser';
 import { cn } from '#/lib/utils';
 import { IconHeartHandshake, IconLogout, IconUser } from '@tabler/icons';
-import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useSWRConfig } from 'swr';
+import AppLink from './AppLink';
 import Avatar from './Avatar';
 import Divider from './Divider';
 import LanguageSelect from './LanguageSelect';
@@ -81,7 +81,7 @@ export default function GlobalUser({
       ) : (
         <div className="flex gap-3 items-center">
           <LanguageSelect />
-          <Link
+          <AppLink
             href="/sign-in"
             onClick={onClick}
             className={cn(
@@ -93,7 +93,7 @@ export default function GlobalUser({
             )}
           >
             {translations.signIn}
-          </Link>
+          </AppLink>
         </div>
       )}
     </>
@@ -127,14 +127,14 @@ function UserMenuLink({
   icon?: React.ReactNode;
 }) {
   return (
-    <Link
+    <AppLink
       onClick={onClick}
       href={href}
       className="flex items-center px-3 py-2 font-medium hover:bg-gray-800"
     >
       <span className="w-8">{icon}</span>
       {children}
-    </Link>
+    </AppLink>
   );
 }
 

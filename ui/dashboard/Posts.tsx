@@ -3,7 +3,7 @@
 import { usePosts } from '#/lib/hooks/use-posts';
 import type { Translations } from '#/lib/i18n/types';
 import { format } from 'date-fns';
-import Link from 'next/link';
+import AppLink from '../AppLink';
 import PostHTML from '../PostHTML';
 import PostCreateButton from './PostCreateButton';
 
@@ -20,7 +20,7 @@ export default function Posts({
       <PostCreateButton translations={translations} />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {posts.map((post) => (
-          <Link
+          <AppLink
             key={post.id}
             href={`/dashboard/posts/${post.id}`}
             className="block py-4"
@@ -41,7 +41,7 @@ export default function Posts({
                 </time>
               )}
             </div>
-          </Link>
+          </AppLink>
         ))}
         {!isLoading && posts.length === 0 && <p>{translations.noPosts}</p>}
       </div>

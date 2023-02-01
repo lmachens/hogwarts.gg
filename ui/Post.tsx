@@ -4,8 +4,8 @@ import { usePost } from '#/lib/hooks/use-post';
 import type { Translations } from '#/lib/i18n/types';
 import { IconArrowNarrowLeft } from '@tabler/icons';
 import { format, formatDistance } from 'date-fns';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import AppLink from './AppLink';
 import PostHTML from './PostHTML';
 
 export default function Post({
@@ -48,9 +48,12 @@ export default function Post({
 
       <div className="container mx-auto max-w-4xl px-2 md:px-0 py-8 grid gap-2">
         <PostHTML html={post.body!} />
-        <Link href="/blog" className="flex py-4 text-sky-400 hover:underline">
+        <AppLink
+          href="/blog"
+          className="flex py-4 text-sky-400 hover:underline"
+        >
           <IconArrowNarrowLeft /> {translations.backToBlog}
-        </Link>
+        </AppLink>
       </div>
     </>
   );
