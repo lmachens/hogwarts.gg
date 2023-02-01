@@ -25,7 +25,7 @@ export default function GlobalUser({
   const isActive = segment === 'login';
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
-  const { data: me } = useMe();
+  const { data: me, isLoading } = useMe();
   const { mutate } = useSWRConfig();
 
   useEffect(() => {
@@ -40,6 +40,10 @@ export default function GlobalUser({
     close();
     await supabase.auth.signOut();
   };
+
+  if (isLoading) {
+    return <></>;
+  }
 
   return (
     <>

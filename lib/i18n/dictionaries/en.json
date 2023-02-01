@@ -35,11 +35,13 @@
     "back": "Back",
     "published": "Published",
     "draft": "Draft",
-    "delete": "Delete",
+    "delete": "Delete this post",
     "save": "Save",
+    "slug": "Slug",
     "title": "Title",
     "short": "Short",
-    "full": "Full"
+    "full": "Full",
+    "dangerZone": "Danger Zone"
   },
   "posts": {
     "writtenBy": "Written by",

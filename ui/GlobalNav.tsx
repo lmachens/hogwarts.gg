@@ -6,11 +6,12 @@ import { navItems } from '#/lib/nav-items';
 import { cn } from '#/lib/utils';
 import IconRound from '#/public/assets/icon-round.png';
 import { IconMenu2, IconX } from '@tabler/icons';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { useState } from 'react';
 import AppLink from './AppLink';
-import GlobalUser from './GlobalUser';
+const GlobalUser = dynamic(() => import('./GlobalUser'), { ssr: false });
 
 export default function GlobalNav({
   translations,

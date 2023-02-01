@@ -6,11 +6,11 @@ import Label from './Label';
 const Select = forwardRef<
   HTMLSelectElement,
   React.SelectHTMLAttributes<HTMLSelectElement> & {
-    label: string;
+    label?: string;
     error?: React.ReactNode;
     description?: string;
     options: { value: string; title: string }[];
-  } & ReturnType<UseFormRegister<any>>
+  } & Partial<ReturnType<UseFormRegister<any>>>
 >(({ options, className, label, description, error, ...props }, ref) => (
   <>
     <Label
