@@ -1,11 +1,16 @@
 'use client';
 
+import type { Translations } from '#/lib/i18n/types';
 import supabase from '#/lib/supabase-browser';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Button from '../Button';
 
-export default function PostCreateButton() {
+export default function PostCreateButton({
+  translations,
+}: {
+  translations: Translations;
+}) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -20,7 +25,7 @@ export default function PostCreateButton() {
 
   return (
     <Button onClick={handleClick} disabled={isLoading}>
-      Create
+      {translations.create}
     </Button>
   );
 }

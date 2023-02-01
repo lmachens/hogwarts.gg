@@ -6,6 +6,24 @@
     "title": "Blog",
     "subtitle": "The latest news about Hogwarts Legacy and Hogwarts.gg"
   },
+  "dashboard": {
+    "posts": "Posts",
+    "writtenBy": "Written by",
+    "noPosts": "No posts created",
+    "create": "Create",
+    "back": "Back",
+    "published": "Published",
+    "draft": "Draft",
+    "delete": "Delete",
+    "save": "Save",
+    "title": "Title",
+    "short": "Short",
+    "full": "Full"
+  },
+  "posts": {
+    "writtenBy": "Written by",
+    "readMore": "Read More"
+  },
   "post": {
     "writtenBy": "Written by",
     "backToBlog": "Back to Blog"

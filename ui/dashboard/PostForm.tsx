@@ -1,6 +1,7 @@
 'use client';
 
 import type { Database } from '#/lib/database.types';
+import type { Translations } from '#/lib/i18n/types';
 import supabase from '#/lib/supabase-browser';
 import { cn } from '#/lib/utils';
 import { postPatchSchema } from '#/lib/validations/post';
@@ -19,8 +20,10 @@ type FormData = z.infer<typeof postPatchSchema>;
 
 export default function PostForm({
   post,
+  translations,
 }: {
   post: Database['public']['Tables']['posts']['Row'];
+  translations: Translations;
 }) {
   const router = useRouter();
   const {
@@ -73,7 +76,7 @@ export default function PostForm({
       <div className="flex w-full items-center justify-between">
         <ButtonLink href="/dashboard/posts">
           <IconChevronLeft />
-          Back
+          {translations.back}
         </ButtonLink>
         <div className="flex items-center space-x-2">
           <Controller
@@ -91,25 +94,25 @@ export default function PostForm({
                   {...field}
                   checked={value}
                 />
-                {value ? 'Published' : 'Draft'}
+                {value ? translations.published : translations.draft}
               </label>
             )}
           />
           <Button type="button" onClick={onDelete} kind="danger">
-            Delete
+            {translations.delete}
           </Button>
           <Button type="submit" kind="brand" disabled={isLoading}>
             {isLoading && <IconWhirl className="animate-spin" />}
-            Save
+            {translations.save}
           </Button>
         </div>
       </div>
       {errors.title && (
         <p className="text-xs	text-orange-500">{errors.title.message}</p>
       )}
-      <Input label="Title" autoFocus {...register('title')} />
+      <Input label={translations.title} autoFocus {...register('title')} />
       <section>
-        <label>Short</label>
+        <label>{translations.short}</label>
         <Controller
           name="short"
           control={control}
@@ -117,7 +120,7 @@ export default function PostForm({
         />
       </section>
       <section>
-        <label>Full</label>
+        <label>{translations.full}</label>
         <Controller
           name="body"
           control={control}

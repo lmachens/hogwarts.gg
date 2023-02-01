@@ -1,12 +1,17 @@
 'use client';
 
 import { usePosts } from '#/lib/hooks/use-posts';
+import type { Translations } from '#/lib/i18n/types';
 import { IconArrowNarrowRight } from '@tabler/icons';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import PostHTML from './PostHTML';
 
-export default function Posts() {
+export default function Posts({
+  translations,
+}: {
+  translations: Translations;
+}) {
   const { data: posts = [] } = usePosts();
 
   return (
@@ -23,7 +28,7 @@ export default function Posts() {
             {!post.published && <p className="text-sm text-slate-600">Draft</p>}
             <div className="flex">
               <p className="text-gray-400 text-sm">
-                Writed by{' '}
+                {translations.writtenBy}{' '}
                 <span className="font-semibold">{post.user.username}</span>{' '}
                 {' - '}
                 {post.published_at && (
@@ -38,7 +43,7 @@ export default function Posts() {
               href={`/blog/${post.id}`}
               className="flex text-sky-400 hover:underline"
             >
-              Read More <IconArrowNarrowRight />
+              {translations.readMore} <IconArrowNarrowRight />
             </Link>
           </div>
         </div>

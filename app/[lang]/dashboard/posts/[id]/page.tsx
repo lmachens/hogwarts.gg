@@ -1,23 +1,15 @@
-'use client';
+import { loadDictionary } from '#/lib/i18n/settings';
+import Post from '#/ui/dashboard/Post';
 
-import { usePost } from '#/lib/hooks/use-post';
-import PostForm from '#/ui/dashboard/PostForm';
-import { notFound } from 'next/navigation';
-
-export default function Page({
-  params: { id },
+export default async function Page({
+  params: { id, lang },
 }: {
   params: {
     id: string;
+    lang: string;
   };
 }) {
-  const { data: post, isLoading } = usePost(id);
-  if (isLoading) {
-    return <></>;
-  }
-  if (!post) {
-    notFound();
-  }
+  const { dashboard: translations } = await loadDictionary(lang);
 
-  return <PostForm post={post} />;
+  return <Post id={id} translations={translations} />;
 }
