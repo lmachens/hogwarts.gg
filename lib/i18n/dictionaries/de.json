@@ -30,7 +30,7 @@
   "dashboard": {
     "posts": "Artikel",
     "writtenBy": "Written by",
-    "noPosts": "No posts created",
+    "noPosts": "Keine Artikel gefunden",
     "create": "Erstellen",
     "back": "Zurück",
     "published": "Veröffentlicht",
