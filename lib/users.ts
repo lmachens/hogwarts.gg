@@ -1,11 +1,8 @@
-import type { SupabaseClient } from '@supabase/supabase-js';
 import { ok } from 'assert';
 import type { Database } from './database.types';
+import supabase from './supabase-browser';
 
-export const getUser = async (
-  supabase: SupabaseClient<Database>,
-  userId: string,
-): Promise<User | null> => {
+export const getUser = async (userId: string): Promise<User | null> => {
   const { data: user, error } = await supabase
     .from('users')
     .select(
@@ -37,8 +34,34 @@ export const getUser = async (
   };
 };
 
-export type User = {
-  id: string;
-  username: string;
+export const getUsers = async (): Promise<User[]> => {
+  const { data: users, error } = await supabase.from('users').select(
+    `
+        id,
+        username, 
+        user_role:user_roles (
+          role
+        )
+      `,
+  );
+
+  if (error) {
+    throw error;
+  }
+
+  if (!users) {
+    return [];
+  }
+  return users.map((user) => {
+    ok(!Array.isArray(user.user_role));
+    const role = user.user_role ? user.user_role.role : 'User';
+    return {
+      ...user,
+      role,
+    };
+  });
+};
+
+export type User = Database['public']['Tables']['users']['Row'] & {
   role: string;
 };

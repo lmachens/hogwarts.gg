@@ -1,16 +1,17 @@
-import type { SupabaseClient } from '@supabase/supabase-js';
+import supabase from '#/lib/supabase-browser';
 import { ok } from 'assert';
 import type { Database } from './database.types';
 import type { User } from './users';
 
-export const getPost = async (
-  supabase: SupabaseClient<Database>,
-  postId: string,
-): Promise<Post | null> => {
+export const getPost = async (postId: string): Promise<Post | null> => {
+  const id = +postId;
+  if (Number.isNaN(id)) {
+    return null;
+  }
   const { data: post, error } = await supabase
     .from('posts')
     .select('*, user:users(username)')
-    .eq('id', postId)
+    .eq('id', id)
     .maybeSingle();
 
   if (error) {
@@ -32,9 +33,7 @@ export const getPost = async (
   };
 };
 
-export const getPosts = async (
-  supabase: SupabaseClient<Database>,
-): Promise<Post[]> => {
+export const getPosts = async (): Promise<Post[]> => {
   const { data: posts, error } = await supabase
     .from('posts')
     .select('*, user:users(username)')
@@ -61,14 +60,6 @@ export const getPosts = async (
   });
 };
 
-export type Post = {
-  id: number;
-  user_id: string;
-  title: string | null;
-  short: string | null;
-  body: string | null;
-  image: string | null;
-  published: boolean | null;
-  published_at: string | null;
+export type Post = Database['public']['Tables']['posts']['Row'] & {
   user: Pick<User, 'username'>;
 };
