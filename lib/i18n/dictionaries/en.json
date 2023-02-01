@@ -2,6 +2,27 @@
   "home": {
     "subtitle": "Hogwarts Legacy Map and Tools"
   },
+  "auth": {
+    "signIn": "Sign in to your account",
+    "signUp": "Create a new account",
+    "discord": "Continue with Discord",
+    "gitHub": "Continue with GitHub",
+    "or": "or",
+    "awaitingConfirmation": "Awaiting Confirmation",
+    "sentEmail": "We just sent an email to",
+    "followLink": "Follow the link or enter the code:",
+    "submit": "Submit",
+    "email": "Email",
+    "noAccountAssociated": "There is no account associated with this email address.",
+    "signUpQuestion": "Sign up?",
+    "continueWithEmail": "Continue with Email",
+    "privacyPolicyMessage": "By clicking continue, you agree to the",
+    "privacyPolicy": "Privacy Policy",
+    "withoutAccount": "Don't have an account?",
+    "withAccount": "Have an account?",
+    "signInNow": "Sign In Now",
+    "signUpNow": "Sign Up Now"
+  },
   "blog": {
     "title": "Blog",
     "subtitle": "The latest news about Hogwarts Legacy and Hogwarts.gg"
