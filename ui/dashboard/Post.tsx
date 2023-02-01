@@ -13,7 +13,7 @@ export default function Post({
   translations: Translations;
 }) {
   const { data: post, isLoading } = usePost(id);
-  if (isLoading) {
+  if (!post && isLoading) {
     return <></>;
   }
 

@@ -17,7 +17,7 @@ export default function Post({
 }) {
   const { data: post, isLoading } = usePost(id);
 
-  if (isLoading) {
+  if (!post && isLoading) {
     return <></>;
   }
   if (!post) {

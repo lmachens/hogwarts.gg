@@ -4,10 +4,14 @@ import type { Database } from './database.types';
 import type { User } from './users';
 
 export const getPost = async (postId: string): Promise<Post | null> => {
+  const id = +postId;
+  if (Number.isNaN(id)) {
+    return null;
+  }
   const { data: post, error } = await supabase
     .from('posts')
     .select('*, user:users(username)')
-    .eq('id', postId)
+    .eq('id', id)
     .maybeSingle();
 
   if (error) {
