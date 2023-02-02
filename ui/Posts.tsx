@@ -1,5 +1,6 @@
 'use client';
 
+import useLanguage from '#/lib/hooks/use-language';
 import { usePosts } from '#/lib/hooks/use-posts';
 import type { Translations } from '#/lib/i18n/types';
 import { IconArrowNarrowRight } from '@tabler/icons';
@@ -12,7 +13,8 @@ export default function Posts({
 }: {
   translations: Translations;
 }) {
-  const { data: posts = [] } = usePosts();
+  const language = useLanguage();
+  const { data: posts = [] } = usePosts({ language });
 
   return (
     <>
@@ -40,7 +42,7 @@ export default function Posts({
             </div>
             <PostHTML html={post.short!} />
             <AppLink
-              href={`/blog/${post.id}`}
+              href={`/blog/${post.slug}`}
               className="flex text-sky-400 hover:underline"
             >
               {translations.readMore} <IconArrowNarrowRight />

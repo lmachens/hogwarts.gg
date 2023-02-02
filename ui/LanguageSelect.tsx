@@ -1,18 +1,11 @@
 import useLanguage from '#/lib/hooks/use-language';
-import { languages } from '#/lib/i18n/settings';
+import { labels, languages } from '#/lib/i18n/settings';
 import { cn } from '#/lib/utils';
 import { IconLanguage } from '@tabler/icons';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import Popover from './Popover';
-
-const labels: {
-  [language: string]: string;
-} = {
-  en: 'English',
-  de: 'Deutsch',
-};
 
 export default function LanguageSelect({ className }: { className?: string }) {
   const language = useLanguage();

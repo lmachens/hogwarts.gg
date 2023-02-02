@@ -8,7 +8,7 @@ export default async function Page({
 }: {
   params: { lang: string };
 }) {
-  const posts = await getPosts();
+  const posts = await getPosts({ language: lang });
   const { blog: blogTranslations, posts: postTranslations } =
     await loadDictionary(lang);
 
@@ -22,7 +22,7 @@ export default async function Page({
           <h2 className="mt-6 text-gray-300">{blogTranslations.subtitle}</h2>
         </div>
       </div>
-      <SWRFallback fallback={{ posts }}>
+      <SWRFallback fallback={{ [`posts/${lang}`]: posts }}>
         <Posts translations={postTranslations} />
       </SWRFallback>
     </>

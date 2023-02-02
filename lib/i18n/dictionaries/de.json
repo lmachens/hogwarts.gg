@@ -30,16 +30,18 @@
   "dashboard": {
     "posts": "Artikel",
     "writtenBy": "Written by",
-    "noPosts": "No posts created",
+    "noPosts": "Keine Artikel gefunden",
     "create": "Erstellen",
     "back": "Zurück",
     "published": "Veröffentlicht",
     "draft": "Entwurf",
-    "delete": "Löschen",
+    "delete": "Lösche diesen Beitrag",
     "save": "Speichern",
+    "slug": "Slug",
     "title": "Titel",
     "short": "Teaser",
-    "full": "Text"
+    "full": "Text",
+    "dangerZone": "Gefahrenzone"
   },
   "posts": {
     "writtenBy": "Geschrieben von",

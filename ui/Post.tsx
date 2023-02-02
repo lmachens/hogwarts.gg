@@ -1,28 +1,38 @@
 'use client';
 
-import { usePost } from '#/lib/hooks/use-post';
+import useLanguage from '#/lib/hooks/use-language';
+import { usePostBySlug } from '#/lib/hooks/use-post';
 import type { Translations } from '#/lib/i18n/types';
 import { IconArrowNarrowLeft } from '@tabler/icons';
 import { format, formatDistance } from 'date-fns';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import AppLink from './AppLink';
 import PostHTML from './PostHTML';
 
 export default function Post({
-  id,
+  slug,
   translations,
 }: {
-  id: string;
+  slug: string;
   translations: Translations;
 }) {
-  const { data: post, isLoading } = usePost(id);
-
+  const language = useLanguage();
+  const { data: post, isLoading } = usePostBySlug(slug);
   if (!post && isLoading) {
     return <></>;
   }
   if (!post) {
     notFound();
   }
+  if (post.language !== language) {
+    const correctPost = post.posts.find((post) => post.language === language);
+    if (correctPost?.slug) {
+      redirect(`/${language}/blog/${correctPost.slug}`);
+    } else {
+      notFound();
+    }
+  }
+
   return (
     <>
       <div className="container mx-auto px-6 pt-16 pb-8 text-center">
