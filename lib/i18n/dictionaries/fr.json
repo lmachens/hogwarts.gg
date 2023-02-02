@@ -37,9 +37,11 @@
     "draft": "Brouillon",
     "delete": "Supprimer",
     "save": "Enregistrer",
+    "slug": "Slug",
     "title": "Titre",
     "short": "Courte description",
-    "full": "Contenu complet"
+    "full": "Contenu complet",
+    "dangerZone": "Zone de danger"
   },
   "posts": {
     "writtenBy": "Rédigé par",
