@@ -8,7 +8,7 @@ export default async function Page({
 }: {
   params: { lang: string };
 }) {
-  const posts = await getPosts({ language: lang });
+  const posts = await getPosts({ language: lang, published: true });
   const { blog: blogTranslations, posts: postTranslations } =
     await loadDictionary(lang);
 

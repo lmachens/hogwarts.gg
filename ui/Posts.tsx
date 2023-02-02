@@ -2,6 +2,7 @@
 
 import useLanguage from '#/lib/hooks/use-language';
 import { usePosts } from '#/lib/hooks/use-posts';
+import { labels } from '#/lib/i18n/settings';
 import type { Translations } from '#/lib/i18n/types';
 import { IconArrowNarrowRight } from '@tabler/icons';
 import { format } from 'date-fns';
@@ -14,7 +15,7 @@ export default function Posts({
   translations: Translations;
 }) {
   const language = useLanguage();
-  const { data: posts = [] } = usePosts({ language });
+  const { data: posts = [] } = usePosts({ language, published: true });
 
   return (
     <>
@@ -28,8 +29,9 @@ export default function Posts({
               <h3 className="text-2xl font-semibold">{post.title}</h3>
             </AppLink>
             {!post.published && <p className="text-sm text-slate-600">Draft</p>}
-            <div className="flex">
-              <p className="text-gray-400 text-sm">
+            <div className="flex gap-2 text-gray-400 text-sm">
+              <p>{labels[post.language]}</p>|
+              <p>
                 {translations.writtenBy}{' '}
                 <span className="font-semibold">{post.user.username}</span>{' '}
                 {' - '}
