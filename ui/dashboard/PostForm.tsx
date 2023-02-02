@@ -79,11 +79,15 @@ export default function PostForm({
     }
     clearErrors();
     if (post.group_id) {
-      await supabase.from('posts').delete().eq('id', post.group_id);
-      await supabase.from('posts').delete().eq('group_id', post.group_id);
+      await supabase
+        .from('posts')
+        .delete()
+        .match({ id: post.group_id, group_id: post.group_id });
     } else {
-      await supabase.from('posts').delete().eq('id', post.id);
-      await supabase.from('posts').delete().eq('group_id', post.id);
+      await supabase
+        .from('posts')
+        .delete()
+        .match({ id: post.id, group_id: post.id });
     }
     router.push(`/${language}/dashboard/posts`);
   }
