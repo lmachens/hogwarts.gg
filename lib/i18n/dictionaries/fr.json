@@ -1,0 +1,64 @@
+{
+  "home": {
+    "subtitle": "Hogwarts Legacy Map & Tools"
+  },
+  "auth": {
+    "signIn": "Se connecter à votre compte",
+    "signUp": "Créer un nouveau compte",
+    "discord": "Continuer avec Discord",
+    "gitHub": "Continuer avec GitHub",
+    "or": "ou",
+    "awaitingConfirmation": "En attente de confirmation",
+    "sentEmail": "Nous venons d'envoyer un e-mail à",
+    "followLink": "Suivez le lien ou saisissez le code:",
+    "submit": "Envoyer",
+    "email": "E-mail",
+    "noAccountAssociated": "Il n'y a pas de compte associé à cette adresse e-mail.",
+    "signUpQuestion": "S'inscrire?",
+    "continueWithEmail": "Continuer avec l'e-mail",
+    "privacyPolicyMessage": "En cliquant sur continuer, vous acceptez les",
+    "privacyPolicy": "Politique de confidentialité",
+    "withoutAccount": "Vous n'avez pas de compte?",
+    "withAccount": "Vous avez un compte?",
+    "signInNow": "Se connecter maintenant",
+    "signUpNow": "S'inscrire maintenant"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Les dernières nouvelles concernant Hogwarts Legacy et Hogwarts.gg"
+  },
+  "dashboard": {
+    "posts": "Postes",
+    "writtenBy": "Rédigé par",
+    "noPosts": "Aucun poste créé",
+    "create": "Créer",
+    "back": "Retour",
+    "published": "Publié",
+    "draft": "Brouillon",
+    "delete": "Supprimer",
+    "save": "Enregistrer",
+    "title": "Titre",
+    "short": "Courte description",
+    "full": "Contenu complet"
+  },
+  "posts": {
+    "writtenBy": "Rédigé par",
+    "readMore": "En savoir plus"
+  },
+  "post": {
+    "writtenBy": "Rédigé par",
+    "backToBlog": "Retour au Blog"
+  },
+  "globalNav": {
+    "blog": "Blog",
+    "map": "Map",
+    "menu": "Menu",
+    "comingSoon": "(Prochainement)",
+    "aboutMe": "A propos",
+    "profile": "Profil",
+    "moderators": "Modérateurs",
+    "posts": "Postes",
+    "logOut": "Se déconnecter",
+    "signIn": "Se connecter"
+  }
+}
