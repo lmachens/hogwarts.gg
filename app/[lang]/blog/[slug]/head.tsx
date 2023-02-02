@@ -1,6 +1,5 @@
 import { getPostBySlug } from '#/lib/posts';
 import { DefaultTags } from '#/ui/DefaultTags';
-import { notFound } from 'next/navigation';
 
 export default async function Head({
   params: { slug },
@@ -11,7 +10,7 @@ export default async function Head({
 }) {
   const post = await getPostBySlug(slug);
   if (!post) {
-    notFound();
+    return <DefaultTags />;
   }
 
   return (
