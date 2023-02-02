@@ -21,9 +21,10 @@ module.exports = {
         fadeOut: 'fadeOut 100ms ease-in',
       },
       colors: {
+        white: '#faebd7',
         gray: colors.zinc,
-        'gray-1000': 'rgb(17,17,19)',
-        'gray-1100': 'rgb(10,10,11)',
+        'gray-1000': '#101010',
+        'gray-1100': '#0e1116',
         brand: {
           50: '#E3FAFC',
           100: '#C5F6FA',
