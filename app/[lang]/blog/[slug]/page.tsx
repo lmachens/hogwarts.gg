@@ -14,16 +14,16 @@ export default async function Page({
 }) {
   const { post: translations } = await loadDictionary(lang);
 
-  const post = await getPostBySlug(slug);
+  const post = await getPostBySlug(slug, { published: true });
   if (!post) {
     notFound();
   }
   if (post.language !== lang) {
-    const correctPost = post.posts.find((post) => post.language === lang);
+    const correctPost = post.posts.find(
+      (post) => post.language === lang && post.published,
+    );
     if (correctPost?.slug) {
       redirect(`/${lang}/blog/${correctPost.slug}`);
-    } else {
-      notFound();
     }
   }
 
