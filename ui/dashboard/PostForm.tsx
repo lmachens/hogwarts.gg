@@ -82,12 +82,12 @@ export default function PostForm({
       await supabase
         .from('posts')
         .delete()
-        .match({ id: post.group_id, group_id: post.group_id });
+        .or(`id.eq.${post.group_id},group_id.eq.${post.group_id}`);
     } else {
       await supabase
         .from('posts')
         .delete()
-        .match({ id: post.id, group_id: post.id });
+        .or(`id.eq.${post.id},group_id.eq.${post.id}`);
     }
     router.push(`/${language}/dashboard/posts`);
   }

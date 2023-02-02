@@ -64,7 +64,7 @@ export interface Database {
           id: number;
           image: string | null;
           language: string;
-          published: boolean | null;
+          published: boolean;
           published_at: string | null;
           short: string | null;
           slug: string | null;
@@ -77,7 +77,7 @@ export interface Database {
           id?: number;
           image?: string | null;
           language?: string;
-          published?: boolean | null;
+          published?: boolean;
           published_at?: string | null;
           short?: string | null;
           slug?: string | null;
@@ -90,7 +90,7 @@ export interface Database {
           id?: number;
           image?: string | null;
           language?: string;
-          published?: boolean | null;
+          published?: boolean;
           published_at?: string | null;
           short?: string | null;
           slug?: string | null;

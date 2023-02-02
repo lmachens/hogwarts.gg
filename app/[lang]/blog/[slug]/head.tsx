@@ -8,7 +8,7 @@ export default async function Head({
     slug: string;
   };
 }) {
-  const post = await getPostBySlug(slug);
+  const post = await getPostBySlug(slug, { published: true });
   if (!post) {
     return <DefaultTags />;
   }
