@@ -41,9 +41,9 @@ const RootLayout = async ({
         <PlausibleTracker />
       </head>
       <body className="relative min-h-screen">
-        <GlobalNav translations={translations} />
         <div className="pt-14">{children}</div>
         <Footer />
+        <GlobalNav translations={translations} />
       </body>
     </html>
   );
