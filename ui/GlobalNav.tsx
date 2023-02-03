@@ -74,7 +74,10 @@ function LogoNavItem({ onClick }: { onClick: () => void }) {
         onClick={onClick}
       >
         <Image src={Icon} alt="Hogwarts.gg" height={42} />
-        <h3 className="font-serif tracking-wide pt-1 text-brand">
+        <h3
+          className="font-serif tracking-wide pt-1 text-brand"
+          aria-label="Hogwarts.gg"
+        >
           Hogwart$.gg
         </h3>
       </AppLink>
