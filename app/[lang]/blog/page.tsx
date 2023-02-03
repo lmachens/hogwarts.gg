@@ -19,7 +19,7 @@ export default async function Page({
     <>
       <div className="relative px-6border-b border-gray-800 bg-[url('/assets/bg.png')] bg-cover bg-top">
         <div className="container mx-auto max-w-lg text-center">
-          <h1 className="relative font-serif text-3xl font-bold lg:text-4xl">
+          <h1 className="relative font-serif text-3xl font-bold lg:text-4xl text-brand">
             <Image src={LogoTemplate} alt="" />
             <span className="absolute left-0 right-0" style={{ bottom: 68 }}>
               {blogTranslations.title}

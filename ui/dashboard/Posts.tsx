@@ -33,7 +33,7 @@ export default function Posts({
                 <p>{post.id}</p>|<p>{labels[post.language]}</p>|
                 <p>
                   {translations.writtenBy}{' '}
-                  <span className="text-brand-500">{post.user.username}</span>
+                  <span className="text-blue-500">{post.user.username}</span>
                 </p>
               </div>
               <div className="flex gap-2 text-gray-400 text-sm">

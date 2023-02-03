@@ -4,7 +4,7 @@ import type { Translations } from '#/lib/i18n/types';
 import type { NavItem } from '#/lib/nav-items';
 import { navItems } from '#/lib/nav-items';
 import { cn } from '#/lib/utils';
-import IconRound from '#/public/assets/icon-round.png';
+import Icon from '#/public/assets/icon.png';
 import { IconMenu2, IconX } from '@tabler/icons';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
@@ -66,37 +66,15 @@ export default function GlobalNav({
 }
 
 function LogoNavItem({ onClick }: { onClick: () => void }) {
-  const segment = useSelectedLayoutSegment();
-  const isActive = segment === null;
-
   return (
     <div className="flex h-14 items-center py-4 px-4">
       <AppLink
         href="/"
-        className="group flex w-full items-center gap-x-2.5"
+        className="flex w-full items-center gap-x-2"
         onClick={onClick}
       >
-        <div
-          className={cn(
-            'h-7 w-7 rounded-full border  group-hover:border-white/70',
-            {
-              'border-white/30 group-hover:border-white/50': !isActive,
-              'border-white': isActive,
-            },
-          )}
-        >
-          <Image src={IconRound} alt="Hogwarts.gg" />
-        </div>
-
-        <h3
-          className={cn(
-            'font-serif tracking-wide group-hover:text-gray-300 pt-1',
-            {
-              'text-gray-400 group-hover:text-gray-50': !isActive,
-              'text-white': isActive,
-            },
-          )}
-        >
+        <Image src={Icon} alt="Hogwarts.gg" height={42} />
+        <h3 className="font-serif tracking-wide pt-1 text-brand">
           Hogwart$.gg
         </h3>
       </AppLink>
