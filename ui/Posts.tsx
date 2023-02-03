@@ -26,9 +26,7 @@ export default function Posts({
         >
           <div className="container mx-auto md:px-0 px-2 max-w-3xl py-8 grid gap-2">
             <AppLink href={`/blog/${post.slug}`}>
-              <h3 className="text-2xl font-semibold text-brand">
-                {post.title}
-              </h3>
+              <h3 className="text-2xl font-semibold ">{post.title}</h3>
             </AppLink>
             {!post.published && <p className="text-sm text-slate-600">Draft</p>}
             <div className="flex gap-2 text-gray-400 text-sm">
@@ -47,7 +45,7 @@ export default function Posts({
             <PostHTML html={post.short!} />
             <AppLink
               href={`/blog/${post.slug}`}
-              className="flex text-sky-400 hover:underline"
+              className="flex text-brand hover:underline"
             >
               {translations.readMore} <IconArrowNarrowRight />
             </AppLink>

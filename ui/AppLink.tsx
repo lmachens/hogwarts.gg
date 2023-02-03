@@ -8,7 +8,7 @@ const AppLink = forwardRef<HTMLAnchorElement, Parameters<typeof Link>[0]>(
     const language = useLanguage();
     const href = `/${language}${props.href}`;
     if (props.target === '_blank') {
-      return <a ref={ref} {...props} href={href} />;
+      return <a ref={ref} {...props} href={props.href.toString()} />;
     }
     return <Link ref={ref} {...props} href={href} />;
   },

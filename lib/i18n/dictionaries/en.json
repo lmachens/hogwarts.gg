@@ -1,6 +1,10 @@
 {
   "home": {
-    "subtitle": "Hogwarts Legacy Map and Tools"
+    "subtitle": "Hogwarts Legacy Map and Tools",
+    "underContstruction": "This site is under construction",
+    "lookingForContributors": "We are looking for writers, content creators and contributors.",
+    "pleaseJoinOur": "Please join our:",
+    "openSourceNote": "This project is Open Source! Contributors are highly welcome!"
   },
   "auth": {
     "signIn": "Sign in to your account",

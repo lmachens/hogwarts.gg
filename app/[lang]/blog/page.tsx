@@ -15,10 +15,10 @@ export default async function Page({
 
   return (
     <>
-      <Hero title={blogTranslations.title} />
-      <h2 className="my-6 p-1 text-gray-300 text-center">
-        {blogTranslations.subtitle}
-      </h2>
+      <Hero
+        title={blogTranslations.title}
+        subtitle={blogTranslations.subtitle}
+      />
       <SWRFallback fallback={{ [`posts/${lang}`]: posts }}>
         <Posts translations={postTranslations} />
       </SWRFallback>
