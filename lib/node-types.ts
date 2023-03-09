@@ -71,7 +71,8 @@ export const nodeTypes: NodeType[] = [
   {
     value: 'mothFrame',
     title: 'Moth Frame',
-    icon: '/assets/icons/moth_frame.svg',
+    icon: '/assets/icons/moth_frame.webp',
+    discoveredIcon: '/assets/icons/moth_frame_discovered.webp',
   },
   {
     value: 'fastTravelFireplaces',

@@ -29,7 +29,11 @@ export default function Nodes({ lang }: { lang: string }) {
         player.locations.hogsmeade.fastTravels.values.includes(node.id)
       );
     }
-    if (node.type === 'guardianLeviosa' || node.type === 'accioPage') {
+    if (
+      node.type === 'guardianLeviosa' ||
+      node.type === 'accioPage' ||
+      node.type === 'mothFrame'
+    ) {
       return (
         player.locations.overland.collections.values.includes(node.id) ||
         player.locations.hogwarts.collections.values.includes(node.id) ||
