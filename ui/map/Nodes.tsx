@@ -32,7 +32,8 @@ export default function Nodes({ lang }: { lang: string }) {
     if (
       node.type === 'guardianLeviosa' ||
       node.type === 'accioPage' ||
-      node.type === 'mothFrame'
+      node.type === 'mothFrame' ||
+      node.type === 'incendioDragon'
     ) {
       return (
         player.locations.overland.collections.values.includes(node.id) ||
