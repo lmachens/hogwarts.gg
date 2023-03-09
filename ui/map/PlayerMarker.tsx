@@ -2,7 +2,7 @@ import leaflet from 'leaflet';
 
 export const createPlayerIcon = () =>
   leaflet.icon({
-    iconUrl: '/assets/icons/player.png',
+    iconUrl: '/assets/icons/player.webp',
     className: '',
     iconSize: [32, 32],
   });
