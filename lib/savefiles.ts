@@ -144,9 +144,11 @@ export function extractMapLocationData(db: Database) {
   const kioHogsmeade = data.filter((value) =>
     value[0].startsWith('KIO_Hogsmeade_'),
   );
-
   const sphinxPuzzlesOverland = data.filter((value) =>
     value[0].startsWith('SphinxPuzzle'),
+  );
+  const demiguiseStatuesOverland = data.filter((value) =>
+    value[0].includes('_Demiguise_'),
   );
 
   if (process.env.NODE_ENV === 'development') {
@@ -185,6 +187,12 @@ export function extractMapLocationData(db: Database) {
           .filter((value) => value[1] !== 3)
           .map((value) => value[0]),
         max: sphinxPuzzlesOverland.length,
+      },
+      demiguiseStatues: {
+        values: demiguiseStatuesOverland
+          .filter((value) => value[1] !== 3)
+          .map((value) => value[0]),
+        max: demiguiseStatuesOverland.length,
       },
     },
     hogwarts: {
@@ -277,6 +285,10 @@ export type SavefilePlayer = {
   locations: {
     overland: MapLocations & {
       sphinxPuzzles: {
+        values: string[];
+        max: number;
+      };
+      demiguiseStatues: {
         values: string[];
         max: number;
       };

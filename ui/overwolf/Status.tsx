@@ -359,6 +359,15 @@ function MapLocationsProgress({
           /{mapLocations.sphinxPuzzles.max}
         </p>
       )}
+      {'demiguiseStatues' in mapLocations && (
+        <p>
+          Demiguise Status:{' '}
+          <span className="text-discovered">
+            {mapLocations.demiguiseStatues.values.length}
+          </span>
+          /{mapLocations.demiguiseStatues.max}
+        </p>
+      )}
     </>
   );
 }

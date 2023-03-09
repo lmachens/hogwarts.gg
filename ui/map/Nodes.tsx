@@ -58,6 +58,11 @@ export default function Nodes({ lang }: { lang: string }) {
     if (node.type === 'sphinxPuzzle') {
       return player.locations.overland.sphinxPuzzles.values.includes(node.id);
     }
+    if (node.type === 'demiguise') {
+      return player.locations.overland.demiguiseStatues.values.includes(
+        node.id,
+      );
+    }
     return false;
   }
   const visibleNodes = nodes.filter((node) => {
