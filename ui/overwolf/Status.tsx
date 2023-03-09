@@ -292,19 +292,8 @@ function SaveGame({
               <time dateTime={savegame.lastUpdate}>{timeDistance}</time>
             </p>
             <MapLocationsProgress
-              title="Overland"
               translations={translations}
-              mapLocations={player.locations.overland}
-            />
-            <MapLocationsProgress
-              title={translations.hogwarts}
-              translations={translations}
-              mapLocations={player.locations.hogwarts}
-            />
-            <MapLocationsProgress
-              title="Hogsmeade"
-              translations={translations}
-              mapLocations={player.locations.hogsmeade}
+              mapLocations={player.locations}
             />
           </>
         ) : (
@@ -319,20 +308,15 @@ function SaveGame({
 }
 
 function MapLocationsProgress({
-  title,
   translations,
   mapLocations,
 }: {
-  title: string;
   translations: Translations;
-  mapLocations:
-    | SavefilePlayer['locations']['overland']
-    | SavefilePlayer['locations']['hogwarts']
-    | SavefilePlayer['locations']['hogsmeade'];
+  mapLocations: SavefilePlayer['locations'];
 }) {
   return (
     <>
-      <h5 className="font-semibold">{title}</h5>
+      <h5 className="font-semibold">Progress</h5>
       <p>
         {translations.chests}:{' '}
         <span className="text-discovered">
@@ -340,15 +324,20 @@ function MapLocationsProgress({
         </span>
         /{mapLocations.chests.max}
       </p>
-      {mapLocations.collections.max > 0 && (
-        <p>
-          {translations.collections}:{' '}
-          <span className="text-discovered">
-            {mapLocations.collections.values.length}
-          </span>
-          /{mapLocations.collections.max}
-        </p>
-      )}
+      <p>
+        {translations.collections}:{' '}
+        <span className="text-discovered">
+          {mapLocations.collections.values.length}
+        </span>
+        /{mapLocations.collections.max}
+      </p>
+      <p>
+        Demiguise Status:{' '}
+        <span className="text-discovered">
+          {mapLocations.demiguiseStatues.values.length}
+        </span>
+        /{mapLocations.demiguiseStatues.max}
+      </p>
       <p>
         Field Guide Pages:{' '}
         <span className="text-discovered">
@@ -363,24 +352,13 @@ function MapLocationsProgress({
         </span>
         /{mapLocations.fastTravels.max}
       </p>
-      {'sphinxPuzzles' in mapLocations && (
-        <p>
-          Merlin Trials:{' '}
-          <span className="text-discovered">
-            {mapLocations.sphinxPuzzles.values.length}
-          </span>
-          /{mapLocations.sphinxPuzzles.max}
-        </p>
-      )}
-      {'demiguiseStatues' in mapLocations && (
-        <p>
-          Demiguise Status:{' '}
-          <span className="text-discovered">
-            {mapLocations.demiguiseStatues.values.length}
-          </span>
-          /{mapLocations.demiguiseStatues.max}
-        </p>
-      )}
+      <p>
+        Merlin Trials:{' '}
+        <span className="text-discovered">
+          {mapLocations.sphinxPuzzles.values.length}
+        </span>
+        /{mapLocations.sphinxPuzzles.max}
+      </p>
     </>
   );
 }

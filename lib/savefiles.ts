@@ -104,47 +104,14 @@ export function extractMapLocationData(db: Database) {
   );
   const { values } = mapLocationData[0];
   const data = values as [string, number][];
-  const fastTravelsOverland = data.filter((value) =>
-    value[0].startsWith('FT_OL_'),
-  );
-  const fastTravelsHogwarts = data.filter((value) =>
-    value[0].startsWith('FT_HW_'),
-  );
-  const fastTravelsHogsmeade = data.filter((value) =>
-    value[0].startsWith('FT_Hogsmeade'),
-  );
-  const chestsOverland = data.filter(
-    (value) =>
-      value[0].startsWith('Chest_') &&
-      !value[0].startsWith('Chest_HW_') &&
-      !value[0].startsWith('Chest_HM_'),
-  );
-  const chestsHogwarts = data.filter((value) =>
-    value[0].startsWith('Chest_HW_'),
-  );
-  const chestsHogsmeade = data.filter((value) =>
-    value[0].startsWith('Chest_HM_'),
-  );
-  const collectionsOverland = data.filter(
-    (value) =>
-      value[0].includes('Collect_') &&
-      !value[0].includes('Collect_HW_') &&
-      !value[0].includes('Collect_HM_'),
-  );
-  const collectionsHogwarts = data.filter((value) =>
-    value[0].includes('Collect_HW_'),
-  );
-  const collectionsHogsmeade = data.filter((value) =>
-    value[0].includes('Collect_HM_'),
-  );
-  const kioOverland = data.filter((value) =>
-    value[0].startsWith('KIO_Overland_'),
-  );
-  const kioHogwarts = data.filter((value) => value[0].startsWith('KIO_HW_'));
-  const kioHogsmeade = data.filter((value) =>
-    value[0].startsWith('KIO_Hogsmeade_'),
-  );
-  const sphinxPuzzlesOverland = data.filter((value) =>
+  const fastTravels = data.filter((value) => value[0].startsWith('FT_'));
+
+  const chests = data.filter((value) => value[0].startsWith('Chest_'));
+
+  const collections = data.filter((value) => value[0].includes('Collect_'));
+
+  const kio = data.filter((value) => value[0].startsWith('KIO_'));
+  const sphinxPuzzles = data.filter((value) =>
     value[0].startsWith('SphinxPuzzle'),
   );
   const demiguiseStatuesOverland = data.filter((value) =>
@@ -157,95 +124,37 @@ export function extractMapLocationData(db: Database) {
     window.data = data;
   }
   return {
-    overland: {
-      fastTravels: {
-        values: fastTravelsOverland
-          .filter((value) => value[1] !== 8)
-          .map((value) => value[0]),
-        max: fastTravelsOverland.length,
-      },
-      chests: {
-        values: chestsOverland
-          .filter((value) => value[1] !== 2)
-          .map((value) => value[0]),
-        max: chestsOverland.length,
-      },
-      collections: {
-        values: collectionsOverland
-          .filter((value) => value[1] !== 3)
-          .map((value) => value[0]),
-        max: collectionsOverland.length,
-      },
-      fieldGuidePages: {
-        values: kioOverland
-          .filter((value) => value[1] !== 3)
-          .map((value) => value[0]),
-        max: kioOverland.length,
-      },
-      sphinxPuzzles: {
-        values: sphinxPuzzlesOverland
-          .filter((value) => value[1] !== 3)
-          .map((value) => value[0]),
-        max: sphinxPuzzlesOverland.length,
-      },
-      demiguiseStatues: {
-        values: demiguiseStatuesOverland
-          .filter((value) => value[1] !== 3)
-          .map((value) => value[0]),
-        max: demiguiseStatuesOverland.length,
-      },
+    fastTravels: {
+      values: fastTravels
+        .filter((value) => value[1] !== 8)
+        .map((value) => value[0]),
+      max: fastTravels.length,
     },
-    hogwarts: {
-      fastTravels: {
-        values: fastTravelsHogwarts
-          .filter((value) => value[1] !== 8)
-          .map((value) => value[0]),
-        max: fastTravelsHogwarts.length,
-      },
-      chests: {
-        values: chestsHogwarts
-          .filter((value) => value[1] !== 2)
-          .map((value) => value[0]),
-        max: chestsHogwarts.length,
-      },
-      collections: {
-        values: collectionsHogwarts
-          .filter((value) => value[1] !== 3)
-          .map((value) => value[0]),
-        max: collectionsHogwarts.length,
-      },
-      fieldGuidePages: {
-        values: kioHogwarts
-          .filter((value) => value[1] !== 3)
-          .map((value) => value[0]),
-        max: kioHogwarts.length,
-      },
+    chests: {
+      values: chests.filter((value) => value[1] !== 2).map((value) => value[0]),
+      max: chests.length,
     },
-    hogsmeade: {
-      fastTravels: {
-        values: fastTravelsHogsmeade
-          .filter((value) => value[1] !== 8)
-          .map((value) => value[0]),
-        max: fastTravelsHogsmeade.length,
-      },
-      chests: {
-        values: chestsHogsmeade
-          .filter((value) => value[1] !== 2)
-          .map((value) => value[0]),
-        max: chestsHogsmeade.length,
-      },
-      collections: {
-        values: collectionsHogsmeade
-          .filter((value) => value[1] !== 3)
-          .map((value) => value[0]),
-        max: collectionsHogsmeade.length,
-      },
-      fieldGuidePages: {
-        values: kioHogsmeade
-          .filter((value) => value[1] !== 3)
-          .map((value) => value[0]),
-        max: kioHogsmeade.length,
-      },
+    collections: {
+      values: collections
+        .filter((value) => value[1] !== 3)
+        .map((value) => value[0]),
+      max: collections.length,
+    },
+    fieldGuidePages: {
+      values: kio.filter((value) => value[1] !== 3).map((value) => value[0]),
+      max: kio.length,
+    },
+    sphinxPuzzles: {
+      values: sphinxPuzzles
+        .filter((value) => value[1] !== 3)
+        .map((value) => value[0]),
+      max: sphinxPuzzles.length,
+    },
+    demiguiseStatues: {
+      values: demiguiseStatuesOverland
+        .filter((value) => value[1] !== 3)
+        .map((value) => value[0]),
+      max: demiguiseStatuesOverland.length,
     },
   };
 }
@@ -267,6 +176,14 @@ export type MapLocations = {
     values: string[];
     max: number;
   };
+  sphinxPuzzles: {
+    values: string[];
+    max: number;
+  };
+  demiguiseStatues: {
+    values: string[];
+    max: number;
+  };
 };
 export type SavefilePlayer = {
   houseId: string;
@@ -282,18 +199,5 @@ export type SavefilePlayer = {
   firstName: string;
   lastName: string;
   year: number;
-  locations: {
-    overland: MapLocations & {
-      sphinxPuzzles: {
-        values: string[];
-        max: number;
-      };
-      demiguiseStatues: {
-        values: string[];
-        max: number;
-      };
-    };
-    hogwarts: MapLocations;
-    hogsmeade: MapLocations;
-  };
+  locations: MapLocations;
 };
