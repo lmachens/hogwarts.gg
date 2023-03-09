@@ -7,6 +7,7 @@ import {
   useSavegamePlayer,
   useSetSavegamePlayer,
 } from '#/lib/hooks/use-savegame-player';
+import { useSetSettings, useSettings } from '#/lib/hooks/use-settings';
 import { getDateLocale } from '#/lib/i18n/settings';
 import type { Translations } from '#/lib/i18n/types';
 import { postMessage } from '#/lib/messages';
@@ -61,6 +62,8 @@ export default function Status({
   const { mutate } = useSWRConfig();
   const router = useRouter();
   const lang = useLanguage();
+  const { data: settings } = useSettings();
+  const setSettings = useSetSettings();
 
   const savegame = status?.savegame || null;
 
@@ -113,7 +116,7 @@ export default function Status({
   return (
     <Stack className="p-2 h-full text-left">
       <p className="text-orange-500 text-sm">{translations.inDevelopment}</p>
-      <div>
+      <Section title="Settings" tooltip="Customize your user experience!">
         <label className="text-sm flex items-center gap-1">
           <input
             type="checkbox"
@@ -125,16 +128,26 @@ export default function Status({
         <p className="text-xs text-gray-500">
           {translations.activateOverlayDescription}
         </p>
-      </div>
-      <p className="text-sm">
-        {translations.showHideApp}
-        <button
-          className="ml-2 font-mono bg-gray-900 hover:bg-gray-800 border rounded py-0.5 px-1  w-fit"
-          onClick={() => postMessage({ type: 'hotkey_binding' })}
-        >
-          {status?.toggleAppHotkeyBinding ?? translations.unknown}
-        </button>
-      </p>
+        <p className="text-sm">
+          {translations.showHideApp}
+          <button
+            className="ml-2 font-mono bg-gray-900 hover:bg-gray-800 border rounded py-0.5 px-1  w-fit"
+            onClick={() => postMessage({ type: 'hotkey_binding' })}
+          >
+            {status?.toggleAppHotkeyBinding ?? translations.unknown}
+          </button>
+        </p>
+        <label className="text-sm flex items-center gap-1 ">
+          <input
+            type="checkbox"
+            checked={settings?.hideDiscoveredNodes ?? false}
+            onChange={(event) =>
+              setSettings({ hideDiscoveredNodes: event.target.checked })
+            }
+          />
+          <span>Hide discovered nodes</span>
+        </label>
+      </Section>
       <Section
         title={translations.realtimeStatus}
         tooltip={translations.realtimeStatusToopltip}

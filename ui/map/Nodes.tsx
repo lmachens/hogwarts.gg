@@ -2,9 +2,11 @@
 
 import { useNodes } from '#/lib/hooks/use-nodes';
 import { useSavegamePlayer } from '#/lib/hooks/use-savegame-player';
+import { useSettings } from '#/lib/hooks/use-settings';
 import { getZRange } from '#/lib/map';
 import type { Node } from '#/lib/nodes';
 import { useMapStore } from '#/lib/store/map';
+import { Fragment } from 'react';
 import Marker from './Marker';
 import Text from './Text';
 
@@ -12,6 +14,7 @@ export default function Nodes({ lang }: { lang: string }) {
   const { data: nodes = [] } = useNodes({ language: lang });
   const { data: player } = useSavegamePlayer();
   const mapStore = useMapStore();
+  const { data: settings } = useSettings();
 
   const zRange = mapStore.hogwartsLevel && getZRange(mapStore.hogwartsLevel);
 
@@ -83,6 +86,9 @@ export default function Nodes({ lang }: { lang: string }) {
           );
         }
         const discovered = isDiscovered(node);
+        if (discovered && settings?.hideDiscoveredNodes) {
+          return <Fragment key={node.id} />;
+        }
         return <Marker key={node.id} node={node} discovered={discovered} />;
       })}
     </>
