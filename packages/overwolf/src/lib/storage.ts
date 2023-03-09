@@ -1,7 +1,7 @@
-export function setLastIFrameHref(pathname: string) {
+export function setLastIFramePathname(pathname: string) {
   localStorage.setItem('lastIFramePathname', pathname);
 }
 
-export function getLastIFrameHref() {
+export function getLastIFramePathname() {
   return localStorage.getItem('lastIFramePathname') || '/en/map/hogwarts';
 }

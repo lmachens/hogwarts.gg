@@ -4,7 +4,7 @@ import { listenToHotkeyBinding } from './hotkeys';
 import { listenToSavegamesFolder } from './io';
 import type { HLHook } from './plugins';
 import { loadHLHookPlugin } from './plugins';
-import { setLastIFrameHref } from './storage';
+import { setLastIFramePathname } from './storage';
 import {
   getPreferedWindowName,
   restoreWindow,
@@ -122,7 +122,7 @@ export async function communicate(
         break;
       case 'href':
         if ('href' in data && typeof data.href === 'string') {
-          setLastIFrameHref(data.href);
+          setLastIFramePathname(data.href);
         }
         break;
       case 'overlay':

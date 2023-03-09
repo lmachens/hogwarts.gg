@@ -87,6 +87,7 @@ async function readFile(filePath: string) {
 }
 
 function listenToFile(filePath: string, callback: (body: string) => void) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore https://github.com/overwolf/types/pull/66
   overwolf.io.watchFile(filePath, async () => {
     const body = await readFile(filePath);

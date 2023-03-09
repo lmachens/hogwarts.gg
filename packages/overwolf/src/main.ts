@@ -1,5 +1,5 @@
 import Ads from './Ads';
-import IFrame from './IFrame';
+import IFrame, { DEFAULT_URL } from './IFrame';
 import { communicate } from './lib/messages';
 import { waitForOverwolf } from './lib/overwolf';
 import { closeWindow, getCurrentWindow, WINDOWS } from './lib/windows';
@@ -55,6 +55,7 @@ waitForOverwolf().then(async () => {
 
   const timeoutId = setTimeout(() => {
     error.style.display = 'block';
+    iframe.src = DEFAULT_URL;
   }, 5000);
 
   communicate(iframe, () => {
