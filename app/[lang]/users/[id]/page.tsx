@@ -50,7 +50,7 @@ export default async function Page({
   );
 }
 
-export const dynamicParams = true;
+export const dynamic = 'force-static';
 
 export async function generateStaticParams() {
   const users = await getUsers();

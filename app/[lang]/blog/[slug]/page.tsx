@@ -78,6 +78,8 @@ export default async function Page({
   );
 }
 
+export const dynamic = 'force-static';
+
 export async function generateStaticParams() {
   const posts = await getPosts();
   const publishedPosts = posts.filter((post) => post.published && post.slug);
