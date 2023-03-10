@@ -1,6 +1,7 @@
 import type { MESSAGE_STATUS } from './messages';
 
 let cachedLatestFile: string | null = null;
+let hasError = false;
 export async function listenToSavegamesFolder(
   callback: (savegames: MESSAGE_STATUS['savegame']) => void,
 ) {
@@ -13,7 +14,21 @@ export async function listenToSavegamesFolder(
     ),
   ]);
 
-  const files = steamFolders || epicGamesFolders || [];
+  let files: string[];
+  if (Array.isArray(steamFolders)) {
+    files = steamFolders;
+    hasError = false;
+  } else if (Array.isArray(epicGamesFolders)) {
+    files = epicGamesFolders;
+    hasError = false;
+  } else {
+    files = [];
+    if (!hasError) {
+      hasError = true;
+      console.error(steamFolders);
+      console.error(epicGamesFolders);
+    }
+  }
   const latestFile = files[0];
   if (latestFile && latestFile !== cachedLatestFile) {
     cachedLatestFile = latestFile;
@@ -35,16 +50,16 @@ export async function listenToSavegamesFolder(
 }
 
 export async function listSavegames(folderPath: string) {
-  return await new Promise<false | string[]>((resolve) => {
+  return await new Promise<string | string[]>((resolve) => {
     overwolf.io.dir(folderPath, async (result) => {
       if (result.error || !result.data) {
-        return resolve(false);
+        return resolve(result.error || 'Could not list savegames');
       }
       if (!result.data || result.data.length === 0) {
-        return resolve(false);
+        return resolve('No savegames found');
       }
       if (result.data[0].type !== 'dir') {
-        return resolve(false);
+        return resolve('Savegames folder is not a directory');
       }
       const folder = result.data[0];
       overwolf.io.dir(`${folderPath}\\${folder.name}`, async (result) => {
