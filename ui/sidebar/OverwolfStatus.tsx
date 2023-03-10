@@ -7,12 +7,13 @@ import { postMessage } from '#/lib/messages';
 import { bodyToFile } from '#/lib/savefiles';
 import { cn } from '#/lib/utils';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSWRConfig } from 'swr';
 import Stack from '../Stack';
 import SaveGame from './Savegame';
 import ShowOnMapButton from './ShowOnMapButton';
 import SidebarSection from './SidebarSection';
+import UploadSavegame from './UploadSavegame';
 
 export type MESSAGE_STATUS = {
   type: string;
@@ -53,14 +54,14 @@ export default function OverwolfStatus({
 
   const { data: settings } = useSettings();
   const setSettings = useSetSettings();
+  const [savegame, setSavegame] = useState<File | null>(null);
 
-  const savegame = useMemo(
-    () =>
-      (status?.savegame &&
-        bodyToFile(status.savegame.body, status.savegame.name)) ??
-      null,
-    [status?.savegame],
-  );
+  useEffect(() => {
+    if (!status?.savegame) {
+      return;
+    }
+    setSavegame(bodyToFile(status.savegame.body, status.savegame.name));
+  }, [status?.savegame]);
 
   useEffect(() => {
     postMessage({
@@ -177,6 +178,7 @@ export default function OverwolfStatus({
           translations={translations}
           panToPlayer={false}
         />
+        <UploadSavegame onUpload={setSavegame} />
       </SidebarSection>
     </Stack>
   );

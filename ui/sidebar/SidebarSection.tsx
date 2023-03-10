@@ -11,7 +11,7 @@ export default function SidebarSection({
   children: React.ReactNode;
 }) {
   return (
-    <section className="bg-gray-800 rounded p-2">
+    <section className="bg-gray-800 rounded p-2 space-y-1">
       <Tooltip label={<p className="text-sm">{tooltip}</p>}>
         <h4 className="text-md flex gap-1 items-center">
           {title} <IconHelp size={16} />
