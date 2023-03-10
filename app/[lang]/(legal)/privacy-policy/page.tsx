@@ -1,6 +1,7 @@
 import { getAlternates, loadDictionary } from '#/lib/i18n/settings';
-import type { Metadata } from 'next';
 import { getURL } from '#/lib/utils';
+import type { Metadata } from 'next';
+import Script from 'next/script';
 
 export async function generateMetadata({
   params: { lang },
@@ -143,6 +144,11 @@ export default function Page() {
           CCPA Privacy Rights (Do Not Sell My Personal Information)
         </h2>
         <span data-ccpa-link="1"></span>
+        <Script
+          data-cfasync="false"
+          async
+          src="https://s.nitropay.com/ads-1406.js"
+        />
         <p>
           Under the CCPA, among other rights, California consumers have the
           right to:

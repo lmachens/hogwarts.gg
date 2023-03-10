@@ -85,7 +85,7 @@ export default function GlobalUser({
           </nav>
         </Popover>
       ) : (
-        <div className="flex gap-3 items-center">
+        <div className="flex flex-col md:flex-row gap-3 items-center">
           <LanguageSelect />
           <AppLink
             href="/sign-in"

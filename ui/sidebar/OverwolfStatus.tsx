@@ -9,7 +9,6 @@ import { cn } from '#/lib/utils';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useSWRConfig } from 'swr';
-import Stack from '../Stack';
 import SaveGame from './Savegame';
 import ShowOnMapButton from './ShowOnMapButton';
 import SidebarSection from './SidebarSection';
@@ -110,7 +109,7 @@ export default function OverwolfStatus({
   }, []);
 
   return (
-    <Stack className="p-2 h-full text-left">
+    <>
       <SidebarSection
         title="Settings"
         tooltip="Customize your user experience!"
@@ -180,7 +179,7 @@ export default function OverwolfStatus({
         />
         <UploadSavegame onUpload={setSavegame} />
       </SidebarSection>
-    </Stack>
+    </>
   );
 }
 

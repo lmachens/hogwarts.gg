@@ -16,7 +16,12 @@ export default function WebsiteStatus({
   const [savegame, setSavegame] = useState<File | null>(null);
 
   return (
-    <div className="flex flex-col gap-2 p-4">
+    <SidebarSection
+      title={translations.latestSavegame}
+      tooltip={translations.latestSavegameDescription}
+    >
+      <SaveGame savegame={savegame} translations={translations} panToPlayer />
+      <ShowOnMapButton disabled={!savegame} translations={translations} />
       <p className="text-xs text-gray-500">
         Please upload your latest savefile to sync your profile and position on
         the map.
@@ -31,14 +36,7 @@ export default function WebsiteStatus({
         disabled
         value="%localappdata%\HogwartsLegacy\Saved\SaveGames"
       />
-      <SidebarSection
-        title={translations.latestSavegame}
-        tooltip={translations.latestSavegameDescription}
-      >
-        <SaveGame savegame={savegame} translations={translations} panToPlayer />
-        <ShowOnMapButton disabled={!savegame} translations={translations} />
-        <UploadSavegame onUpload={setSavegame} />
-      </SidebarSection>
-    </div>
+      <UploadSavegame onUpload={setSavegame} />
+    </SidebarSection>
   );
 }

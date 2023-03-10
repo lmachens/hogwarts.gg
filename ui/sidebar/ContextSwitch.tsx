@@ -9,6 +9,11 @@ const OverwolfStatus = dynamic(() => import('./OverwolfStatus'), {
 const WebsiteStatus = dynamic(() => import('./WebsiteStatus'), {
   ssr: false,
 });
+
+const NitroAds = dynamic(() => import('./NitroAds'), {
+  ssr: false,
+});
+
 export default function ContextSwitch({
   translations,
 }: {
@@ -17,9 +22,22 @@ export default function ContextSwitch({
   const isOverwolfIframe =
     window.top && navigator.userAgent.includes('OverwolfClient');
 
-  if (isOverwolfIframe) {
-    return <OverwolfStatus translations={translations} />;
-  } else {
-    return <WebsiteStatus translations={translations} />;
-  }
+  return (
+    <>
+      <div className="flex-1 border-b border-gray-800 overflow-auto flex flex-col gap-2 p-2">
+        {isOverwolfIframe ? (
+          <OverwolfStatus translations={translations} />
+        ) : (
+          <WebsiteStatus translations={translations} />
+        )}
+      </div>
+      {isOverwolfIframe ? (
+        <div
+          className={`w-[400px] h-[300px] bg-gray-900 bg-[url('/assets/ads-bg.jpg')] bg-cover bg-center bg-no-repeat grayscale brightness-75 `}
+        />
+      ) : (
+        <NitroAds />
+      )}
+    </>
+  );
 }
