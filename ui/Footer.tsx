@@ -6,7 +6,7 @@ export default function Footer({
   translations: Translations;
 }) {
   return (
-    <small className="block py-0.5 text-center text-gray-400 truncate">
+    <small className="block py-0.5 text-center text-gray-400 truncate h-6">
       {translations.copyright}
     </small>
   );

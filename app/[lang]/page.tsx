@@ -1,6 +1,7 @@
 import { loadDictionary } from '#/lib/i18n/settings';
 import AppLink from '#/ui/AppLink';
 import DiscordLink from '#/ui/DiscordLink';
+import Footer from '#/ui/Footer';
 import GitHubLink from '#/ui/GitHubLink';
 import Hero from '#/ui/Hero';
 import { IconArticle, IconMap } from '@tabler/icons-react';
@@ -13,7 +14,8 @@ export default async function Page({
 }: {
   params: { lang: string };
 }) {
-  const { home: translations } = await loadDictionary(lang);
+  const { home: translations, global: globalTranslations } =
+    await loadDictionary(lang);
 
   return (
     <>
@@ -60,6 +62,7 @@ export default async function Page({
         <p>{translations.openSourceNote}</p>
         <GitHubLink />
       </div>
+      <Footer translations={globalTranslations} />
     </>
   );
 }

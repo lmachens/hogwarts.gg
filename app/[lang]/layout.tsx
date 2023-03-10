@@ -1,7 +1,6 @@
 import { getAlternates, languages, loadDictionary } from '#/lib/i18n/settings';
 import { cn, getURL } from '#/lib/utils';
 import '#/styles/globals.css';
-import Footer from '#/ui/Footer';
 import GlobalNav from '#/ui/GlobalNav';
 import PlausibleTracker from '#/ui/PlausibleTracker';
 import type { Metadata } from 'next';
@@ -114,9 +113,10 @@ const RootLayout = async ({
       <body className="overflow-hidden">
         <div className="flex h-screen">
           <main className="relative min-h-screen flex-1 overflow-auto">
-            <div className="pt-14">{children}</div>
-            <Footer translations={globalTranslations} />
-            <div id="nitro-floating" />
+            <div className="pt-14">
+              {children}
+              <div id="nitro-floating" />
+            </div>
           </main>
           <div className="pt-14 w-[401px] h-full flex-col border-l border-gray-800 hidden md:flex">
             <ContextSwitch translations={overwolfTranslations} />

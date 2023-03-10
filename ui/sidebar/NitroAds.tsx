@@ -53,7 +53,7 @@ export default function NitroAds() {
   }
   return createPortal(
     <>
-      <div id="nitro-video" />
+      <div id="nitro-video" className="mt-2" />
       <Script
         onReady={createAd}
         data-cfasync="false"

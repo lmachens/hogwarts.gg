@@ -47,7 +47,7 @@ module.exports = {
       },
       height: {
         // Full screen height without nav bar
-        'full-height': 'calc(100vh - 5rem)',
+        'full-height': 'calc(100vh - 56px)',
       },
       fontFamily: {
         serif: ['var(--font-serif)', ...defaultTheme.fontFamily.serif],
