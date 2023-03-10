@@ -86,7 +86,6 @@
     "quickSearchTooltip": "Search for nodes and posts"
   },
   "overwolf": {
-    "inDevelopment": "This app is in development!",
     "activateOverlay": "Activate Overlay",
     "activateOverlayDescription": "This window is only visible as overlay in-game. Deactivate it, if you like to move this window to second screen or to ALT+TAB it.",
     "showHideApp": "Show/Hide app",

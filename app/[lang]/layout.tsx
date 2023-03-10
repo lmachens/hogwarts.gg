@@ -10,7 +10,7 @@ import { Work_Sans as WorkSans } from 'next/font/google';
 import localFont from 'next/font/local';
 import type { ReactNode } from 'react';
 
-const Overwolf = dynamic(() => import('#/ui/overwolf/Overwolf'), {
+const ContextSwitch = dynamic(() => import('#/ui/sidebar/ContextSwitch'), {
   ssr: false,
 });
 
@@ -116,7 +116,16 @@ const RootLayout = async ({
           <div className="pt-14">{children}</div>
           <Footer translations={globalTranslations} />
         </main>
-        <Overwolf translations={overwolfTranslations} />
+        <div className="pt-14 w-[401px] h-full  flex-col border-l border-gray-800 hidden md:flex">
+          <div className="flex-1 border-b border-gray-800 overflow-auto">
+            <ContextSwitch translations={overwolfTranslations} />
+          </div>
+          <div
+            className={`w-[400px] h-[300px] bg-gray-900 bg-[url('/assets/ads-bg.jpg')] bg-cover bg-center bg-no-repeat grayscale brightness-75`}
+          >
+            {/* Reserved for Overwolf ads */}
+          </div>
+        </div>
         <GlobalNav translations={globalTranslations} />
       </body>
     </html>

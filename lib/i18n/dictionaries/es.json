@@ -87,7 +87,6 @@
     "quickSearchTooltip": "Buscar nodos y publicaciones"
   },
   "overwolf": {
-    "inDevelopment": "¡Esta aplicación está en desarrollo!",
     "activateOverlay": "Activar superposición",
     "activateOverlayDescription": "Esta ventana solo es visible como superposición en el juego. Desactívela si desea mover esta ventana a la segunda pantalla o alternar entre ventanas con ALT + TAB.",
     "showHideApp": "Mostrar/Ocultar aplicación",

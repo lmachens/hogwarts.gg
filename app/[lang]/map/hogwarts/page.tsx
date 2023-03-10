@@ -4,7 +4,6 @@ import FixedBox from '#/ui/FixedBox';
 import HogwartsLevelSelect from '#/ui/map/HogwartsLevelSelect';
 import Nodes from '#/ui/map/Nodes';
 import Player from '#/ui/map/Player';
-import PlayerSync from '#/ui/PlayerSync';
 import type { Metadata } from 'next';
 import nextDynamic from 'next/dynamic';
 const HogwartsMap = nextDynamic(() => import('#/ui/map/HogwartsMap'), {
@@ -35,9 +34,6 @@ export default async function Page({
   return (
     <div className="h-full-height w-full relative">
       <HogwartsMap>
-        <FixedBox className="right-4 top-4 flex justify-center space-x-2">
-          <PlayerSync />
-        </FixedBox>
         <FixedBox className="left-4 bottom-0 flex justify-center space-x-2">
           <HogwartsLevelSelect />
           <Player />

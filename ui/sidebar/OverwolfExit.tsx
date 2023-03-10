@@ -4,7 +4,7 @@ import { useMe } from '#/lib/hooks/use-me';
 import Button from '#/ui/Button';
 import { useEffect, useState } from 'react';
 
-export default function Exit() {
+export default function OverwolfStatus() {
   const [seconds, setSeconds] = useState(5);
   const { data: me, isLoading } = useMe();
 

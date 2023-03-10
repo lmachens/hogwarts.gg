@@ -13,6 +13,15 @@ const nextConfig = {
     },
   },
   transpilePackages: ['@tabler/icons-react'],
+  async redirects() {
+    return [
+      {
+        source: '/ads.txt',
+        destination: 'https://api.nitropay.com/v1/ads-1406.txt',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
