@@ -1,4 +1,4 @@
-import type { MESSAGE_REALTIME } from '#/ui/overwolf/Status';
+import type { MESSAGE_REALTIME } from '#/ui/sidebar/OverwolfStatus';
 import { useCallback } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
 

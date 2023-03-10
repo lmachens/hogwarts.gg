@@ -1,8 +1,8 @@
 import type { Database } from 'sql.js';
 
-export function bodyToFile(body: string) {
+export function bodyToFile(body: string, filename: string) {
   const blob = new Blob([body], { type: 'text/plain' });
-  const file = new File([blob], 'savegame.sav', { type: 'text/plain' });
+  const file = new File([blob], filename, { type: 'text/plain' });
   return file;
 }
 export async function readSavegame(file: File) {

@@ -1,5 +1,5 @@
-import Exit from '#/ui/overwolf/Exit';
+import OverwolfExit from '#/ui/sidebar/OverwolfExit';
 
 export default function Page() {
-  return <Exit />;
+  return <OverwolfExit />;
 }

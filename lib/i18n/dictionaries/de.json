@@ -86,7 +86,6 @@
     "quickSearchTooltip": "Suche nach Markierungen und Beiträgen"
   },
   "overwolf": {
-    "inDevelopment": "Diese App befindet sich in der Entwicklung!",
     "activateOverlay": "Overlay aktivieren",
     "activateOverlayDescription": "Dieses Fenster ist nur als Overlay im Spiel sichtbar. Deaktiviere es, wenn du dieses Fenster auf den zweiten Bildschirm verschieben oder ALT+TAB zum wechseln drückn möchten.",
     "showHideApp": "App anzeigen/verstecken",

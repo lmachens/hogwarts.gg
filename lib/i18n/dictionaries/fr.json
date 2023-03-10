@@ -87,7 +87,6 @@
     "quickSearchTooltip": "Rechercher des nœuds et des publications"
   },
   "overwolf": {
-    "inDevelopment": "Cette application est en développement !",
     "activateOverlay": "Activer la superposition",
     "activateOverlayDescription": "Cette fenêtre est uniquement visible en tant que superposition en jeu. Désactivez-la si vous souhaitez déplacer cette fenêtre vers un deuxième écran ou si vous souhaitez la basculer avec ALT+TAB.",
     "showHideApp": "Afficher/Masquer l'application",
