@@ -58,10 +58,12 @@ export async function listSavegames(folderPath: string) {
       if (!result.data || result.data.length === 0) {
         return resolve('No savegames found');
       }
-      if (result.data[0].type !== 'dir') {
+      const folder = result.data.find(
+        (fileOrFolder) => fileOrFolder.type === 'dir',
+      );
+      if (!folder) {
         return resolve('Savegames folder is not a directory');
       }
-      const folder = result.data[0];
       overwolf.io.dir(`${folderPath}\\${folder.name}`, async (result) => {
         if (!result.data) {
           return resolve([]);
