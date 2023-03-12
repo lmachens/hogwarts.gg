@@ -155,3 +155,72 @@ button:focus {
   border-radius: 15px;
   background-color: black;
 }
+
+.resize {
+  position: fixed;
+  z-index: 1000;
+}
+
+.resize.top {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  cursor: n-resize;
+}
+
+.resize.right {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 8px;
+  cursor: e-resize;
+}
+
+.resize.bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  cursor: s-resize;
+}
+
+.resize.left {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 8px;
+  cursor: w-resize;
+}
+
+.resize.top-left {
+  top: 0;
+  left: 0;
+  height: 8px;
+  width: 8px;
+  cursor: nw-resize;
+}
+
+.resize.top-right {
+  top: 0;
+  right: 0;
+  height: 8px;
+  width: 8px;
+  cursor: ne-resize;
+}
+
+.resize.bottom-left {
+  bottom: 0;
+  left: 0;
+  height: 8px;
+  width: 8px;
+  cursor: sw-resize;
+}
+
+.resize.bottom-right {
+  bottom: 0;
+  right: 0;
+  height: 8px;
+  width: 8px;
+  cursor: se-resize;
+}
