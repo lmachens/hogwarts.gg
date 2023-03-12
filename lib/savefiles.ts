@@ -103,19 +103,22 @@ export function extractMapLocationData(db: Database) {
     `SELECT MapLocationID, State FROM MapLocationDataDynamic;`,
   );
   const { values } = mapLocationData[0];
-  const data = values as [string, number][];
+  const data = (values as [string, number][]).map((value) => [
+    value[0].toUpperCase(),
+    value[1],
+  ]) as [string, number][];
   const fastTravels = data.filter((value) => value[0].startsWith('FT_'));
 
-  const chests = data.filter((value) => value[0].startsWith('Chest_'));
+  const chests = data.filter((value) => value[0].startsWith('CHEST_'));
 
-  const collections = data.filter((value) => value[0].includes('Collect_'));
+  const collections = data.filter((value) => value[0].includes('COLLECT_'));
 
   const kio = data.filter((value) => value[0].startsWith('KIO_'));
   const sphinxPuzzles = data.filter((value) =>
-    value[0].startsWith('SphinxPuzzle'),
+    value[0].startsWith('SPHINXPUZZLE'),
   );
   const demiguiseStatuesOverland = data.filter((value) =>
-    value[0].includes('_Demiguise_'),
+    value[0].includes('_DEMIGUISE_'),
   );
 
   if (process.env.NODE_ENV === 'development') {

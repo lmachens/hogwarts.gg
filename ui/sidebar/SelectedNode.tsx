@@ -41,7 +41,7 @@ export default function SelectedNode() {
       )}
       <p className="text-xs text-gray-400 truncate">{`X: ${node.x} Y: ${node.y} Z: ${node.z}`}</p>
       {process.env.NODE_ENV === 'development' && (
-        <p className="text-xs text-gray-400 truncate">${node.id}</p>
+        <p className="text-xs text-gray-400 truncate">{node.id}</p>
       )}
       <Button size="xs" className="my-1" onClick={() => setSelectedNode(null)}>
         Clear

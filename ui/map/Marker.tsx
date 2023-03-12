@@ -23,7 +23,6 @@ function Marker({ node, discovered, selected, onClick }: MarkerProps) {
   const latLng = [node.y, node.x] as [number, number];
 
   const tooltip = createNodeTooltip(node, discovered);
-
   useEffect(() => {
     if (!map.getPanes().mapPane) {
       return;
