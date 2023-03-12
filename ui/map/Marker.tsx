@@ -10,9 +10,11 @@ import { useMap } from './Map';
 export type MarkerProps = {
   node: Node;
   discovered?: boolean;
+  selected?: boolean;
+  onClick: () => void;
 };
 
-function Marker({ node, discovered }: MarkerProps) {
+function Marker({ node, discovered, selected, onClick }: MarkerProps) {
   const map = useMap();
   const [marker, setMarker] = useState<CanvasMarker | null>(null);
 
@@ -33,7 +35,12 @@ function Marker({ node, discovered }: MarkerProps) {
     marker.addTo(map);
     setMarker(marker);
     marker.bringToBack();
-
+    marker.on('click', (event) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      event.originalEvent.propagatedFromMarker = true;
+      onClick();
+    });
     return () => {
       setMarker(null);
       marker.removeFrom(map);
@@ -52,8 +59,19 @@ function Marker({ node, discovered }: MarkerProps) {
       return;
     }
     marker.setSrc(src);
-    marker._redraw();
-  }, [latLng, src]);
+  }, [marker, src]);
+
+  useEffect(() => {
+    if (!marker || !selected) {
+      return;
+    }
+    marker.setHighlighted(selected);
+    map.panTo(marker.getLatLng());
+    marker.bringToFront();
+    return () => {
+      marker.setHighlighted(false);
+    };
+  }, [marker, selected]);
 
   useDidUpdate(() => {
     if (!marker || !tooltip) {

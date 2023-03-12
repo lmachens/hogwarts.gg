@@ -9,7 +9,7 @@ leaflet.Canvas.include({
     if (!ctx) {
       return;
     }
-    const radius = layer.options.highlight
+    const radius = layer.options.highlighted
       ? layer.options.radius * 1.25
       : layer.options.radius;
     const p = layer._point.round();
@@ -17,12 +17,12 @@ leaflet.Canvas.include({
     const dx = p.x - radius;
     const dy = p.y - radius;
 
-    if (layer.options.highlight) {
+    if (layer.options.highlighted) {
       ctx.beginPath();
-      ctx.arc(dx + radius, dy + radius, radius, 0, Math.PI * 2, true);
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+      ctx.arc(dx + radius, dy + radius, radius * 1.1, 0, Math.PI * 2, true);
+      ctx.fillStyle = 'rgba(255, 165, 0, 0.7)';
       ctx.fill();
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+      ctx.strokeStyle = 'rgba(0, 0, 0, 0.7)';
       ctx.lineWidth = 1.5;
       ctx.stroke();
     }
@@ -46,7 +46,7 @@ const renderer = leaflet.canvas() as leaflet.Canvas & {
 export type CanvasMarkerOptions = {
   radius: number;
   src: string;
-  highlight?: boolean;
+  highlighted?: boolean;
   rotate?: number;
 };
 
@@ -80,6 +80,11 @@ class CanvasMarker extends leaflet.CircleMarker {
 
   setSrc(src: string) {
     this._setImageElement(src);
+    this.redraw();
+  }
+
+  setHighlighted(highlighted: boolean) {
+    this.options.highlighted = highlighted;
     this.redraw();
   }
 

@@ -10,6 +10,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useSWRConfig } from 'swr';
 import SaveGame from './Savegame';
+import SelectedNode from './SelectedNode';
 import ShowOnMapButton from './ShowOnMapButton';
 import SidebarSection from './SidebarSection';
 import UploadSavegame from './UploadSavegame';
@@ -110,6 +111,7 @@ export default function OverwolfStatus({
 
   return (
     <>
+      <SelectedNode />
       <SidebarSection
         title="Settings"
         tooltip="Customize your user experience!"

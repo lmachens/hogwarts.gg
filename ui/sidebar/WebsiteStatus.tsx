@@ -5,6 +5,7 @@ import type { Translations } from '#/lib/i18n/types';
 import { useState } from 'react';
 import Input from '../Input';
 import SaveGame from './Savegame';
+import SelectedNode from './SelectedNode';
 import ShowOnMapButton from './ShowOnMapButton';
 import SidebarSection from './SidebarSection';
 import UploadSavegame from './UploadSavegame';
@@ -20,6 +21,7 @@ export default function WebsiteStatus({
 
   return (
     <>
+      <SelectedNode />
       <SidebarSection
         title="Settings"
         tooltip="Customize your user experience!"

@@ -2,6 +2,10 @@
 
 import { useNodes } from '#/lib/hooks/use-nodes';
 import { useSavegamePlayer } from '#/lib/hooks/use-savegame-player';
+import {
+  useSelectedNode,
+  useSetSelectedNode,
+} from '#/lib/hooks/use-selected-node';
 import { useSettings } from '#/lib/hooks/use-settings';
 import { getZRange } from '#/lib/map';
 import type { Node } from '#/lib/nodes';
@@ -15,6 +19,8 @@ export default function Nodes({ lang }: { lang: string }) {
   const { data: player } = useSavegamePlayer();
   const mapStore = useMapStore();
   const { data: settings } = useSettings();
+  const { data: selectedNode } = useSelectedNode();
+  const setSelectedNode = useSetSelectedNode();
 
   const zRange = mapStore.hogwartsLevel && getZRange(mapStore.hogwartsLevel);
 
@@ -51,7 +57,7 @@ export default function Nodes({ lang }: { lang: string }) {
     return false;
   }
   const visibleNodes = nodes.filter((node) => {
-    if (node.world !== 'hogwarts' || !zRange) {
+    if (node.world !== 'hogwarts' || !zRange || selectedNode?.id === node.id) {
       return true;
     }
     const [bottomZValue, topZValue] = zRange;
@@ -71,7 +77,15 @@ export default function Nodes({ lang }: { lang: string }) {
         if (discovered && settings?.hideDiscoveredNodes) {
           return <Fragment key={node.id} />;
         }
-        return <Marker key={node.id} node={node} discovered={discovered} />;
+        return (
+          <Marker
+            key={node.id}
+            node={node}
+            discovered={discovered}
+            selected={selectedNode?.id === node.id}
+            onClick={() => setSelectedNode(node)}
+          />
+        );
       })}
     </>
   );
