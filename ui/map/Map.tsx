@@ -1,5 +1,6 @@
 'use client';
 
+import { useSetSelectedNode } from '#/lib/hooks/use-selected-node';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import type { ReactNode } from 'react';
@@ -19,6 +20,7 @@ const Map = ({
 }: MapProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<leaflet.Map | null>(null);
+  const setSelectedNode = useSetSelectedNode();
 
   useEffect(() => {
     const map = leaflet.map(containerRef.current!, {
@@ -29,6 +31,15 @@ const Map = ({
       crs,
     });
     map.fitBounds(bounds);
+    map.on('click', (event) => {
+      if (
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        !event.originalEvent.propagatedFromMarker
+      ) {
+        setSelectedNode(null);
+      }
+    });
     map.on('contextmenu', () => {
       // Do nothing
     });

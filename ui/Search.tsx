@@ -2,6 +2,7 @@ import useDidUpdate from '#/lib/hooks/use-did-update';
 import useLanguage from '#/lib/hooks/use-language';
 import { useNodes } from '#/lib/hooks/use-nodes';
 import { usePosts } from '#/lib/hooks/use-posts';
+import { useSetSelectedNode } from '#/lib/hooks/use-selected-node';
 import { labels } from '#/lib/i18n/settings';
 import type { Translations } from '#/lib/i18n/types';
 import type { Node } from '#/lib/nodes';
@@ -9,7 +10,7 @@ import type { Post } from '#/lib/posts';
 import { IconArticle, IconSearch } from '@tabler/icons-react';
 import { format } from 'date-fns';
 import Image from 'next/image';
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 import AppLink from './AppLink';
 import Button from './Button';
 import Dialog from './Dialog';
@@ -69,50 +70,67 @@ const SearchResults = memo(function SearchResults({
   const language = useLanguage();
   const { data: posts = [] } = usePosts({ language, published: true });
   const { data: nodes = [] } = useNodes({ language });
-  const regExp = search ? new RegExp(search, 'i') : null;
+  const regExp = useMemo(
+    () => (search ? new RegExp(search, 'i') : null),
+    [search],
+  );
+  const setNode = useSetSelectedNode();
 
-  const filteredPosts = posts.filter((post, index) => {
-    if (regExp) {
-      if (
-        !post.title!.match(regExp) &&
-        !post.short!.match(regExp) &&
-        !post.body!.match(regExp)
-      ) {
-        return false;
+  const filteredPosts = useMemo(() => {
+    const result: Post[] = [];
+    for (const post of posts) {
+      if (result.length >= 5) {
+        break;
       }
-    } else if (index > 3) {
-      return false;
+      if (regExp) {
+        if (
+          post.title!.match(regExp) ||
+          post.short!.match(regExp) ||
+          post.body!.match(regExp)
+        ) {
+          result.push(post);
+        }
+      } else {
+        result.push(post);
+      }
     }
-    return true;
-  });
+    return result;
+  }, [posts, regExp]);
 
-  const filteredNodes = nodes.filter((node, index) => {
-    if (regExp) {
-      if (
-        (!node.title || !node.title.match(regExp)) &&
-        !node.nodeType.title.match(regExp)
-      ) {
-        return false;
+  const filteredNodes = useMemo(() => {
+    const result: Node[] = [];
+    for (const node of nodes) {
+      if (result.length >= 5) {
+        break;
       }
-    } else if (index > 5) {
-      return false;
+      if (!node.title) {
+        continue;
+      }
+      if (regExp) {
+        if (node.title.match(regExp)) {
+          result.push(node);
+        }
+      } else {
+        result.push(node);
+      }
     }
-    return true;
-  });
+    return result;
+  }, [nodes, regExp]);
+
   return (
     <ul className="overflow-auto flex-1 ">
+      {filteredNodes.map((node) => {
+        return (
+          <li key={node.id} onClick={onClick}>
+            <NodeResult node={node} onClick={() => setNode(node)} />
+          </li>
+        );
+      })}
       {filteredPosts.map((post) => (
         <li key={post.id} onClick={onClick}>
           <PostResult post={post} />
         </li>
       ))}
-      {filteredNodes.map((node) => {
-        return (
-          <li key={node.id} onClick={onClick}>
-            <NodeResult node={node} />
-          </li>
-        );
-      })}
       {filteredNodes.length === 0 && filteredPosts.length === 0 && (
         <li className="p-2">No results</li>
       )}
@@ -149,11 +167,12 @@ function PostResult({ post }: { post: Post }) {
   );
 }
 
-function NodeResult({ node }: { node: Node }) {
+function NodeResult({ node, onClick }: { node: Node; onClick: () => void }) {
   return (
     <AppLink
       className="p-2 flex gap-4 items-center hover:bg-gray-600"
-      href={`/map/${node.world}`}
+      href={`/map/hogwarts`}
+      onClick={onClick}
     >
       <Image
         src={node.nodeType.icon}
@@ -161,6 +180,7 @@ function NodeResult({ node }: { node: Node }) {
         width={50}
         height={50}
         className="object-contain shrink-0"
+        loading="lazy"
       />
       <div>
         <p className="font-semibold">{node.title || node.nodeType.title}</p>
@@ -168,6 +188,7 @@ function NodeResult({ node }: { node: Node }) {
         <p className="capitalize text-gray-200 text-sm">
           {node.world}
           {node.level && ` Level ${node.level}`}
+          <span className="text-gray-400 truncate ml-1">{`X: ${node.x} Y: ${node.y} Z: ${node.z}`}</span>
         </p>
       </div>
     </AppLink>
