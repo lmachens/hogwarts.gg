@@ -57,7 +57,7 @@ export default function Nodes({ lang }: { lang: string }) {
     return false;
   }
   const visibleNodes = nodes.filter((node) => {
-    if (node.world !== 'hogwarts' || !zRange || selectedNode?.id === node.id) {
+    if (node.world !== 'hogwarts' || !zRange) {
       return true;
     }
     const [bottomZValue, topZValue] = zRange;
@@ -74,7 +74,11 @@ export default function Nodes({ lang }: { lang: string }) {
           );
         }
         const discovered = isDiscovered(node);
-        if (discovered && settings?.hideDiscoveredNodes) {
+        if (
+          discovered &&
+          settings?.hideDiscoveredNodes &&
+          selectedNode?.id !== node.id
+        ) {
           return <Fragment key={node.id} />;
         }
         return (
