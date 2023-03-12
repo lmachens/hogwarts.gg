@@ -100,8 +100,11 @@ const SearchResults = memo(function SearchResults({
   const filteredNodes = useMemo(() => {
     const result: Node[] = [];
     for (const node of nodes) {
-      if (result.length >= 5 || !node.title) {
+      if (result.length >= 5) {
         break;
+      }
+      if (!node.title) {
+        continue;
       }
       if (regExp) {
         if (node.title.match(regExp)) {
